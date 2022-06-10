@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TITLES_SIMPLE_NEWSLETTER_SING_UP } from '../../domain/simple-newsletter-sign-up/const/titles';
+import { SimpleNewsletterSignUpList } from '../../domain/simple-newsletter-sign-up';
 import { LINKS_AUTH_USER } from '../../_route/links';
 import { usePageContext } from '../hooks/page-context.hook';
 
@@ -19,5 +19,5 @@ export const FormikSimpleNewsletterSignUpPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return show ? <p>{TITLES_SIMPLE_NEWSLETTER_SING_UP.title}</p> : null;
+  return show ? <SimpleNewsletterSignUpList /> : null;
 };
