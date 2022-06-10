@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) => {
       display: 'flex',
       alignItems: 'center',
       padding: theme.spacing(0, 1),
-      ...theme.mixins.toolbar,
+      height: 48,
       justifyContent: 'flex-end',
       transition: '0.2s'
     }

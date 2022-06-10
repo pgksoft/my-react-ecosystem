@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => {
       justifyContent: 'space-between',
       width: '100%',
       padding: '16px',
-      height: '80%',
+      height: '80vh',
       wordBreak: 'break-word'
     },
     section: {

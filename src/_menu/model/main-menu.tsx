@@ -53,8 +53,7 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
   const { activeMainLink } = useContext(RouteContext);
   const isAuthenticated = true;
 
-  const contentMarginTop = activeMainLink.subLinks ? '108px' : '72px';
-  const contentHeight = activeMainLink.subLinks ? '88vh' : '92vh';
+  const contentMarginTop = activeMainLink.subLinks ? '86px' : '50px';
 
   const timeoutShowSubMenu = () => {
     setShowSubMenu(false);
@@ -95,12 +94,16 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
           })
         }}
       >
-        <Toolbar>
+        <Toolbar variant='dense'>
           {isAuthenticated && (
             <IconButton
+              size='small'
               color='inherit'
               onClick={onLeftNavBarOpen}
-              sx={{ mr: 2, ...(openLeft && { display: 'none' }) }}
+              sx={{
+                marginRight: 2,
+                ...(openLeft && { display: 'none' })
+              }}
             >
               <MenuIcon />
             </IconButton>
@@ -120,7 +123,9 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
       <Box
         component='main'
         className={classes.content}
-        sx={{ mt: contentMarginTop, height: contentHeight }}
+        sx={{
+          mt: contentMarginTop
+        }}
       >
         {children}
       </Box>
