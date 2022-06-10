@@ -3,13 +3,22 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ErrorBoundary } from './domain/infrastructure/error-boundary/error-boundary';
+import { RouteContextProvider } from './context-provider/route-context-provider';
+import { GetParametersProvider } from './context-provider/get-parameters-context-provider';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <GetParametersProvider>
+        <RouteContextProvider>
+          <App />
+        </RouteContextProvider>
+      </GetParametersProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );
 
