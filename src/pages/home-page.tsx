@@ -32,10 +32,6 @@ const useStyles = makeStyles((theme: Theme) => {
     app: {
       width: '56%'
     },
-    titleApp: {
-      textShadow:
-        '-1px -1px 0 yellow, 1px -1px 0 yellow, -1px 1px 0 yellow, 1px 1px 0 yellow, 2px 2px 5px blue'
-    },
     logoBox: {
       alignSelf: 'center',
       height: '3vmax',
@@ -73,13 +69,24 @@ export const HomePage: FC = () => {
 
       <Box className={clsx(classes.section, classes.app)}>
         <Typography
-          className={classes.titleApp}
           color='primary'
           fontSize='3rem'
           fontWeight='bolt'
           letterSpacing='5px'
+          sx={{
+            textShadow:
+              '-1px -1px 0 yellow, 1px -1px 0 yellow, -1px 1px 0 yellow, 1px 1px 0 yellow, 2px 2px 5px blue'
+          }}
         >
           {TITLES_OF_APP.title}
+        </Typography>
+        <Typography
+          color='gray'
+          fontSize='1.5rem'
+          fontWeight='bolt'
+          letterSpacing='2px'
+        >
+          Trial ground by REACT and its ecosystem
         </Typography>
       </Box>
 
