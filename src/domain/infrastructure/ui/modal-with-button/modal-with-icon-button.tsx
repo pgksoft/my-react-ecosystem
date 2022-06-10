@@ -11,7 +11,19 @@ type TIconButtonProps = {
   icon: ReactNode;
   shadow?: boolean;
   disabled?: boolean;
+  iconColor?: TIconColor;
 };
+
+type TIconColor =
+  | 'inherit'
+  | 'default'
+  | 'primary'
+  | 'secondary'
+  | 'error'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | undefined;
 
 type TModalWithIconButtonProps = TIconButtonProps & TModalButtonProps;
 
@@ -19,6 +31,7 @@ export const ModalWithIconButton: FC<TModalWithIconButtonProps> = ({
   icon,
   shadow = true,
   disabled = false,
+  iconColor,
   title = '',
   fullWidth = true,
   maxWidth = 'md',
@@ -58,6 +71,7 @@ export const ModalWithIconButton: FC<TModalWithIconButtonProps> = ({
           onClick={handleOpen}
           size='small'
           disabled={disabled}
+          color={iconColor}
         >
           {icon}
         </IconButton>
