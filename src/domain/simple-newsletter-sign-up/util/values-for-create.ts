@@ -18,3 +18,9 @@ export const KeyValuesForCreate: Record<
 export const getInitialValuesOfCreate = (): IValuesForCreate => {
   return { firstName: '', lastName: '', email: '' };
 };
+
+export const isKeyValuesForCreate = (
+  value: string
+): value is TKeyValuesForCreate => {
+  return Object.keys(KeyValuesForCreate).includes(value);
+};

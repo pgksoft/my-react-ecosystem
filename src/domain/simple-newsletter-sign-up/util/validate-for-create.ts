@@ -1,7 +1,8 @@
 import { object, string } from 'yup';
+import * as Joi from 'joi';
 import { TKeyValuesForCreate, IValuesForCreate } from './values-for-create';
 
-type TErrors = Partial<Record<TKeyValuesForCreate, string>>;
+export type TErrors = Partial<Record<TKeyValuesForCreate, string>>;
 
 export const validateForCreate = (values: IValuesForCreate) => {
   const errors: TErrors = {};
@@ -34,4 +35,22 @@ export const validationSchemaForCreate = object({
     .max(20, 'Must be 20 characters or less')
     .required('Required'),
   email: string().email('Invalid email address').required('Required')
+});
+
+export const joiValidationSchemaForCreate = Joi.object({
+  firstName: Joi.string().max(15).required().messages({
+    'string.max': 'Must be {#limit} characters or less',
+    'string.empty': 'Required'
+  }),
+  lastName: Joi.string().max(20).required().messages({
+    'string.max': 'Must be {#limit} characters or less',
+    'string.empty': 'Required'
+  }),
+  email: Joi.string()
+    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
+    .required()
+    .messages({
+      'string.email': 'Invalid email address',
+      'string.empty': 'Required'
+    })
 });
