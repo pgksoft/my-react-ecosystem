@@ -1,10 +1,10 @@
-export type TValuesForCreate = {
+export interface IValuesForCreate {
   firstName: string;
   lastName: string;
   email: string;
-};
+}
 
-export type TKeyValuesForCreate = keyof TValuesForCreate;
+export type TKeyValuesForCreate = keyof IValuesForCreate;
 
 export const KeyValuesForCreate: Record<
   TKeyValuesForCreate,
@@ -15,6 +15,6 @@ export const KeyValuesForCreate: Record<
   lastName: 'lastName'
 };
 
-export const getInitialValuesOfCreate = (): TValuesForCreate => {
+export const getInitialValuesOfCreate = (): IValuesForCreate => {
   return { firstName: '', lastName: '', email: '' };
 };

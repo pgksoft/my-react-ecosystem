@@ -1,11 +1,9 @@
-import {
-  TKeyValuesForCreate,
-  TValuesForCreate
-} from './get-initial-values-for-create';
+import { object, string } from 'yup';
+import { TKeyValuesForCreate, IValuesForCreate } from './values-for-create';
 
 type TErrors = Partial<Record<TKeyValuesForCreate, string>>;
 
-export const validateForCreate = (values: TValuesForCreate) => {
+export const validateForCreate = (values: IValuesForCreate) => {
   const errors: TErrors = {};
   if (!values.firstName) {
     errors.firstName = 'Required';
@@ -27,3 +25,13 @@ export const validateForCreate = (values: TValuesForCreate) => {
 
   return errors;
 };
+
+export const validationSchemaForCreate = object({
+  firstName: string()
+    .max(15, 'Must be 15 characters or less')
+    .required('Required'),
+  lastName: string()
+    .max(20, 'Must be 20 characters or less')
+    .required('Required'),
+  email: string().email('Invalid email address').required('Required')
+});
