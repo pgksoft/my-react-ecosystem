@@ -5,6 +5,7 @@ import { ModalWithIconButton } from '../../infrastructure/ui/modal-with-button/m
 import { useStylesDialog } from '../../infrastructure/ui/style/style-dialog';
 import { TITLES_SIMPLE_NEWSLETTER_SING_UP } from '../const/titles';
 import { WrapperOfNestedModalDialog } from '../../infrastructure/ui/modal-with-button/wrapper-of-nested-modal-dialog';
+import { SimpleNewsletterSignUpCreate } from './simple-newsletter-sign-up-create';
 
 export const SimpleNewsletterSignUpList: FC = () => {
   const classes = useStylesDialog();
@@ -20,6 +21,8 @@ export const SimpleNewsletterSignUpList: FC = () => {
           iconColor='primary'
           title={TITLES_SIMPLE_NEWSLETTER_SING_UP.create}
           NestedForm={WrapperOfNestedModalDialog}
+          childrenNestedForm={<SimpleNewsletterSignUpCreate />}
+          maxWidth='sm'
         />
       </Toolbar>
       <p>{TITLES_SIMPLE_NEWSLETTER_SING_UP.title}</p>
