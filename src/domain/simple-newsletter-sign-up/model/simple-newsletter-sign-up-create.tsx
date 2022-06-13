@@ -12,7 +12,7 @@ import {
   KeyValuesForCreate,
   IValuesForCreate
 } from '../util/values-for-create';
-import { validationSchemaForCreate } from '../util/validate-for-create';
+import { validateForCreate } from '../util/validate-for-create/validate-for-create';
 import { FormikAppTextField } from '../../infrastructure/ui/formik-app-mui-components';
 
 export const SimpleNewsletterSignUpCreate: FC = () => {
@@ -23,7 +23,7 @@ export const SimpleNewsletterSignUpCreate: FC = () => {
   return (
     <Formik
       initialValues={getInitialValuesOfCreate()}
-      validationSchema={validationSchemaForCreate}
+      validate={validateForCreate}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
           setValues(values);
@@ -44,20 +44,20 @@ export const SimpleNewsletterSignUpCreate: FC = () => {
             <Field
               component={FormikAppTextField}
               name={KeyValuesForCreate.firstName}
-              label={TITLES_SIMPLE_NEWSLETTER_SING_UP.firstName}
+              label={TITLES_SIMPLE_NEWSLETTER_SING_UP.firstNameTitle}
               variant='standard'
             />
             <Field
               component={FormikAppTextField}
               name={KeyValuesForCreate.lastName}
-              label={TITLES_SIMPLE_NEWSLETTER_SING_UP.lastName}
+              label={TITLES_SIMPLE_NEWSLETTER_SING_UP.lastNameTitle}
               variant='standard'
             />
             <Field
               component={FormikAppTextField}
               name={KeyValuesForCreate.email}
               type={KeyValuesForCreate.email}
-              label={TITLES_SIMPLE_NEWSLETTER_SING_UP.email}
+              label={TITLES_SIMPLE_NEWSLETTER_SING_UP.emailTitle}
               variant='standard'
             />
             <Box className={classes.boxFooter}>
