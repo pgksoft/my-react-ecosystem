@@ -1,10 +1,10 @@
 import React from 'react';
-import { SvgIcon, SvgIconProps } from '@mui/material';
+import { SvgIcon } from '@mui/material';
 import { ReactComponent as FormikSvgIcon } from '../../../_images/formik.svg';
 
-export function FormikIcon(props: SvgIconProps) {
+export function FormikIcon() {
   return (
-    <SvgIcon {...props}>
+    <SvgIcon>
       <FormikSvgIcon />
     </SvgIcon>
   );

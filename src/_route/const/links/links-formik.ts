@@ -1,6 +1,6 @@
-import { TLink } from '../../context/route-context';
-import { TITLES_SIMPLE_NEWSLETTER_SING_UP } from '../../domain/simple-newsletter-sign-up/const/titles';
-import { IconFormik } from './icons/icon-formik';
+import { TLink } from '../../../context/route-context';
+import { TITLES_SIMPLE_NEWSLETTER_SING_UP } from '../../../domain/simple-newsletter-sign-up/const/titles';
+import { FormikIcon } from '../icons/formic-icon';
 
 export const formikSimpleNewsletterSignUp: TLink = {
   title: TITLES_SIMPLE_NEWSLETTER_SING_UP.title,
@@ -11,6 +11,6 @@ export const formikSimpleNewsletterSignUp: TLink = {
 export const formik: TLink = {
   title: 'Formik',
   url: '/formik',
-  getIcon: IconFormik,
+  getIcon: FormikIcon,
   subLinks: [formikSimpleNewsletterSignUp]
 };

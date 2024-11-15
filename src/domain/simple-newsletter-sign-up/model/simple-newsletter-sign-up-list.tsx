@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Toolbar } from '@mui/material';
+import { Box, Toolbar, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { ModalWithIconButton } from '../../infrastructure/ui/modal-with-button/modal-with-icon-button';
 import { useStylesDialog } from '../../infrastructure/ui/style/style-dialog';
@@ -25,7 +25,7 @@ export const SimpleNewsletterSignUpList: FC = () => {
           maxWidth='sm'
         />
       </Toolbar>
-      <p>{TITLES_SIMPLE_NEWSLETTER_SING_UP.title}</p>
+      <Typography>{TITLES_SIMPLE_NEWSLETTER_SING_UP.title}</Typography>
     </Box>
   );
 };

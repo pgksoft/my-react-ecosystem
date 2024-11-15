@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { FormikSimpleNewsletterSignUpPage } from '../pages/formik/formik-simple-newsletter-sign-up-page';
 import { HomePage } from '../pages/home-page';
 import { LINKS_AUTH_USER } from './links';
+import { JsDavidFlanagan7thEditionPage } from '../pages/js-david-flanagan-7th-edition/js-david-flanagan-7th-edition-page';
 
 export const useRoutes = () => {
   return (
@@ -22,6 +23,11 @@ export const useRoutes = () => {
               replace
             />
           }
+        />
+
+        <Route
+          path={LINKS_AUTH_USER.jsDavidFlanagan7thEdition.url}
+          element={<JsDavidFlanagan7thEditionPage />}
         />
 
         <Route path='*' element={<NotFountPath />} />
