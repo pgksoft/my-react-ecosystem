@@ -5,7 +5,10 @@ import {
   formik,
   formikSimpleNewsletterSignUp
 } from './const/links/links-formik';
-import { jsDavidFlanagan7thEdition } from './const/links/links-js-david-flanagan-7th-edition';
+import {
+  computesFrequencyEachLetterInText,
+  jsDavidFlanagan7thEdition
+} from './const/links/links-js-david-flanagan-7th-edition';
 
 const home: TLink = {
   title: TITLES_OF_APP.title,
@@ -13,11 +16,26 @@ const home: TLink = {
   getIcon: HomeIcon
 };
 
-export const LINKS_AUTH_USER: Record<string, TLink> = {
+const TYPE_LINK = {
+  home: 'home',
+  formik: 'formik',
+  formikSimpleNewsletterSignUp: 'formikSimpleNewsletterSignUp',
+  jsDavidFlanagan7thEdition: 'jsDavidFlanagan7thEdition',
+  computesFrequencyEachLetterInText: 'computesFrequencyEachLetterInText'
+};
+
+type TTypeLinkTypes = keyof typeof TYPE_LINK;
+
+export const isTypeLinkTypes = (value: string): value is TTypeLinkTypes => {
+  return Object.keys(TYPE_LINK).includes(value);
+};
+
+export const LINKS_AUTH_USER: Record<TTypeLinkTypes, TLink> = {
   home,
 
   formik,
   formikSimpleNewsletterSignUp,
 
-  jsDavidFlanagan7thEdition
+  jsDavidFlanagan7thEdition,
+  computesFrequencyEachLetterInText
 };

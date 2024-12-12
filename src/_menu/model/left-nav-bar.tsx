@@ -12,7 +12,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { ListMenu, TSubMenuOpens } from '../ui/list-menu';
 import { getGroupMenuKeys } from '../util/get-group-menu-keys';
-import { LINKS_AUTH_USER } from '../../_route/links';
+import { LINKS_AUTH_USER, isTypeLinkTypes } from '../../_route/links';
 import { RouteContext } from '../../context/route-context';
 import { getTestUser } from '../../domain/users/util/get-test-user';
 
@@ -102,7 +102,7 @@ export const LeftNavBar: React.FC<TLeftNavBar> = ({ drawerWidth, onClose }) => {
 const initSubMenuOpens = (): TSubMenuOpens => {
   const subMenuOpens: TSubMenuOpens = {};
   getGroupMenuKeys().forEach((key) => {
-    subMenuOpens[LINKS_AUTH_USER[key].url] = true;
+    if (isTypeLinkTypes(key)) subMenuOpens[LINKS_AUTH_USER[key].url] = true;
   });
   return subMenuOpens;
 };
