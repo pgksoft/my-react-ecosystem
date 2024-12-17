@@ -1,32 +1,13 @@
 import React, { FC } from 'react';
-import { Box, Typography, Theme } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
+import { Box } from '@mui/material';
 import { LINKS_AUTH_USER } from '../../_route/links';
 import { usePageContext } from '../hooks/page-context.hook';
-import { TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT } from '../../domain/js-david-flanagan-7th-edition/computing-frequency-each-letter-in-text/const/titles';
-
-const useStyles = makeStyles((theme: Theme) => {
-  return createStyles({
-    root: {
-      display: 'flex',
-      width: '100%',
-      padding: '16px',
-      height: '80vh',
-      wordBreak: 'break-word',
-      flexDirection: 'column'
-    },
-    section: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      textAlign: 'center',
-      padding: '16px 0px'
-    }
-  });
-});
+import { useStylesDialog } from '../../domain/infrastructure/ui/style/style-dialog';
+import { ComputesFrequencyEachLetterInTextDetail } from '../../domain/js-david-flanagan-7th-edition';
+import { ComputesFrequencyEachLetterInTextContextProvider } from '../../context-provider/computes-frequency-each-letter-in-text-context-provider';
 
 export const ComputesFrequencyEachLetterInTextPage: FC = () => {
-  const classes = useStyles();
+  const classes = useStylesDialog();
 
   usePageContext(
     LINKS_AUTH_USER.computesFrequencyEachLetterInText,
@@ -34,8 +15,10 @@ export const ComputesFrequencyEachLetterInTextPage: FC = () => {
   );
 
   return (
-    <Box className={classes.root}>
-      {TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT.title}
+    <Box className={classes.rootList}>
+      <ComputesFrequencyEachLetterInTextContextProvider>
+        <ComputesFrequencyEachLetterInTextDetail />
+      </ComputesFrequencyEachLetterInTextContextProvider>
     </Box>
   );
 };
