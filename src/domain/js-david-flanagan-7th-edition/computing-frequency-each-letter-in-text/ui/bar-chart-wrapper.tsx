@@ -18,12 +18,32 @@ const BarCharWrapper: FC = () => {
     <>
       {dataCharts && (
         <ResponsiveContainer width='100%' height='100%'>
-          <BarChart data={dataCharts}>
+          <BarChart
+            data={dataCharts}
+            margin={{
+              top: 30
+            }}
+          >
             <CartesianGrid strokeDasharray='3 3' />
             <XAxis dataKey='name' interval='preserveStartEnd' />
-            <YAxis />
+            <YAxis
+              label={{
+                value: '%',
+                position: 'insideTopLeft',
+                fontWeight: '600',
+                fontSize: '1.5rem'
+              }}
+            />
             <Tooltip />
-            <Bar dataKey='percent'>
+            <Bar
+              dataKey='percent'
+              label={{
+                position: 'top',
+                fontSize: '0.8rem',
+                angle: -90,
+                dy: -14
+              }}
+            >
               {dataCharts.map((index) => {
                 return (
                   <Cell

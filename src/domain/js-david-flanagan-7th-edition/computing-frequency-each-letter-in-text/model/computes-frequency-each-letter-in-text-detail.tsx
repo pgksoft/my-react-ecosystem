@@ -45,7 +45,7 @@ const ComputesFrequencyEachLetterInTextDetail: FC = () => {
         </Box>
         <Box className={classes.boxContainer}>
           <ViewWrap
-            style={{ height: '100%' }}
+            style={{ height: '100%', overflow: 'auto' }}
             legend={
               TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT.chartSectionTitle
             }
