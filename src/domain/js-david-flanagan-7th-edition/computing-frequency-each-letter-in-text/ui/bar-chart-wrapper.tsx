@@ -13,13 +13,16 @@ import { ComputesFrequencyEachLetterInTextContext } from '../../../../context/co
 import getRandomColor from '../../../infrastructure/utils/get-random-color';
 
 const BarCharWrapper: FC = () => {
-  const { dataCharts } = useContext(ComputesFrequencyEachLetterInTextContext);
+  const { pageOfDataCharts } = useContext(
+    ComputesFrequencyEachLetterInTextContext
+  );
+
   return (
     <>
-      {dataCharts && (
+      {pageOfDataCharts && (
         <ResponsiveContainer width='100%' height='100%'>
           <BarChart
-            data={dataCharts}
+            data={pageOfDataCharts}
             margin={{
               top: 30
             }}
@@ -44,7 +47,7 @@ const BarCharWrapper: FC = () => {
                 dy: -14
               }}
             >
-              {dataCharts.map((index) => {
+              {pageOfDataCharts.map((index) => {
                 return (
                   <Cell
                     key={`cell-${index}`}

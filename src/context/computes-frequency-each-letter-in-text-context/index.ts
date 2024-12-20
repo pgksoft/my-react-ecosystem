@@ -1,3 +1,3 @@
-import { TDataChart, TDataCharts } from './types/types';
+import { TDataChart, TDataCharts, TKeyDataCharts } from './types/types';
 
-export type { TDataChart, TDataCharts };
+export type { TDataChart, TDataCharts, TKeyDataCharts };

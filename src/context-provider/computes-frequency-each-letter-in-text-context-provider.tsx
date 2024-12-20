@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import {
   ComputesFrequencyEachLetterInTextContext,
   initComputesFrequencyEachLetterInTextContext
@@ -13,10 +13,49 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
   const [dataCharts, setDataCharts] = useState(
     initComputesFrequencyEachLetterInTextContext.dataCharts
   );
+  const [pageOfDataCharts, setPageOfDataCharts] = useState(
+    initComputesFrequencyEachLetterInTextContext.pageOfDataCharts
+  );
+  const [page, setPage] = useState(
+    initComputesFrequencyEachLetterInTextContext.page
+  );
+  const [rowsPerPage, setRowsPerPage] = useState(
+    initComputesFrequencyEachLetterInTextContext.rowsPerPage
+  );
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  useEffect(() => {
+    !dataCharts
+      ? setPageOfDataCharts(null)
+      : setPageOfDataCharts(
+          dataCharts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+        );
+  }, [dataCharts, page, rowsPerPage]);
 
   return (
     <ComputesFrequencyEachLetterInTextContext.Provider
-      value={{ dataCharts, setDataCharts }}
+      value={{
+        dataCharts,
+        setDataCharts,
+        pageOfDataCharts,
+        setPageOfDataCharts,
+        page,
+        setPage,
+        rowsPerPage,
+        setRowsPerPage,
+        handleChangePage,
+        handleChangeRowsPerPage
+      }}
     >
       {children}
     </ComputesFrequencyEachLetterInTextContext.Provider>

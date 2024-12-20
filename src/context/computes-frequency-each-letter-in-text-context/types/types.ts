@@ -4,4 +4,6 @@ export type TDataChart = {
   count: number;
 };
 
+export type TKeyDataCharts = keyof TDataChart;
+
 export type TDataCharts = TDataChart[] | null;
