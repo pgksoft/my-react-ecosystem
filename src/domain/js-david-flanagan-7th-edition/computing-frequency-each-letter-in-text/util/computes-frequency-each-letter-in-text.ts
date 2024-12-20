@@ -1,11 +1,9 @@
-import { TDataChart } from '../../../../context/computes-frequency-each-letter-in-text-context';
+import { TDataCharts } from '../../../../context/computes-frequency-each-letter-in-text-context';
 import DefaultMap from './default-map';
 
-const ComputesFrequencyEachLetterInText = (
-  text: string
-): TDataChart[] | null => {
+const ComputesFrequencyEachLetterInText = (text: string): TDataCharts => {
   if (!text) return null;
-  const dataCharts: TDataChart[] = [];
+  const dataCharts: TDataCharts = [];
   const letterCounts = new DefaultMap(0);
   let totalLetters = 0;
   // Remove whitespace from the text, and convert to upper case
