@@ -9,11 +9,11 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
-import { ComputesFrequencyEachLetterInTextContext } from '../../../../context/computes-frequency-each-letter-in-text-context/computes-frequency-each-letter-in-text-context';
+import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
 import getRandomColor from '../../../infrastructure/utils/get-random-color';
 
 const BarCharWrapper: FC = () => {
-  const { pageOfDataCharts } = useContext(
+  const { pageOfDataCharts, precision } = useContext(
     ComputesFrequencyEachLetterInTextContext
   );
 
@@ -24,7 +24,7 @@ const BarCharWrapper: FC = () => {
           <BarChart
             data={pageOfDataCharts}
             margin={{
-              top: 30
+              top: 30 + (precision - 1) * precision
             }}
           >
             <CartesianGrid strokeDasharray='3 3' />
@@ -44,7 +44,7 @@ const BarCharWrapper: FC = () => {
                 position: 'top',
                 fontSize: '0.8rem',
                 angle: -90,
-                dy: -14
+                dy: -7 - precision * 3.5
               }}
             >
               {pageOfDataCharts.map((index) => {

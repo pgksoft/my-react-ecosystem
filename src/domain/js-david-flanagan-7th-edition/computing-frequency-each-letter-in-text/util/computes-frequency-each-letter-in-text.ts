@@ -1,7 +1,10 @@
-import { TDataCharts } from '../../../../context/computes-frequency-each-letter-in-text-context';
+import { TDataCharts } from '../context/types/types';
 import DefaultMap from './default-map';
 
-const ComputesFrequencyEachLetterInText = (text: string): TDataCharts => {
+const ComputesFrequencyEachLetterInText = (
+  text: string,
+  decimalPrecision: number = 3
+): TDataCharts => {
   if (!text) return null;
   const dataCharts: TDataCharts = [];
   const letterCounts = new DefaultMap(0);
@@ -25,7 +28,9 @@ const ComputesFrequencyEachLetterInText = (text: string): TDataCharts => {
   for (const entry of entries) {
     dataCharts.push({
       name: entry[0],
-      percent: Number(((entry[1] / totalLetters) * 100).toFixed(2)),
+      percent: Number(
+        ((entry[1] / totalLetters) * 100).toFixed(decimalPrecision)
+      ),
       count: entry[1]
     });
   }

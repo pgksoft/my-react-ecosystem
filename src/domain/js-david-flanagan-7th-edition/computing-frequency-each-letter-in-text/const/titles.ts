@@ -3,5 +3,7 @@ export const TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT = {
   textSectionTitle: 'Input text',
   chartSectionTitle: 'Chart',
   numberOfCharacters: 'Number of characters',
-  viewTableOfData: 'View table of data'
+  viewTableOfData: 'View table of data',
+  precision: 'Precision',
+  labelPaginationChart: 'Values on the page'
 };
