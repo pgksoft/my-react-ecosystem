@@ -5,14 +5,14 @@ import { useStylesDialog } from '../../../infrastructure/ui/style/style-dialog';
 import { ViewWrap } from '../../../infrastructure/ui/view-wrap/view-wrap';
 import ComputesFrequencyEachLetterInText from '../util/computes-frequency-each-letter-in-text';
 import { TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT } from '../const/titles';
-import { ComputesFrequencyEachLetterInTextContext } from '../../../../context/computes-frequency-each-letter-in-text-context/computes-frequency-each-letter-in-text-context';
+import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
 import BarCharWrapper from '../ui/bar-chart-wrapper';
 import ToolPanelForBarChart from '../tool-panel-for-bar-chart/model/tool-panel-for-bar-chart';
 
 const ComputesFrequencyEachLetterInTextDetail: FC = () => {
   const classes = useStylesDialog();
 
-  const { setDataCharts } = useContext(
+  const { setDataCharts, precision } = useContext(
     ComputesFrequencyEachLetterInTextContext
   );
 
@@ -23,9 +23,9 @@ const ComputesFrequencyEachLetterInTextDetail: FC = () => {
   };
 
   useEffect(() => {
-    setDataCharts(ComputesFrequencyEachLetterInText(text));
+    setDataCharts(ComputesFrequencyEachLetterInText(text, precision));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text]);
+  }, [text, precision]);
 
   return (
     <Box className={classes.rootList} sx={{ paddingTop: 2 }}>

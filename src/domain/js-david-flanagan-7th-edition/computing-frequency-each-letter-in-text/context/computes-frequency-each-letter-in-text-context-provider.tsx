@@ -1,8 +1,9 @@
 import React, { FC, ReactNode, useEffect, useState } from 'react';
+import { SelectChangeEvent } from '@mui/material/Select';
 import {
   ComputesFrequencyEachLetterInTextContext,
   initComputesFrequencyEachLetterInTextContext
-} from '../context/computes-frequency-each-letter-in-text-context/computes-frequency-each-letter-in-text-context';
+} from './computes-frequency-each-letter-in-text-context';
 
 type TContextProviderProps = { children: ReactNode };
 
@@ -10,6 +11,9 @@ type TContextProviderProps = { children: ReactNode };
 export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProviderProps> = ({
   children
 }) => {
+  const [precision, setPrecision] = useState(
+    initComputesFrequencyEachLetterInTextContext.precision
+  );
   const [dataCharts, setDataCharts] = useState(
     initComputesFrequencyEachLetterInTextContext.dataCharts
   );
@@ -22,6 +26,10 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
   const [rowsPerPage, setRowsPerPage] = useState(
     initComputesFrequencyEachLetterInTextContext.rowsPerPage
   );
+
+  const handleChangePrecision = (event: SelectChangeEvent) => {
+    setPrecision(Number(event.target.value));
+  };
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -45,6 +53,8 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
   return (
     <ComputesFrequencyEachLetterInTextContext.Provider
       value={{
+        precision,
+        setPrecision,
         dataCharts,
         setDataCharts,
         pageOfDataCharts,
@@ -53,6 +63,7 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
         setPage,
         rowsPerPage,
         setRowsPerPage,
+        handleChangePrecision,
         handleChangePage,
         handleChangeRowsPerPage
       }}

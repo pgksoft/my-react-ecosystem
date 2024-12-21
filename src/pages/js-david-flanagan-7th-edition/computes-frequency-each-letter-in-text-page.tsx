@@ -4,7 +4,7 @@ import { LINKS_AUTH_USER } from '../../_route/links';
 import { usePageContext } from '../hooks/page-context.hook';
 import { useStylesDialog } from '../../domain/infrastructure/ui/style/style-dialog';
 import { ComputesFrequencyEachLetterInTextDetail } from '../../domain/js-david-flanagan-7th-edition';
-import { ComputesFrequencyEachLetterInTextContextProvider } from '../../context-provider/computes-frequency-each-letter-in-text-context-provider';
+import { ComputesFrequencyEachLetterInTextContextProvider } from '../../domain/js-david-flanagan-7th-edition/computing-frequency-each-letter-in-text/context/computes-frequency-each-letter-in-text-context-provider';
 
 export const ComputesFrequencyEachLetterInTextPage: FC = () => {
   const classes = useStylesDialog();

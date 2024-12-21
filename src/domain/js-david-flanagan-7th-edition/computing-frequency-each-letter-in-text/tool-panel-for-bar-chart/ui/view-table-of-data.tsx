@@ -7,15 +7,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { TKeyDataCharts } from '../../../../../context/computes-frequency-each-letter-in-text-context';
-import { ComputesFrequencyEachLetterInTextContext } from '../../../../../context/computes-frequency-each-letter-in-text-context/computes-frequency-each-letter-in-text-context';
+import { TKeyDataCharts } from '../../context/types/types';
+import { ComputesFrequencyEachLetterInTextContext } from '../../context/computes-frequency-each-letter-in-text-context';
 
 interface Column {
   id: TKeyDataCharts;
   label: string;
   minWidth?: number;
   align?: 'right';
-  format?: (value: number) => string;
 }
 
 const columns: readonly Column[] = [
@@ -24,19 +23,13 @@ const columns: readonly Column[] = [
     id: 'percent',
     label: 'Percent',
     minWidth: 50,
-    align: 'right',
-    format: (value: number) => {
-      return `${value}%`;
-    }
+    align: 'right'
   },
   {
     id: 'count',
     label: 'Count',
     minWidth: 50,
-    align: 'right',
-    format: (value: number) => {
-      return `${value}`;
-    }
+    align: 'right'
   }
 ];
 
@@ -90,12 +83,9 @@ const ViewTableOfData: FC = () => {
                     key={`${row.name}-${row.count}`}
                   >
                     {columns.map((column) => {
-                      const value = row[column.id];
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
+                          {row[column.id]}
                         </TableCell>
                       );
                     })}
@@ -106,7 +96,7 @@ const ViewTableOfData: FC = () => {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[10, 25, 50, 100]}
         component='div'
         count={dataCharts.length}
         rowsPerPage={rowsPerPage}
