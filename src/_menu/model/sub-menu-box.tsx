@@ -8,6 +8,7 @@ import { COLORS } from '../../_const/colors';
 import { AdaptiveMenu } from '../../domain/infrastructure/adaptive-menu/adaptive-menu';
 import { isNotVisitorEntityTypes } from '../../domain/users/util/match-name-roles';
 import { getTestUser } from '../../domain/users/util/get-test-user';
+import TitleAsElementWrap from '../../context/ui/TitleAsElementWrap';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -94,7 +95,10 @@ export const SubMenuBox: FC<TMeinMenu> = ({ links }) => {
             disabled
             color='secondary'
           >
-            {link.title}
+            {link.titleAsElement && (
+              <TitleAsElementWrap Value={link.titleAsElement} />
+            )}
+            {link.title && link.title}
           </Button>
         );
       }

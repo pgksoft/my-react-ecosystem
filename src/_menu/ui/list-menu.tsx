@@ -1,6 +1,14 @@
 import React, { CSSProperties, FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Collapse, IconButton, List, ListItem, Theme } from '@mui/material';
+import {
+  Box,
+  Collapse,
+  Divider,
+  IconButton,
+  List,
+  ListItem,
+  Theme
+} from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -9,6 +17,7 @@ import { LINKS_AUTH_USER, isTypeLinkTypes } from '../../_route/links';
 import { getGroupMenuKeys } from '../util/get-group-menu-keys';
 import { TLink } from '../../context/route-context';
 import { COLORS } from '../../_const/colors';
+import TitleAsElementWrap from '../../context/ui/TitleAsElementWrap';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -38,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) => {
       paddingTop: '4px',
       paddingBottom: '4px',
       '&>:nth-child(2)': {
-        paddingLeft: '12px'
+        paddingLeft: '8px'
       },
       '&:hover': {
         backgroundColor: 'rgba(0, 0, 0, 0.1)'
@@ -54,16 +63,15 @@ const useStyles = makeStyles((theme: Theme) => {
 const activeNavLink: CSSProperties = {
   WebkitTapHighlightColor: 'transparent',
   color: COLORS.primaryLight,
-  // backgroundColor: `${COLORS.primaryLight} !important`,
   fontWeight: 'bold'
 };
 
 const activeSubNavLink = {
   WebkitTapHighlightColor: 'transparent',
-  color: `${COLORS.primaryLight} !important`,
+  color: COLORS.primaryLight,
   fontWeight: 600,
   strokeWidth: '2',
-  stroke: `${COLORS.primaryLight} !important`
+  stroke: COLORS.primaryLight
 };
 
 export type TSubMenuOpens = {
@@ -120,14 +128,29 @@ export const ListMenu: FC<TListMenu> = ({
               timeout='auto'
               unmountOnExit
             >
-              <List component='div' disablePadding>
-                {subMenuLinks.map((link) => {
-                  return (
-                    <ListItem key={link.url} sx={{ padding: '4px' }}>
-                      <ItemSubNavLink link={link} />
-                    </ListItem>
-                  );
-                })}
+              <List component='div' disablePadding sx={{ pl: 4, pr: 1 }}>
+                <Box
+                  sx={{
+                    p: 0.5,
+                    boxSizing: 'border-box',
+                    borderRadius: 3,
+                    boxShadow:
+                      '1px 1px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1)'
+                  }}
+                >
+                  {subMenuLinks.map((link, index) => {
+                    return (
+                      <>
+                        <ListItem key={link.url} disablePadding>
+                          <ItemSubNavLink link={link} />
+                        </ListItem>
+                        {index !== subMenuLinks?.length - 1 && (
+                          <Divider variant='middle' sx={{ opacity: 0.6 }} />
+                        )}
+                      </>
+                    );
+                  })}
+                </Box>
               </List>
             </Collapse>
           </div>
@@ -154,7 +177,10 @@ const ItemNavLink: FC<TItemNavLink> = ({ link }) => {
       }}
     >
       {getIcon && getIcon()}
-      <span>{link.title}</span>
+      {link.titleAsElement && (
+        <TitleAsElementWrap Value={link.titleAsElement} />
+      )}
+      {link.title && <span>{link.title}</span>}
     </NavLink>
   );
 };
@@ -172,7 +198,10 @@ const ItemSubNavLink: FC<TItemNavLink> = ({ link }) => {
       }}
     >
       {getIcon && getIcon()}
-      <span>{link.title}</span>
+      {link.titleAsElement && (
+        <TitleAsElementWrap Value={link.titleAsElement} />
+      )}
+      {link.title && <span>{link.title}</span>}
     </NavLink>
   );
 };

@@ -14,6 +14,7 @@ import { RouteContext } from '../../context/route-context';
 import { COLORS } from '../../_const/colors';
 import { LeftNavBar, drawerWidthLeft } from './left-nav-bar';
 import { SubMenuBox } from './sub-menu-box';
+import TitleAsElementWrap from '../../context/ui/TitleAsElementWrap';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -50,7 +51,7 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
   const [openLeft, setOpenLeft] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(true);
 
-  const { activeMainLink } = useContext(RouteContext);
+  const { activeMainLink, activeLink } = useContext(RouteContext);
   const isAuthenticated = true;
 
   const contentMarginTop = activeMainLink.subLinks ? '86px' : '50px';
@@ -108,13 +109,21 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
               <MenuIcon />
             </IconButton>
           )}
-          <Typography variant='h6' sx={{ flexGrow: 1 }}>
-            {activeMainLink.title}
-          </Typography>
+          {activeMainLink.titleAsElement && (
+            <TitleAsElementWrap Value={activeMainLink.titleAsElement} />
+          )}
+          {activeMainLink.title && (
+            <Typography variant='h6' sx={{ flexGrow: 1 }}>
+              {activeMainLink.title}
+            </Typography>
+          )}
         </Toolbar>
         {activeMainLink.subLinks && showSubMenu && (
           <SubMenuBox links={activeMainLink.subLinks} />
         )}
+        {activeLink.subLinks &&
+          !activeMainLink.subLinks?.length &&
+          showSubMenu && <SubMenuBox links={activeLink.subLinks} />}
       </AppBar>
       <LeftNavBar
         drawerWidth={(openLeft && drawerWidthLeft) || 0}
