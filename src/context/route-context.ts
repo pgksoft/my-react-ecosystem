@@ -3,15 +3,18 @@ import { IUserRole } from '../domain/users/entity/role';
 import { TITLES_OF_APP } from '../_const/titles-of-app';
 import { TTypeEntityTypes } from '../_const/entities/type-entity';
 
+export type TElement = () => JSX.Element;
+
 export type TLink = {
-  title: string;
+  title?: string;
+  titleAsElement?: TElement;
   url: string;
   entityType?: TTypeEntityTypes;
   userRoleNames?: IUserRole['name'][];
   subMenuLinks?: TLink[];
   subLinks?: TLink[];
   disable?: boolean;
-  getIcon?: () => JSX.Element;
+  getIcon?: TElement;
 };
 
 type TRouteContext = {

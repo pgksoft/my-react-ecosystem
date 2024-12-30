@@ -5,6 +5,13 @@ import { HomePage } from '../pages/home-page';
 import { LINKS_AUTH_USER } from './links';
 import { JsDavidFlanagan7thEditionPage } from '../pages/js-david-flanagan-7th-edition/js-david-flanagan-7th-edition-page';
 import { ComputesFrequencyEachLetterInTextPage } from '../pages/js-david-flanagan-7th-edition/computes-frequency-each-letter-in-text-page';
+import GeniusSpaceCoursesPage from '../pages/genius-space-courses/genius-space-courses-page';
+import GeniusSpaceCoursesHtmlCssPage from '../pages/genius-space-courses/genius-space-courses-htmlcss-page';
+import GeniusSpaceCoursesJSPage from '../pages/genius-space-courses/genius-space-courses-js-page';
+import GeniusSpaceCoursesReactPage from '../pages/genius-space-courses/genius-space-courses-react-page';
+import GeniusSpaceCoursesNodeJSPage from '../pages/genius-space-courses/genius-space-courses-node-js-page';
+import TicTacToePage from '../pages/genius-space-courses/react/tic-tac-toe-page';
+import ToDoListPage from '../pages/genius-space-courses/react/to-do-list-page';
 
 export const useRoutes = () => {
   return (
@@ -33,6 +40,43 @@ export const useRoutes = () => {
         <Route
           path={LINKS_AUTH_USER.computesFrequencyEachLetterInText.url}
           element={<ComputesFrequencyEachLetterInTextPage />}
+        />
+
+        <Route
+          path={LINKS_AUTH_USER.geniusSpaceCourses.url}
+          element={<GeniusSpaceCoursesPage />}
+        />
+
+        {/* Genius.Space - HTML5 & CSS3 */}
+        <Route
+          path={LINKS_AUTH_USER.geniusSpaceCoursesHtmlCss.url}
+          element={<GeniusSpaceCoursesHtmlCssPage />}
+        />
+
+        {/* Genius.Space - JavaScript */}
+        <Route
+          path={LINKS_AUTH_USER.geniusSpaceCoursesJS.url}
+          element={<GeniusSpaceCoursesJSPage />}
+        />
+
+        {/* Genius.Space - React */}
+        <Route
+          path={LINKS_AUTH_USER.geniusSpaceCoursesReact.url}
+          element={<GeniusSpaceCoursesReactPage />}
+        />
+        <Route
+          path={LINKS_AUTH_USER.geniusSpaceCoursesReactTicTacToe.url}
+          element={<TicTacToePage />}
+        />
+        <Route
+          path={LINKS_AUTH_USER.geniusSpaceCoursesReactToDoList.url}
+          element={<ToDoListPage />}
+        />
+
+        {/* Genius.Space - Node.JS */}
+        <Route
+          path={LINKS_AUTH_USER.geniusSpaceCoursesNodeJS.url}
+          element={<GeniusSpaceCoursesNodeJSPage />}
         />
 
         <Route path='*' element={<NotFountPath />} />
