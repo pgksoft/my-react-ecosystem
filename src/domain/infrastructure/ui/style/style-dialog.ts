@@ -38,6 +38,12 @@ export const useStylesDialog = makeStyles((theme: Theme) => {
       flexDirection: 'column',
       width: '32%'
     },
+    boxHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      flexWrap: 'wrap',
+      width: '100%'
+    },
     boxFooter: {
       display: 'flex',
       justifyContent: 'space-around',
