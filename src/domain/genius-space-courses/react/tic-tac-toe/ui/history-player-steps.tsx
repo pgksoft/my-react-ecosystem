@@ -12,7 +12,7 @@ const HistoryPlayerSteps: FC<THistoryPlayerStepsProps> = ({ numberPlayer }) => {
 
   const { jumpToGameStep, history } = useContext(TicTacToeContext);
 
-  const player = `Player ${
+  const captionPlayer = `Player ${
     (numberPlayer && TITLES_GENIUS_SPACE_COURSES_REACT_TIC_TAC_TOE.X) ||
     TITLES_GENIUS_SPACE_COURSES_REACT_TIC_TAC_TOE.O
   }`;
@@ -20,7 +20,7 @@ const HistoryPlayerSteps: FC<THistoryPlayerStepsProps> = ({ numberPlayer }) => {
   return (
     <Box className={classes.boxContainer} sx={{ height: '100%' }}>
       <Box className={classes.boxHeader} sx={{ justifyContent: 'center' }}>
-        <Typography>{player}</Typography>
+        <Typography>{captionPlayer}</Typography>
       </Box>
       <Divider sx={{ mb: '2%' }} />
       {history
