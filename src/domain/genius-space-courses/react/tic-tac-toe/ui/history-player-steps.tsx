@@ -13,7 +13,7 @@ const HistoryPlayerSteps: FC<THistoryPlayerStepsProps> = ({ numberPlayer }) => {
   const { jumpToGameStep, history } = useContext(TicTacToeContext);
 
   const captionPlayer = `Player ${
-    (numberPlayer && TITLES_GENIUS_SPACE_COURSES_REACT_TIC_TAC_TOE.X) ||
+    (numberPlayer === 1 && TITLES_GENIUS_SPACE_COURSES_REACT_TIC_TAC_TOE.X) ||
     TITLES_GENIUS_SPACE_COURSES_REACT_TIC_TAC_TOE.O
   }`;
 

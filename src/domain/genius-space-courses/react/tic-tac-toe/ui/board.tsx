@@ -72,9 +72,9 @@ const Board: FC = () => {
           {getStatusString(status, currentStep, gameFieldSize)}
         </Typography>
         {status.state === 'play' && currentStep < gameFieldSize && (
-          <Typography
-            sx={{ ml: '2%', ...statusFont }}
-          >{`Step: ${currentStep}`}</Typography>
+          <Typography sx={{ ml: '2%', ...statusFont }}>{`Game step: ${
+            currentStep + 1
+          }`}</Typography>
         )}
       </Box>
       <Box className={classes.board}>

@@ -17,7 +17,7 @@ const getStatusString = (
   if (state === 'win') return `Winner: ${getNamePlayer(player)}`;
   if (state === 'play' && currentStep === gameFieldSize)
     return 'Draw in the game';
-  return `Player: ${getNamePlayer(player)}`;
+  return `Next Player: ${getNamePlayer(player)}`;
 };
 
 export default getStatusString;
