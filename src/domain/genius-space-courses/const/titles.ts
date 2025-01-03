@@ -5,5 +5,6 @@ export const TITLES_GENIUS_SPACE_COURSES = {
   titleHtmlCss: 'HTML5 & CSS3',
   titleJS: 'JavaScript',
   titleReact: 'React - JS library',
-  titleNodeJS: 'Node.JS'
+  titleNodeJS: 'Node.JS',
+  usefulLinks: 'Useful links'
 };
