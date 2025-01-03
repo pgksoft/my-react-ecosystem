@@ -4,13 +4,18 @@ import { createStyles, makeStyles } from '@mui/styles';
 import { LINKS_AUTH_USER } from '../../_route/links';
 import { usePageContext } from '../hooks/page-context.hook';
 import ReactPageLogo from '../../_images/genius-space/react-page-logo.png';
+import InfoLecturePanel from '../../domain/genius-space-courses/ui/info-lecture-panel';
+import infoLecture01 from '../../domain/genius-space-courses/react/const/info-lecture-01';
+import infoLecture02 from '../../domain/genius-space-courses/react/const/info-lecture-02';
+import infoLecture03 from '../../domain/genius-space-courses/react/const/info-lecture-03';
+import infoLecture04 from '../../domain/genius-space-courses/react/const/info-lecture-04';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     root: {
       display: 'flex',
       width: '100%',
-      padding: '16px',
+      padding: '1% 0',
       height: '100%',
       wordBreak: 'break-word',
       flexDirection: 'column'
@@ -20,9 +25,23 @@ const useStyles = makeStyles((theme: Theme) => {
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
-      padding: '24px'
+      padding: '1% 0'
     },
-    avatarSize: { width: 100, height: 100 }
+    avatarSize: { width: 100, height: 100 },
+    infoLectures: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      padding: '1%',
+      '&>:nth-child(n)': {
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '0.5% 1%',
+        minWidth: '14%',
+        maxWidth: '30%',
+        marginRight: '1%',
+        marginBottom: '1%'
+      }
+    }
   });
 });
 
@@ -41,6 +60,12 @@ const GeniusSpaceCoursesReactPage: FC = () => {
           sx={{ width: 250, height: 90 }}
           variant='rounded'
         />
+      </Box>
+      <Box className={classes.infoLectures}>
+        <InfoLecturePanel infoLecture={infoLecture01} />
+        <InfoLecturePanel infoLecture={infoLecture02} />
+        <InfoLecturePanel infoLecture={infoLecture03} />
+        <InfoLecturePanel infoLecture={infoLecture04} />
       </Box>
     </Box>
   );
