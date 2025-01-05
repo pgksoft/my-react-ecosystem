@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture04: TInfoLecture = {

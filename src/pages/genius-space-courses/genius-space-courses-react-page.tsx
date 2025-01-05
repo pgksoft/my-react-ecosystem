@@ -9,6 +9,9 @@ import infoLecture01 from '../../domain/genius-space-courses/react/const/info-le
 import infoLecture02 from '../../domain/genius-space-courses/react/const/info-lecture-02';
 import infoLecture03 from '../../domain/genius-space-courses/react/const/info-lecture-03';
 import infoLecture04 from '../../domain/genius-space-courses/react/const/info-lecture-04';
+import infoLecture05 from '../../domain/genius-space-courses/react/const/info-lecture-05';
+import infoLecture06 from '../../domain/genius-space-courses/react/const/info-lecture-06';
+import infoLecture07 from '../../domain/genius-space-courses/react/const/info_lecture-07';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -66,6 +69,9 @@ const GeniusSpaceCoursesReactPage: FC = () => {
         <InfoLecturePanel infoLecture={infoLecture02} />
         <InfoLecturePanel infoLecture={infoLecture03} />
         <InfoLecturePanel infoLecture={infoLecture04} />
+        <InfoLecturePanel infoLecture={infoLecture05} />
+        <InfoLecturePanel infoLecture={infoLecture06} />
+        <InfoLecturePanel infoLecture={infoLecture07} />
       </Box>
     </Box>
   );
