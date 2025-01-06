@@ -4,6 +4,8 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { TDataCharts, TMeasurementYAxis } from './types/types';
 
 type TComputesFrequencyEachLetterInTextContext = {
+  text: string;
+  setText: (text: string) => void;
   measurementYAxis: TMeasurementYAxis;
   setMeasurementYAxis: (measurementYAxis: TMeasurementYAxis) => void;
   precision: number;
@@ -16,6 +18,7 @@ type TComputesFrequencyEachLetterInTextContext = {
   setPage: (page: number) => void;
   rowsPerPage: number;
   setRowsPerPage: (rowsPerPage: number) => void;
+  handleChangeText: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleMeasurementYAxis: (
     event: React.MouseEvent<HTMLElement>,
     newMeasurementYAxis: TMeasurementYAxis
@@ -26,6 +29,8 @@ type TComputesFrequencyEachLetterInTextContext = {
 };
 
 export const initComputesFrequencyEachLetterInTextContext: TComputesFrequencyEachLetterInTextContext = {
+  text: '',
+  setText: () => {},
   measurementYAxis: '%',
   setMeasurementYAxis: () => {},
   precision: 2,
@@ -38,6 +43,7 @@ export const initComputesFrequencyEachLetterInTextContext: TComputesFrequencyEac
   setPage: () => {},
   rowsPerPage: 10,
   setRowsPerPage: () => {},
+  handleChangeText: () => {},
   handleMeasurementYAxis: () => {},
   handleChangePrecision: () => {},
   handleChangePage: () => {},
