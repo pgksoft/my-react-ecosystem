@@ -5,6 +5,7 @@ import {
   initComputesFrequencyEachLetterInTextContext
 } from './computes-frequency-each-letter-in-text-context';
 import { TMeasurementYAxis } from './types/types';
+import ComputesFrequencyEachLetterInText from '../util/computes-frequency-each-letter-in-text';
 
 type TContextProviderProps = { children: ReactNode };
 
@@ -12,6 +13,9 @@ type TContextProviderProps = { children: ReactNode };
 export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProviderProps> = ({
   children
 }) => {
+  const [text, setText] = useState(
+    initComputesFrequencyEachLetterInTextContext.text
+  );
   const [measurementYAxis, setMeasurementYAxis] = useState<TMeasurementYAxis>(
     initComputesFrequencyEachLetterInTextContext.measurementYAxis
   );
@@ -30,6 +34,10 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
   const [rowsPerPage, setRowsPerPage] = useState(
     initComputesFrequencyEachLetterInTextContext.rowsPerPage
   );
+
+  const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value);
+  };
 
   const handleMeasurementYAxis = (
     event: React.MouseEvent<HTMLElement>,
@@ -54,6 +62,11 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
   };
 
   useEffect(() => {
+    setDataCharts(ComputesFrequencyEachLetterInText(text, precision));
+  }, [text, precision]);
+
+  // This is the chart data definition for the page when paginated
+  useEffect(() => {
     !dataCharts
       ? setPageOfDataCharts(null)
       : setPageOfDataCharts(
@@ -64,6 +77,8 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
   return (
     <ComputesFrequencyEachLetterInTextContext.Provider
       value={{
+        text,
+        setText,
         measurementYAxis,
         setMeasurementYAxis,
         precision,
@@ -76,6 +91,7 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
         setPage,
         rowsPerPage,
         setRowsPerPage,
+        handleChangeText,
         handleMeasurementYAxis,
         handleChangePrecision,
         handleChangePage,

@@ -12,7 +12,6 @@ import PercentIcon from '@mui/icons-material/Percent';
 import NumbersIcon from '@mui/icons-material/Numbers';
 import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
 import { TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT } from '../const/titles';
-import { TMeasurementYAxis } from '../context/types/types';
 
 const precisions = [2, 3, 4, 5, 6, 7];
 
@@ -25,6 +24,7 @@ const SettingControlParameters: FC = () => {
     precision,
     handleChangePrecision
   } = useContext(ComputesFrequencyEachLetterInTextContext);
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden', p: '1%' }}>
       <Box sx={sxBox}>

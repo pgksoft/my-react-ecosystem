@@ -1,9 +1,8 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import clsx from 'clsx';
 import { Box, TextField } from '@mui/material';
 import { useStylesDialog } from '../../../infrastructure/ui/style/style-dialog';
 import { ViewWrap } from '../../../infrastructure/ui/view-wrap/view-wrap';
-import ComputesFrequencyEachLetterInText from '../util/computes-frequency-each-letter-in-text';
 import { TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT } from '../const/titles';
 import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
 import BarCharWrapper from '../ui/bar-chart-wrapper';
@@ -12,20 +11,9 @@ import ToolPanelForBarChart from '../ui/tool-panel-for-bar-chart';
 const ComputesFrequencyEachLetterInTextDetail: FC = () => {
   const classes = useStylesDialog();
 
-  const { setDataCharts, precision } = useContext(
+  const { text, handleChangeText } = useContext(
     ComputesFrequencyEachLetterInTextContext
   );
-
-  const [text, setText] = useState('');
-
-  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
-  };
-
-  useEffect(() => {
-    setDataCharts(ComputesFrequencyEachLetterInText(text, precision));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text, precision]);
 
   return (
     <Box className={classes.rootList} sx={{ paddingTop: 2 }}>
@@ -41,7 +29,7 @@ const ComputesFrequencyEachLetterInTextDetail: FC = () => {
             label={
               TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT.textSectionTitle
             }
-            onChange={onChangeText}
+            onChange={handleChangeText}
           />
         </Box>
         <Box className={classes.boxContainer}>
