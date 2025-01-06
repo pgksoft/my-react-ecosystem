@@ -4,6 +4,7 @@ import TInfoLecture from '../../type/info-lecture';
 const infoLecture01: TInfoLecture = {
   lectureTitle: 'Lesson One: Basics of the Popular Library',
   usefulLinks: [
+    { title: 'React-dev-reference', href: 'https://react.dev/reference/react' },
     {
       title: 'React Developer Tools',
       href:
@@ -20,6 +21,10 @@ const infoLecture01: TInfoLecture = {
     {
       title: 'Tutorial: Intro to React',
       href: 'https://uk.legacy.reactjs.org/tutorial/tutorial.html'
+    },
+    {
+      title: 'React Tutorial: Tic-Tac-Toe',
+      href: 'https://react.dev/learn/tutorial-tic-tac-toe'
     }
   ]
 };
