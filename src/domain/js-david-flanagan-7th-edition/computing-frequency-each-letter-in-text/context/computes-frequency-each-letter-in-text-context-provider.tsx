@@ -4,6 +4,7 @@ import {
   ComputesFrequencyEachLetterInTextContext,
   initComputesFrequencyEachLetterInTextContext
 } from './computes-frequency-each-letter-in-text-context';
+import { TMeasurementYAxis } from './types/types';
 
 type TContextProviderProps = { children: ReactNode };
 
@@ -11,6 +12,9 @@ type TContextProviderProps = { children: ReactNode };
 export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProviderProps> = ({
   children
 }) => {
+  const [measurementYAxis, setMeasurementYAxis] = useState<TMeasurementYAxis>(
+    initComputesFrequencyEachLetterInTextContext.measurementYAxis
+  );
   const [precision, setPrecision] = useState(
     initComputesFrequencyEachLetterInTextContext.precision
   );
@@ -26,6 +30,13 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
   const [rowsPerPage, setRowsPerPage] = useState(
     initComputesFrequencyEachLetterInTextContext.rowsPerPage
   );
+
+  const handleMeasurementYAxis = (
+    event: React.MouseEvent<HTMLElement>,
+    newMeasurementYAxis: TMeasurementYAxis
+  ) => {
+    setMeasurementYAxis(newMeasurementYAxis);
+  };
 
   const handleChangePrecision = (event: SelectChangeEvent) => {
     setPrecision(Number(event.target.value));
@@ -53,6 +64,8 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
   return (
     <ComputesFrequencyEachLetterInTextContext.Provider
       value={{
+        measurementYAxis,
+        setMeasurementYAxis,
         precision,
         setPrecision,
         dataCharts,
@@ -63,6 +76,7 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
         setPage,
         rowsPerPage,
         setRowsPerPage,
+        handleMeasurementYAxis,
         handleChangePrecision,
         handleChangePage,
         handleChangeRowsPerPage

@@ -7,3 +7,5 @@ export type TDataChart = {
 export type TKeyDataCharts = keyof TDataChart;
 
 export type TDataCharts = TDataChart[] | null;
+
+export type TMeasurementYAxis = '%' | '#';

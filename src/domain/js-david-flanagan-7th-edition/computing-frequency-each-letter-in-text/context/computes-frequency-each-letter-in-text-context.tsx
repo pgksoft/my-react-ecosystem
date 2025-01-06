@@ -1,9 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { createContext } from 'react';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { TDataCharts } from './types/types';
+import { TDataCharts, TMeasurementYAxis } from './types/types';
 
 type TComputesFrequencyEachLetterInTextContext = {
+  measurementYAxis: TMeasurementYAxis;
+  setMeasurementYAxis: (measurementYAxis: TMeasurementYAxis) => void;
   precision: number;
   setPrecision: (precision: number) => void;
   dataCharts: TDataCharts;
@@ -14,12 +16,18 @@ type TComputesFrequencyEachLetterInTextContext = {
   setPage: (page: number) => void;
   rowsPerPage: number;
   setRowsPerPage: (rowsPerPage: number) => void;
+  handleMeasurementYAxis: (
+    event: React.MouseEvent<HTMLElement>,
+    newMeasurementYAxis: TMeasurementYAxis
+  ) => void;
   handleChangePrecision: (event: SelectChangeEvent) => void;
   handleChangePage: (event: unknown, newPage: number) => void;
   handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const initComputesFrequencyEachLetterInTextContext: TComputesFrequencyEachLetterInTextContext = {
+  measurementYAxis: '%',
+  setMeasurementYAxis: () => {},
   precision: 2,
   setPrecision: () => {},
   dataCharts: null,
@@ -30,6 +38,7 @@ export const initComputesFrequencyEachLetterInTextContext: TComputesFrequencyEac
   setPage: () => {},
   rowsPerPage: 10,
   setRowsPerPage: () => {},
+  handleMeasurementYAxis: () => {},
   handleChangePrecision: () => {},
   handleChangePage: () => {},
   handleChangeRowsPerPage: () => {}

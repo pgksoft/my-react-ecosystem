@@ -7,7 +7,7 @@ import ComputesFrequencyEachLetterInText from '../util/computes-frequency-each-l
 import { TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT } from '../const/titles';
 import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
 import BarCharWrapper from '../ui/bar-chart-wrapper';
-import ToolPanelForBarChart from '../tool-panel-for-bar-chart/model/tool-panel-for-bar-chart';
+import ToolPanelForBarChart from '../ui/tool-panel-for-bar-chart';
 
 const ComputesFrequencyEachLetterInTextDetail: FC = () => {
   const classes = useStylesDialog();
