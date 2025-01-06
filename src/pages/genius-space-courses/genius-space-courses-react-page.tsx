@@ -12,6 +12,7 @@ import infoLecture04 from '../../domain/genius-space-courses/react/const/info-le
 import infoLecture05 from '../../domain/genius-space-courses/react/const/info-lecture-05';
 import infoLecture06 from '../../domain/genius-space-courses/react/const/info-lecture-06';
 import infoLecture07 from '../../domain/genius-space-courses/react/const/info_lecture-07';
+import infoLecture08 from '../../domain/genius-space-courses/react/const/info-lecture-08';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -72,6 +73,7 @@ const GeniusSpaceCoursesReactPage: FC = () => {
         <InfoLecturePanel infoLecture={infoLecture05} />
         <InfoLecturePanel infoLecture={infoLecture06} />
         <InfoLecturePanel infoLecture={infoLecture07} />
+        <InfoLecturePanel infoLecture={infoLecture08} />
       </Box>
     </Box>
   );
