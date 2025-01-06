@@ -11,11 +11,15 @@ import {
 } from 'recharts';
 import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
 import getRandomColor from '../../../infrastructure/utils/get-random-color';
+import { TKeyDataCharts } from '../context/types/types';
 
 const BarCharWrapper: FC = () => {
-  const { pageOfDataCharts, precision } = useContext(
+  const { pageOfDataCharts, precision, measurementYAxis } = useContext(
     ComputesFrequencyEachLetterInTextContext
   );
+
+  const dataKey: TKeyDataCharts =
+    (measurementYAxis === '%' && 'percent') || 'count';
 
   return (
     <>
@@ -31,7 +35,7 @@ const BarCharWrapper: FC = () => {
             <XAxis dataKey='name' interval='preserveStartEnd' />
             <YAxis
               label={{
-                value: '%',
+                value: measurementYAxis,
                 position: 'insideTopLeft',
                 fontWeight: '600',
                 fontSize: '1.5rem'
@@ -39,7 +43,7 @@ const BarCharWrapper: FC = () => {
             />
             <Tooltip />
             <Bar
-              dataKey='percent'
+              dataKey={dataKey}
               label={{
                 position: 'top',
                 fontSize: '0.8rem',

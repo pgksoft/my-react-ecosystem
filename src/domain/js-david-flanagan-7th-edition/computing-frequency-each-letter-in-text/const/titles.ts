@@ -4,6 +4,8 @@ export const TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT = {
   chartSectionTitle: 'Chart',
   numberOfCharacters: 'Letters',
   viewTableOfData: 'View table of data',
-  precision: 'Precision',
+  settingControlParameters: 'Setting control parameters',
+  yAxis: 'Unit of measurement on Y axis',
+  precision: 'Precision % after decimal point',
   labelPaginationChart: 'Values per page'
 };
