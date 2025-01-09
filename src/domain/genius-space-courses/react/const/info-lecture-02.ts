@@ -2,31 +2,24 @@
 import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture02: TInfoLecture = {
-  lectureTitle:
-    'Lesson Two: What is React. Settings and Tools. JSX. Components',
+  lectureTitle: 'Lesson Three: State. Events',
   usefulLinks: [
     {
-      title: 'Create-React-App TypeScript',
-      href: 'https://create-react-app.dev/docs/adding-typescript/'
-    },
-    { title: 'Legacy React', href: 'https://legacy.reactjs.org/' },
-    {
-      title: 'Introducing react.dev',
-      href: 'https://react.dev/blog/2023/03/16/introducing-react-dev'
-    },
-    { title: 'Vite', href: 'https://vite.dev/' },
-    {
-      title: 'Introducing JSX',
-      href: 'https://legacy.reactjs.org/docs/introducing-jsx.html'
+      title: 'Virtual DOM',
+      href: 'https://legacy.reactjs.org/docs/faq-internals.html'
     },
     {
-      title: 'DOM Elements',
+      title: 'How State Works in React',
       href:
-        'https://legacy.reactjs.org/docs/dom-elements.html#differences-in-attributes'
+        'https://www.freecodecamp.org/news/what-is-state-in-react-explained-with-examples/'
     },
     {
-      title: 'Rendering Elements',
-      href: 'https://legacy.reactjs.org/docs/rendering-elements.html'
+      title: 'Handling Events',
+      href: 'https://legacy.reactjs.org/docs/handling-events.html'
+    },
+    {
+      title: 'Reconciliation',
+      href: 'https://uk.legacy.reactjs.org/docs/reconciliation.html'
     }
   ]
 };

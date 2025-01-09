@@ -2,29 +2,31 @@
 import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture01: TInfoLecture = {
-  lectureTitle: 'Lesson One: Basics of the Popular Library',
+  lectureTitle:
+    'Lesson Two: What is React. Settings and Tools. JSX. Components',
   usefulLinks: [
-    { title: 'React-dev-reference', href: 'https://react.dev/reference/react' },
     {
-      title: 'React Developer Tools',
+      title: 'Create-React-App TypeScript',
+      href: 'https://create-react-app.dev/docs/adding-typescript/'
+    },
+    { title: 'Legacy React', href: 'https://legacy.reactjs.org/' },
+    {
+      title: 'Introducing react.dev',
+      href: 'https://react.dev/blog/2023/03/16/introducing-react-dev'
+    },
+    { title: 'Vite', href: 'https://vite.dev/' },
+    {
+      title: 'Introducing JSX',
+      href: 'https://legacy.reactjs.org/docs/introducing-jsx.html'
+    },
+    {
+      title: 'DOM Elements',
       href:
-        'https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en'
+        'https://legacy.reactjs.org/docs/dom-elements.html#differences-in-attributes'
     },
     {
-      title: 'Getting Started',
-      href: 'https://uk.legacy.reactjs.org/docs/getting-started.html'
-    },
-    {
-      title: 'Introducing the New React DevTools',
-      href: 'https://legacy.reactjs.org/blog/2019/08/15/new-react-devtools.html'
-    },
-    {
-      title: 'Tutorial: Intro to React',
-      href: 'https://uk.legacy.reactjs.org/tutorial/tutorial.html'
-    },
-    {
-      title: 'React Tutorial: Tic-Tac-Toe',
-      href: 'https://react.dev/learn/tutorial-tic-tac-toe'
+      title: 'Rendering Elements',
+      href: 'https://legacy.reactjs.org/docs/rendering-elements.html'
     }
   ]
 };

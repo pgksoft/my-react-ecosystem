@@ -8,22 +8,40 @@ const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     linkBlock: {
       display: 'flex',
-      flexWrap: 'wrap'
-    },
-    link: { paddingRight: '2%' }
+      flexWrap: 'wrap',
+      '&>:nth-child(n)': { paddingRight: '2%' }
+    }
   });
 });
 
 type TInfoLecturePanelProps = { infoLecture: TInfoLecture };
 
 const InfoLecturePanel: FC<TInfoLecturePanelProps> = ({ infoLecture }) => {
-  const { lectureTitle, usefulLinks } = infoLecture;
+  const { lectureTitle, usefulLinks, about } = infoLecture;
 
   const classes = useStyles();
 
   return (
     <Paper elevation={2}>
-      <Typography variant='overline'>{lectureTitle}</Typography>
+      <Typography variant='body2' sx={{ pb: '1%' }}>
+        {lectureTitle.toUpperCase()}
+      </Typography>
+      {about && (
+        <Box className={classes.linkBlock}>
+          <Typography variant='body2'>
+            {TITLES_GENIUS_SPACE_COURSES.shortList}
+          </Typography>
+          {about.map((value) => {
+            return (
+              <Typography
+                key={value}
+                variant='caption'
+                fontStyle='italic'
+              >{`${value}, `}</Typography>
+            );
+          })}
+        </Box>
+      )}
       <Typography variant='body2'>
         {TITLES_GENIUS_SPACE_COURSES.usefulLinks}
       </Typography>
@@ -32,7 +50,7 @@ const InfoLecturePanel: FC<TInfoLecturePanelProps> = ({ infoLecture }) => {
           const key = `${link.title}-${index}`;
           return (
             <Link
-              className={classes.link}
+              target='_blank'
               key={key}
               variant='caption'
               underline='hover'

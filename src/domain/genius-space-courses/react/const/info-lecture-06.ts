@@ -1,31 +1,31 @@
 import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture06: TInfoLecture = {
-  lectureTitle: 'Lesson Six: Hooks: Part One',
+  lectureTitle: 'Lesson Seven: Hooks: Part Two',
   usefulLinks: [
     {
-      title: 'React dev hooks',
-      href: 'https://react.dev/reference/react/hooks'
+      title: 'Docs about useMemo',
+      href: 'https://legacy.reactjs.org/docs/hooks-reference.html#usememo'
     },
     {
-      title: 'Using the Effect Hook',
-      href: 'https://legacy.reactjs.org/docs/hooks-effect.html'
+      title: 'When to useMemo and useCallback',
+      href: 'https://kentcdodds.com/blog/usememo-and-usecallback'
     },
     {
-      title: 'A Simple Explanation of React.useEffect()',
-      href: 'https://dmitripavlutin.com/react-useeffect-explanation/'
+      title: 'Docs about useCallback',
+      href: 'https://legacy.reactjs.org/docs/hooks-reference.html#usecallback'
     },
     {
-      title: 'Docs about useRef',
-      href: 'https://legacy.reactjs.org/docs/hooks-reference.html#useref'
+      title: 'Docs about React.memo',
+      href: 'https://legacy.reactjs.org/docs/react-api.html#reactmemo'
     },
     {
-      title: 'React useRef() Hook Explained in 3 Steps',
-      href: 'https://dmitripavlutin.com/react-useref/'
+      title: 'Building Your Own Hooks',
+      href: 'https://legacy.reactjs.org/docs/hooks-custom.html'
     },
     {
-      title: 'Docs about useReducer',
-      href: 'https://legacy.reactjs.org/docs/hooks-reference.html#usereducer'
+      title: 'React-use',
+      href: 'https://github.com/streamich/react-use#readme'
     }
   ]
 };

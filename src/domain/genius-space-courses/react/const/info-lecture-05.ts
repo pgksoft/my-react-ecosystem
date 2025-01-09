@@ -1,30 +1,31 @@
-/* eslint-disable prettier/prettier */
 import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture05: TInfoLecture = {
-  lectureTitle: 'Lesson Five: Class components. Methods. Life cycle',
+  lectureTitle: 'Lesson Six: Hooks: Part One',
   usefulLinks: [
     {
-      title: 'Children API',
-      href: 'https://react.dev/reference/react/Children'
+      title: 'React dev hooks',
+      href: 'https://react.dev/reference/react/hooks'
     },
     {
-      title: 'The Component Lifecycle',
-      href:
-        'https://legacy.reactjs.org/docs/react-component.html#the-component-lifecycle'
+      title: 'Using the Effect Hook',
+      href: 'https://legacy.reactjs.org/docs/hooks-effect.html'
     },
     {
-      title: 'Error Handling in React 16+',
-      href:
-        'https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html'
+      title: 'A Simple Explanation of React.useEffect()',
+      href: 'https://dmitripavlutin.com/react-useeffect-explanation/'
     },
     {
-      title: 'React lifecycle methods diagram',
-      href: 'https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/'
+      title: 'Docs about useRef',
+      href: 'https://legacy.reactjs.org/docs/hooks-reference.html#useref'
     },
     {
-      title: 'About getDerivedStateFromProps',
-      href: 'https://www.dhiwise.com/post/best-practices-for-using-getderivedstatefromprops-in-your-react-applications'
+      title: 'React useRef() Hook Explained in 3 Steps',
+      href: 'https://dmitripavlutin.com/react-useref/'
+    },
+    {
+      title: 'Docs about useReducer',
+      href: 'https://legacy.reactjs.org/docs/hooks-reference.html#usereducer'
     }
   ]
 };
