@@ -1,27 +1,30 @@
+/* eslint-disable prettier/prettier */
 import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture04: TInfoLecture = {
-  lectureTitle: 'Lesson Four: Props. Render types.',
+  lectureTitle: 'Lesson Five: Class components. Methods. Life cycle',
   usefulLinks: [
     {
-      title: 'Conditional Rendering',
-      href: 'https://legacy.reactjs.org/docs/conditional-rendering.html'
+      title: 'Children API',
+      href: 'https://react.dev/reference/react/Children'
     },
     {
-      title: 'Robin Wieruch: React Conditional Rendering',
-      href: 'https://www.robinwieruch.de/conditional-rendering-react/'
+      title: 'The Component Lifecycle',
+      href:
+        'https://legacy.reactjs.org/docs/react-component.html#the-component-lifecycle'
     },
     {
-      title: 'Lists and Keys',
-      href: 'https://legacy.reactjs.org/docs/lists-and-keys.html'
+      title: 'Error Handling in React 16+',
+      href:
+        'https://legacy.reactjs.org/blog/2017/07/26/error-handling-in-react-16.html'
     },
     {
-      title: 'Components and Props',
-      href: 'https://legacy.reactjs.org/docs/components-and-props.html'
+      title: 'React lifecycle methods diagram',
+      href: 'https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/'
     },
     {
-      title: 'W3Schools: React Props',
-      href: 'https://www.w3schools.com/react/react_props.asp'
+      title: 'About getDerivedStateFromProps',
+      href: 'https://www.dhiwise.com/post/best-practices-for-using-getderivedstatefromprops-in-your-react-applications'
     }
   ]
 };

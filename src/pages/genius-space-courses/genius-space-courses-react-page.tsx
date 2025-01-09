@@ -5,14 +5,20 @@ import { LINKS_AUTH_USER } from '../../_route/links';
 import { usePageContext } from '../hooks/page-context.hook';
 import ReactPageLogo from '../../_images/genius-space/react-page-logo.png';
 import InfoLecturePanel from '../../domain/genius-space-courses/ui/info-lecture-panel';
+import infoLecture00 from '../../domain/genius-space-courses/react/const/info-lecture-00';
 import infoLecture01 from '../../domain/genius-space-courses/react/const/info-lecture-01';
 import infoLecture02 from '../../domain/genius-space-courses/react/const/info-lecture-02';
 import infoLecture03 from '../../domain/genius-space-courses/react/const/info-lecture-03';
 import infoLecture04 from '../../domain/genius-space-courses/react/const/info-lecture-04';
 import infoLecture05 from '../../domain/genius-space-courses/react/const/info-lecture-05';
 import infoLecture06 from '../../domain/genius-space-courses/react/const/info-lecture-06';
-import infoLecture07 from '../../domain/genius-space-courses/react/const/info_lecture-07';
+import infoLecture07 from '../../domain/genius-space-courses/react/const/info-lecture-07';
 import infoLecture08 from '../../domain/genius-space-courses/react/const/info-lecture-08';
+import infoLecture09 from '../../domain/genius-space-courses/react/const/info-lecture-09';
+import infoLecture10 from '../../domain/genius-space-courses/react/const/info-lecture-10';
+import infoLecture11 from '../../domain/genius-space-courses/react/const/info-lecture-11';
+import infoLecture12 from '../../domain/genius-space-courses/react/const/info-lecture-12';
+import infoLecture13 from '../../domain/genius-space-courses/react/const/info-lecture-13';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -66,6 +72,7 @@ const GeniusSpaceCoursesReactPage: FC = () => {
         />
       </Box>
       <Box className={classes.infoLectures}>
+        <InfoLecturePanel infoLecture={infoLecture00} />
         <InfoLecturePanel infoLecture={infoLecture01} />
         <InfoLecturePanel infoLecture={infoLecture02} />
         <InfoLecturePanel infoLecture={infoLecture03} />
@@ -74,6 +81,11 @@ const GeniusSpaceCoursesReactPage: FC = () => {
         <InfoLecturePanel infoLecture={infoLecture06} />
         <InfoLecturePanel infoLecture={infoLecture07} />
         <InfoLecturePanel infoLecture={infoLecture08} />
+        <InfoLecturePanel infoLecture={infoLecture09} />
+        <InfoLecturePanel infoLecture={infoLecture10} />
+        <InfoLecturePanel infoLecture={infoLecture11} />
+        <InfoLecturePanel infoLecture={infoLecture12} />
+        <InfoLecturePanel infoLecture={infoLecture13} />
       </Box>
     </Box>
   );

@@ -1,32 +1,27 @@
 import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture08: TInfoLecture = {
-  lectureTitle: 'Lesson Eight: Stylization',
+  lectureTitle: 'Lesson Nine: Forms',
   usefulLinks: [
     {
-      title: 'Create React App: Styles',
-      href: 'https://create-react-app.dev/docs/adding-a-stylesheet/'
+      title: 'Forms docs',
+      href: 'https://legacy.reactjs.org/docs/forms.html'
     },
     {
-      title: 'Clsx library',
-      href: 'https://github.com/lukeed/clsx#readme'
+      title: 'FORMIC docs',
+      href: 'https://formik.org/docs/overview'
     },
     {
-      title: 'Classnames library',
-      href: 'https://github.com/JedWatson/classnames#readme'
+      title: 'React-Hook-Form: get started',
+      href: 'https://www.react-hook-form.com/get-started/#Registerfields'
     },
+    { title: 'Lodash', href: 'https://lodash.com/' },
     {
-      title: 'Styled-components library docs',
-      href: 'https://styled-components.com/docs/basics'
+      title: 'Lodash: docs like gatsby.netlify.app',
+      href: 'https://lodash-gatsby.netlify.app/docs/'
     },
-    {
-      title: 'Emotion library docs',
-      href: 'https://emotion.sh/docs/introduction'
-    },
-    {
-      title: 'JSS library docs',
-      href: 'https://cssinjs.org/react-jss/?v=v10.10.0'
-    }
+    { title: 'Formic', href: 'https://formik.org/' },
+    { title: 'React hook forms', href: 'https://react-hook-form.com/' }
   ]
 };
 
