@@ -1,10 +1,10 @@
 import { TLink } from '../../../../context/route-context';
 import { TITLES_GENIUS_SPACE_COURSES } from '../../../../domain/genius-space-courses/const/titles';
 import GeniusSpaceCoursesIcon from '../../icons/genius-space-courses-icon';
-import HtmlCssTitle from '../../elements/html-css-title';
-import JSTitle from '../../elements/js-title';
-import ReactTitle from '../../elements/react-title';
-import NodeJSTitle from '../../elements/node-js-title';
+import HtmlCssTitle from '../../title-link-elements/html-css-title';
+import JSTitle from '../../title-link-elements/js-title';
+import ReactTitle from '../../title-link-elements/react-title';
+import NodeJSTitle from '../../title-link-elements/node-js-title';
 import TITLES_GENIUS_SPACE_COURSES_REACT_TIC_TAC_TOE from '../../../../domain/genius-space-courses/react/tic-tac-toe/const/titles';
 import TITLES_GENIUS_SPACE_COURSES_REACT_TO_DO_LIST from '../../../../domain/genius-space-courses/react/to-do-list/const/titles';
 

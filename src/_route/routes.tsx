@@ -22,62 +22,61 @@ export const useRoutes = () => {
         <Route
           path={`${LINKS_AUTH_USER.formikSimpleNewsletterSignUp.url}`}
           element={<FormikSimpleNewsletterSignUpPage />}
-        />
-        <Route
-          path={`${LINKS_AUTH_USER.formik.url}`}
-          element={
-            <Navigate
-              to={`${LINKS_AUTH_USER.formikSimpleNewsletterSignUp.url}`}
-              replace
-            />
-          }
-        />
+        >
+          <Route
+            path={`${LINKS_AUTH_USER.formik.url}`}
+            element={
+              <Navigate
+                to={`${LINKS_AUTH_USER.formikSimpleNewsletterSignUp.url}`}
+                replace
+              />
+            }
+          />
+        </Route>
 
         <Route
           path={LINKS_AUTH_USER.jsDavidFlanagan7thEdition.url}
           element={<JsDavidFlanagan7thEditionPage />}
-        />
-        <Route
-          path={LINKS_AUTH_USER.computesFrequencyEachLetterInText.url}
-          element={<ComputesFrequencyEachLetterInTextPage />}
-        />
+        >
+          <Route
+            path={LINKS_AUTH_USER.computesFrequencyEachLetterInText.url}
+            element={<ComputesFrequencyEachLetterInTextPage />}
+          />
+        </Route>
 
         <Route
           path={LINKS_AUTH_USER.geniusSpaceCourses.url}
           element={<GeniusSpaceCoursesPage />}
-        />
+        >
+          <Route
+            path={LINKS_AUTH_USER.geniusSpaceCoursesHtmlCss.url}
+            element={<GeniusSpaceCoursesHtmlCssPage />}
+          />
 
-        {/* Genius.Space - HTML5 & CSS3 */}
-        <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesHtmlCss.url}
-          element={<GeniusSpaceCoursesHtmlCssPage />}
-        />
+          <Route
+            path={LINKS_AUTH_USER.geniusSpaceCoursesJS.url}
+            element={<GeniusSpaceCoursesJSPage />}
+          />
 
-        {/* Genius.Space - JavaScript */}
-        <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesJS.url}
-          element={<GeniusSpaceCoursesJSPage />}
-        />
+          <Route
+            path={LINKS_AUTH_USER.geniusSpaceCoursesReact.url}
+            element={<GeniusSpaceCoursesReactPage />}
+          >
+            <Route
+              path={LINKS_AUTH_USER.geniusSpaceCoursesReactTicTacToe.url}
+              element={<TicTacToePage />}
+            />
+            <Route
+              path={LINKS_AUTH_USER.geniusSpaceCoursesReactToDoList.url}
+              element={<ToDoListPage />}
+            />
+          </Route>
 
-        {/* Genius.Space - React */}
-        <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesReact.url}
-          element={<GeniusSpaceCoursesReactPage />}
-        />
-        <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesReactTicTacToe.url}
-          element={<TicTacToePage />}
-        />
-        <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesReactToDoList.url}
-          element={<ToDoListPage />}
-        />
-
-        {/* Genius.Space - Node.JS */}
-        <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesNodeJS.url}
-          element={<GeniusSpaceCoursesNodeJSPage />}
-        />
+          <Route
+            path={LINKS_AUTH_USER.geniusSpaceCoursesNodeJS.url}
+            element={<GeniusSpaceCoursesNodeJSPage />}
+          />
+        </Route>
 
         <Route path='*' element={<NotFountPath />} />
       </Routes>
