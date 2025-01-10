@@ -13,6 +13,10 @@ const infoLecture12: TInfoLecture = {
     { title: 'Mobx docs', href: 'https://mobx.js.org/README.html' },
     { title: 'Zustand', href: 'https://github.com/pmndrs/zustand' },
     {
+      title: 'Getting Started with Redux',
+      href: 'https://redux.js.org/introduction/getting-started'
+    },
+    {
       title: 'Redux Toolkit Quick Start',
       href: 'https://redux-toolkit.js.org/tutorials/quick-start'
     },
