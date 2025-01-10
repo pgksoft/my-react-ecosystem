@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) => {
       textAlign: 'center',
       padding: '1% 0'
     },
-    avatarSize: { width: 100, height: 100 },
     infoLectures: {
       display: 'flex',
       flexWrap: 'wrap',
