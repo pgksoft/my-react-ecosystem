@@ -15,7 +15,8 @@ import geniusSpaceCourses, {
   geniusSpaceCoursesNodeJS,
   geniusSpaceCoursesReact,
   geniusSpaceCoursesReactTicTacToe,
-  geniusSpaceCoursesReactToDoList
+  geniusSpaceCoursesReactToDoList,
+  geniusSpaceCoursesReactReduxPracticeCounter
 } from './const/links/genius-space-courses/links-genius-space-courses';
 
 const home: TLink = {
@@ -36,7 +37,8 @@ const TYPE_LINK = {
   geniusSpaceCoursesReact,
   geniusSpaceCoursesNodeJS,
   geniusSpaceCoursesReactTicTacToe,
-  geniusSpaceCoursesReactToDoList
+  geniusSpaceCoursesReactToDoList,
+  geniusSpaceCoursesReactReduxPracticeCounter
 };
 
 type TTypeLinkTypes = keyof typeof TYPE_LINK;
@@ -60,5 +62,6 @@ export const LINKS_AUTH_USER: Record<TTypeLinkTypes, TLink> = {
   geniusSpaceCoursesReact,
   geniusSpaceCoursesReactTicTacToe,
   geniusSpaceCoursesNodeJS,
-  geniusSpaceCoursesReactToDoList
+  geniusSpaceCoursesReactToDoList,
+  geniusSpaceCoursesReactReduxPracticeCounter
 };

@@ -7,6 +7,7 @@ import ReactTitle from '../../title-link-elements/react-title';
 import NodeJSTitle from '../../title-link-elements/node-js-title';
 import TITLES_GENIUS_SPACE_COURSES_REACT_TIC_TAC_TOE from '../../../../domain/genius-space-courses/react/tic-tac-toe/const/titles';
 import TITLES_GENIUS_SPACE_COURSES_REACT_TO_DO_LIST from '../../../../domain/genius-space-courses/react/to-do-list/const/titles';
+import TITLES_GENIUS_SPACE_COURSES_REACT_REDUX_PRACTICE_COUNTER from '../../../../domain/genius-space-courses/react/redux-practice-counter/const/titles';
 
 // HTML5 & CSS3
 export const geniusSpaceCoursesHtmlCss: TLink = {
@@ -31,10 +32,19 @@ export const geniusSpaceCoursesReactToDoList: TLink = {
   url: '/genius-space-courses/react/to-do-list'
 };
 
+export const geniusSpaceCoursesReactReduxPracticeCounter: TLink = {
+  title: TITLES_GENIUS_SPACE_COURSES_REACT_REDUX_PRACTICE_COUNTER.title,
+  url: '/genius-space-courses/react/redux-practice-counter'
+};
+
 export const geniusSpaceCoursesReact: TLink = {
   titleAsElement: ReactTitle,
   url: '/genius-space-courses/react',
-  subLinks: [geniusSpaceCoursesReactTicTacToe, geniusSpaceCoursesReactToDoList]
+  subLinks: [
+    geniusSpaceCoursesReactTicTacToe,
+    geniusSpaceCoursesReactToDoList,
+    geniusSpaceCoursesReactReduxPracticeCounter
+  ]
 };
 
 // Node.JS

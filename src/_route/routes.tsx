@@ -12,6 +12,7 @@ import GeniusSpaceCoursesReactPage from '../pages/genius-space-courses/genius-sp
 import GeniusSpaceCoursesNodeJSPage from '../pages/genius-space-courses/genius-space-courses-node-js-page';
 import TicTacToePage from '../pages/genius-space-courses/react/tic-tac-toe-page';
 import ToDoListPage from '../pages/genius-space-courses/react/to-do-list-page';
+import ReduxPracticeCounterPage from '../pages/genius-space-courses/react/redux-practice-counter-page';
 
 export const useRoutes = () => {
   return (
@@ -68,6 +69,10 @@ export const useRoutes = () => {
         <Route
           path={LINKS_AUTH_USER.geniusSpaceCoursesReactToDoList.url}
           element={<ToDoListPage />}
+        />
+        <Route
+          path={LINKS_AUTH_USER.geniusSpaceCoursesReactReduxPracticeCounter.url}
+          element={<ReduxPracticeCounterPage />}
         />
 
         <Route

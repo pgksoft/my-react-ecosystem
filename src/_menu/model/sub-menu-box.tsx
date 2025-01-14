@@ -49,7 +49,8 @@ const useStyles = makeStyles((theme: Theme) => {
       lineHeight: '1.75',
       color: COLORS.gray,
       '&:hover': {
-        background: 'rgba(0, 0, 0, 0.04)'
+        background: 'rgba(0, 0, 0, 0.1)',
+        borderRadius: 7
       },
       '&:active': {
         background: 'rgba(0, 0, 0, 0.08)'
