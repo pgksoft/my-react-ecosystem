@@ -1,7 +1,7 @@
 import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture13: TInfoLecture = {
-  lectureTitle: 'Lesson Thirteen: Redux, Redux toolkit - part two',
+  lectureTitle: 'Lesson Fourteen: Redux, Redux toolkit - part two',
   about: [
     'createSlice()',
     'configureStore()',

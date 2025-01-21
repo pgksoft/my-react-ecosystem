@@ -3,7 +3,7 @@ import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture12: TInfoLecture = {
   lectureTitle:
-    'Lesson Twelve: State management. useContext, Redux - part one.',
+    'Lesson Thirteen: State management. useContext, Redux - part one.',
   about: ['Props drilling', 'Context API', 'State managers', 'Redux toolkit'],
   usefulLinks: [
     {

@@ -1,7 +1,7 @@
 import TInfoLecture from '../../type/info-lecture';
 
 const infoLecture11: TInfoLecture = {
-  lectureTitle: 'Lesson Eleven: React Router: part two',
+  lectureTitle: 'Lesson Twelve: React Router: part two',
   about: ['useNavigate', '<Navigate/>', 'useLocation()', 'Lazy loading'],
   usefulLinks: [
     {
