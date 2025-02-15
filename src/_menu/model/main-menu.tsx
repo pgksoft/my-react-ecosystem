@@ -15,6 +15,7 @@ import { COLORS } from '../../_const/colors';
 import { LeftNavBar, drawerWidthLeft } from './left-nav-bar';
 import { SubMenuBox } from './sub-menu-box';
 import TitleAsElementWrap from '../../context/ui/TitleAsElementWrap';
+import NavigationDefaultGoBackIconButton from '../../domain/_infrastructure/ui/navigation-default-go-back-icon-button/navigation-default-go-back-icon-button';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -108,6 +109,9 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
             >
               <MenuIcon />
             </IconButton>
+          )}
+          {!openLeft && activeMainLink.isHaveDefaultGoBackIconButton && (
+            <NavigationDefaultGoBackIconButton />
           )}
           {activeMainLink.titleAsElement && (
             <TitleAsElementWrap Value={activeMainLink.titleAsElement} />

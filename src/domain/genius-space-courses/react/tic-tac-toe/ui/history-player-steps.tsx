@@ -1,8 +1,8 @@
 import React, { FC, useContext } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
-import { useStylesDialog } from '../../../../infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../../../_infrastructure/ui/style/style-dialog';
 import { TicTacToeContext } from '../context/tic-tac-toe-context';
-import { DefaultButton } from '../../../../infrastructure/ui/default-button/default-button';
+import { DefaultButton } from '../../../../_infrastructure/ui/default-button/default-button';
 import TITLES_GENIUS_SPACE_COURSES_REACT_TIC_TAC_TOE from '../const/titles';
 
 type THistoryPlayerStepsProps = { numberPlayer: 1 | 2 };

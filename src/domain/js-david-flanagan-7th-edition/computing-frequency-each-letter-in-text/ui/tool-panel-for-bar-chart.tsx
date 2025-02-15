@@ -5,8 +5,8 @@ import TableChartIcon from '@mui/icons-material/TableChart';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
 import { TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT } from '../const/titles';
-import { ModalWithIconButton } from '../../../infrastructure/ui/modal-with-button/modal-with-icon-button';
-import { WrapperOfNestedModalDialog } from '../../../infrastructure/ui/modal-with-button/wrapper-of-nested-modal-dialog';
+import { ModalWithIconButton } from '../../../_infrastructure/ui/modal-with-button/modal-with-icon-button';
+import { WrapperOfNestedModalDialog } from '../../../_infrastructure/ui/wrapper-of-nested-modal-dialog/wrapper-of-nested-modal-dialog';
 import ViewTableOfData from './view-table-of-data';
 import SettingControlParameters from './setting-control-parameters';
 

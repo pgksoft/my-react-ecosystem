@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
-import { EnhancedSnackBar } from './enhanced-snack-bar';
+import { AppNotifierWrapper } from './app-notifier-wrapper';
 
 interface IProps {
   message: string;
@@ -8,7 +8,7 @@ interface IProps {
   timeOnCloseMs?: number;
 }
 
-export const SuccessNotifier: React.FC<IProps> = ({
+export const InfoNotifier: React.FC<IProps> = ({
   message,
   onClose,
   timeOnCloseMs
@@ -16,7 +16,7 @@ export const SuccessNotifier: React.FC<IProps> = ({
   const autoHideDuration = timeOnCloseMs || 2000;
 
   return (
-    <EnhancedSnackBar
+    <AppNotifierWrapper
       message={message}
       snackbarProps={{
         open: true,
@@ -27,7 +27,7 @@ export const SuccessNotifier: React.FC<IProps> = ({
       alertProps={{
         onClose,
         variant: 'filled',
-        severity: 'success'
+        severity: 'info'
       }}
     />
   );

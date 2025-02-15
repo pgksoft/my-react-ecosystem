@@ -6,6 +6,7 @@ import { useStyleIconButton } from '../style/style-icon-button';
 import { TransitionSlideUp } from '../transition-slide-up/transition-slide-up';
 import { COLORS } from '../../../../_const/colors';
 import { TModalButtonProps } from './props-of-modal-with-button';
+import TIconColor from '../../types/t-icon-color';
 
 type TIconButtonProps = {
   icon: ReactNode;
@@ -13,17 +14,6 @@ type TIconButtonProps = {
   disabled?: boolean;
   iconColor?: TIconColor;
 };
-
-type TIconColor =
-  | 'inherit'
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'error'
-  | 'info'
-  | 'success'
-  | 'warning'
-  | undefined;
 
 type TModalWithIconButtonProps = TIconButtonProps & TModalButtonProps;
 

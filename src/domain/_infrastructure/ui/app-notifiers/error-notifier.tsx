@@ -1,5 +1,5 @@
 import React from 'react';
-import { EnhancedSnackBar } from './enhanced-snack-bar';
+import { AppNotifierWrapper } from './app-notifier-wrapper';
 
 interface IProps {
   onClose: () => void;
@@ -8,7 +8,7 @@ interface IProps {
 
 export const ErrorNotifier: React.FC<IProps> = ({ onClose, error }) => {
   return (
-    <EnhancedSnackBar
+    <AppNotifierWrapper
       message={error.message}
       snackbarProps={{
         open: true,

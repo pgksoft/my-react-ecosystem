@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ErrorBoundary } from './domain/infrastructure/error-boundary/error-boundary';
+import { ErrorBoundary } from './domain/_infrastructure/error-boundary/error-boundary';
 import { RouteContextProvider } from './context-provider/route-context-provider';
 import { GetParametersProvider } from './context-provider/get-parameters-context-provider';
 import { store } from './store/store';

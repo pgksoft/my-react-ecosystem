@@ -22,7 +22,7 @@ interface IProps {
   snackbarProps?: SnackbarProps;
 }
 
-export const EnhancedSnackBar: React.FC<IProps> = ({
+export const AppNotifierWrapper: React.FC<IProps> = ({
   message,
   alertProps,
   snackbarProps

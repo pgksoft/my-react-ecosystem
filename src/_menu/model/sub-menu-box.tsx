@@ -5,7 +5,7 @@ import { Box, Button, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { TLink } from '../../context/route-context';
 import { COLORS } from '../../_const/colors';
-import { AdaptiveMenu } from '../../domain/infrastructure/adaptive-menu/adaptive-menu';
+import { AdaptiveMenu } from '../../domain/_infrastructure/adaptive-menu/adaptive-menu';
 import { isNotVisitorEntityTypes } from '../../domain/users/util/match-name-roles';
 import { getTestUser } from '../../domain/users/util/get-test-user';
 import TitleAsElementWrap from '../../context/ui/TitleAsElementWrap';

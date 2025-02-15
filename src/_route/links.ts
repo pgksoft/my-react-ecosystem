@@ -1,23 +1,10 @@
 import { TLink } from '../context/route-context';
 import { TITLES_OF_APP } from '../_const/titles-of-app';
 import { HomeIcon } from './const/icons/home-icon';
-import {
-  formik,
-  formikSimpleNewsletterSignUp
-} from './const/links/links-formik';
-import {
-  computesFrequencyEachLetterInText,
-  jsDavidFlanagan7thEdition
-} from './const/links/links-js-david-flanagan-7th-edition';
-import geniusSpaceCourses, {
-  geniusSpaceCoursesHtmlCss,
-  geniusSpaceCoursesJS,
-  geniusSpaceCoursesNodeJS,
-  geniusSpaceCoursesReact,
-  geniusSpaceCoursesReactTicTacToe,
-  geniusSpaceCoursesReactToDoList,
-  geniusSpaceCoursesReactReduxPracticeCounter
-} from './const/links/genius-space-courses/links-genius-space-courses';
+import { LINKS_AUTH_USER_FORMIC } from './const/links/formik/links-formik';
+import { LINKS_AUTH_USER_JS_DAVID_FLANAGAN } from './const/links/links-js-david-flanagan-7th-edition';
+import { LINKS_AUTH_USER_GENIUS_SPACE_COURSES } from './const/links/genius-space-courses/links-genius-space-courses';
+import { TAuthUserLinks } from './types/types';
 
 const home: TLink = {
   title: TITLES_OF_APP.title,
@@ -25,43 +12,12 @@ const home: TLink = {
   getIcon: HomeIcon
 };
 
-const TYPE_LINK = {
-  home,
-  formik,
-  formikSimpleNewsletterSignUp,
-  jsDavidFlanagan7thEdition,
-  computesFrequencyEachLetterInText,
-  geniusSpaceCourses,
-  geniusSpaceCoursesHtmlCss,
-  geniusSpaceCoursesJS,
-  geniusSpaceCoursesReact,
-  geniusSpaceCoursesNodeJS,
-  geniusSpaceCoursesReactTicTacToe,
-  geniusSpaceCoursesReactToDoList,
-  geniusSpaceCoursesReactReduxPracticeCounter
-};
-
-type TTypeLinkTypes = keyof typeof TYPE_LINK;
-
-export const isTypeLinkTypes = (value: string): value is TTypeLinkTypes => {
-  return Object.keys(TYPE_LINK).includes(value);
-};
-
-export const LINKS_AUTH_USER: Record<TTypeLinkTypes, TLink> = {
+export const LINKS_AUTH_USER: TAuthUserLinks = {
   home,
 
-  formik,
-  formikSimpleNewsletterSignUp,
+  ...LINKS_AUTH_USER_FORMIC,
 
-  jsDavidFlanagan7thEdition,
-  computesFrequencyEachLetterInText,
+  ...LINKS_AUTH_USER_JS_DAVID_FLANAGAN,
 
-  geniusSpaceCourses,
-  geniusSpaceCoursesHtmlCss,
-  geniusSpaceCoursesJS,
-  geniusSpaceCoursesReact,
-  geniusSpaceCoursesReactTicTacToe,
-  geniusSpaceCoursesNodeJS,
-  geniusSpaceCoursesReactToDoList,
-  geniusSpaceCoursesReactReduxPracticeCounter
+  ...LINKS_AUTH_USER_GENIUS_SPACE_COURSES
 };

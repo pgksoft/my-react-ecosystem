@@ -13,7 +13,8 @@ import { createStyles, makeStyles } from '@mui/styles';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { IUserRole } from '../../domain/users/entity/role';
-import { LINKS_AUTH_USER, isTypeLinkTypes } from '../../_route/links';
+import { LINKS_AUTH_USER } from '../../_route/links';
+import { isLinkName } from '../../_route/types/is-link-name';
 import { getGroupMenuKeys } from '../util/get-group-menu-keys';
 import { TLink } from '../../context/route-context';
 import { COLORS } from '../../_const/colors';
@@ -97,7 +98,7 @@ export const ListMenu: FC<TListMenu> = ({
   return (
     <List>
       {groupMenuKeys.map((key) => {
-        if (!isTypeLinkTypes(key)) return null;
+        if (!isLinkName(key)) return null;
         const subMenuLinks = LINKS_AUTH_USER[key]?.subMenuLinks;
         if (!subMenuLinks) {
           return (
