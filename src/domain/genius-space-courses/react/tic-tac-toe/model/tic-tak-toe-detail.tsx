@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import clsx from 'clsx';
 import { Box } from '@mui/material';
-import { useStylesDialog } from '../../../../infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../../../_infrastructure/ui/style/style-dialog';
 import Board from '../ui/board';
 import ControlPanel from '../ui/control-panel';
 

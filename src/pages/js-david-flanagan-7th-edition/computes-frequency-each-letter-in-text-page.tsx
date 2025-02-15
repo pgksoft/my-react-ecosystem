@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Box } from '@mui/material';
 import { LINKS_AUTH_USER } from '../../_route/links';
 import { usePageContext } from '../hooks/page-context.hook';
-import { useStylesDialog } from '../../domain/infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../domain/_infrastructure/ui/style/style-dialog';
 import { ComputesFrequencyEachLetterInTextDetail } from '../../domain/js-david-flanagan-7th-edition';
 import { ComputesFrequencyEachLetterInTextContextProvider } from '../../domain/js-david-flanagan-7th-edition/computing-frequency-each-letter-in-text/context/computes-frequency-each-letter-in-text-context-provider';
 

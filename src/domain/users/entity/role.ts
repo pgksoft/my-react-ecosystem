@@ -1,4 +1,4 @@
-import { TMember } from '../../infrastructure/api-platform';
+import { TMember } from '../../_infrastructure/api-platform';
 
 export interface IUserRole extends TMember {
   name: string;

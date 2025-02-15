@@ -1,7 +1,7 @@
 // wrapper-of-nested-modal-dialog
 import React, { FC } from 'react';
 import { Box } from '@mui/material';
-import { TNestedProps } from './props-of-modal-with-button';
+import { TNestedProps } from '../modal-with-button/props-of-modal-with-button';
 import { HeaderOfModalDialog } from '../../header-of-modal-dialog/header-of-modal-dialog';
 
 export const WrapperOfNestedModalDialog: FC<TNestedProps> = ({

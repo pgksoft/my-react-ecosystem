@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Box, Toolbar, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { ModalWithIconButton } from '../../infrastructure/ui/modal-with-button/modal-with-icon-button';
-import { useStylesDialog } from '../../infrastructure/ui/style/style-dialog';
+import { ModalWithIconButton } from '../../_infrastructure/ui/modal-with-button/modal-with-icon-button';
+import { useStylesDialog } from '../../_infrastructure/ui/style/style-dialog';
 import { TITLES_SIMPLE_NEWSLETTER_SING_UP } from '../const/titles';
-import { WrapperOfNestedModalDialog } from '../../infrastructure/ui/modal-with-button/wrapper-of-nested-modal-dialog';
+import { WrapperOfNestedModalDialog } from '../../_infrastructure/ui/wrapper-of-nested-modal-dialog/wrapper-of-nested-modal-dialog';
 import { SimpleNewsletterSignUpCreate } from './simple-newsletter-sign-up-create';
 
 export const SimpleNewsletterSignUpList: FC = () => {

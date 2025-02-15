@@ -15,6 +15,7 @@ export type TLink = {
   subLinks?: TLink[];
   disable?: boolean;
   getIcon?: TElement;
+  isHaveDefaultGoBackIconButton?: boolean;
 };
 
 type TRouteContext = {

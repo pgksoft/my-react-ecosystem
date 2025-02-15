@@ -3,7 +3,7 @@ import { Avatar, Box, Theme, Typography } from '@mui/material';
 import clsx from 'clsx';
 import { createStyles, makeStyles } from '@mui/styles';
 import { TicTacToeContext } from '../context/tic-tac-toe-context';
-import { useStylesDialog } from '../../../../infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../../../_infrastructure/ui/style/style-dialog';
 import TicTakToeLogo from '../../../../../_images/genius-space/tic-tac-toe.png';
 import CellCross from './cell-cross';
 import CellZero from './cell-zero';

@@ -1,4 +1,5 @@
 import { TLink } from '../../../../context/route-context';
+import { TAuthUserGeniusSpaceCoursesLinks } from '../../../types/types';
 import { TITLES_GENIUS_SPACE_COURSES } from '../../../../domain/genius-space-courses/const/titles';
 import GeniusSpaceCoursesIcon from '../../icons/genius-space-courses-icon';
 import HtmlCssTitle from '../../title-link-elements/html-css-title';
@@ -44,7 +45,8 @@ export const geniusSpaceCoursesReact: TLink = {
     geniusSpaceCoursesReactTicTacToe,
     geniusSpaceCoursesReactToDoList,
     geniusSpaceCoursesReactReduxPracticeCounter
-  ]
+  ],
+  isHaveDefaultGoBackIconButton: true
 };
 
 // Node.JS
@@ -53,7 +55,7 @@ export const geniusSpaceCoursesNodeJS: TLink = {
   url: '/genius-space-courses/node-js'
 };
 
-const geniusSpaceCourses: TLink = {
+export const geniusSpaceCourses: TLink = {
   title: TITLES_GENIUS_SPACE_COURSES.title,
   url: '/genius-space-courses',
   getIcon: GeniusSpaceCoursesIcon,
@@ -65,4 +67,14 @@ const geniusSpaceCourses: TLink = {
   ]
 };
 
-export default geniusSpaceCourses;
+export const LINKS_AUTH_USER_GENIUS_SPACE_COURSES: TAuthUserGeniusSpaceCoursesLinks =
+  {
+    geniusSpaceCourses,
+    geniusSpaceCoursesHtmlCss,
+    geniusSpaceCoursesJS,
+    geniusSpaceCoursesReact,
+    geniusSpaceCoursesReactTicTacToe,
+    geniusSpaceCoursesNodeJS,
+    geniusSpaceCoursesReactToDoList,
+    geniusSpaceCoursesReactReduxPracticeCounter
+  };
