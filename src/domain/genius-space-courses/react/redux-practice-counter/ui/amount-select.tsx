@@ -9,14 +9,14 @@ import TITLES_GENIUS_SPACE_COURSES_REACT_REDUX_PRACTICE_COUNTER from '../const/t
 import { changeAmount } from '../../../../../redux-toolkit/counter/counter-slice';
 import useAppSelector from '../../../../../store/use-app-selector';
 import useAppDispatch from '../../../../../store/use-app-dispatch';
-import { amountSelect } from '../../../../../redux-toolkit/counter/counter-selectors';
-import { TAmount } from '../types/types';
+import { counterAmountSelector } from '../../../../../redux-toolkit/counter/counter-selectors';
+import TAmount from '../types/t-amount';
 
 const sxItem = { alignSelf: 'center', p: '2%' };
 
 const AmountSelect: FC = () => {
   const appDispatch = useAppDispatch();
-  const amountValue = useAppSelector(amountSelect);
+  const counterAmount = useAppSelector(counterAmountSelector);
 
   const handleAmount = (
     event: React.MouseEvent<HTMLElement>,
@@ -32,7 +32,7 @@ const AmountSelect: FC = () => {
       </Typography>
       <ToggleButtonGroup
         exclusive
-        value={amountValue}
+        value={counterAmount}
         onChange={handleAmount}
         sx={{ ...sxItem, pt: 0 }}
       >

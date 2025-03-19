@@ -1,25 +1,22 @@
-import { TLink } from '../../../../context/route-context';
 import { TAuthUserGeniusSpaceCoursesLinks } from '../../../types/types';
 import { TITLES_GENIUS_SPACE_COURSES } from '../../../../domain/genius-space-courses/const/titles';
-import GeniusSpaceCoursesIcon from '../../icons/genius-space-courses-icon';
-import HtmlCssTitle from '../../title-link-elements/html-css-title';
-import JSTitle from '../../title-link-elements/js-title';
-import ReactTitle from '../../title-link-elements/react-title';
-import NodeJSTitle from '../../title-link-elements/node-js-title';
 import TITLES_GENIUS_SPACE_COURSES_REACT_TIC_TAC_TOE from '../../../../domain/genius-space-courses/react/tic-tac-toe/const/titles';
 import TITLES_GENIUS_SPACE_COURSES_REACT_TO_DO_LIST from '../../../../domain/genius-space-courses/react/to-do-list/const/titles';
 import TITLES_GENIUS_SPACE_COURSES_REACT_REDUX_PRACTICE_COUNTER from '../../../../domain/genius-space-courses/react/redux-practice-counter/const/titles';
+import TLink from '../../../../domain/_infrastructure/types/t-link';
 
 // HTML5 & CSS3
 export const geniusSpaceCoursesHtmlCss: TLink = {
-  titleAsElement: HtmlCssTitle,
-  url: '/genius-space-courses/html-css'
+  title: TITLES_GENIUS_SPACE_COURSES.titleHtmlCss,
+  url: '/genius-space-courses/html-css',
+  nameIcon: 'htmlCss'
 };
 
 // JavaScript
 export const geniusSpaceCoursesJS: TLink = {
-  titleAsElement: JSTitle,
-  url: '/genius-space-courses/js'
+  title: TITLES_GENIUS_SPACE_COURSES.titleJS,
+  url: '/genius-space-courses/js',
+  nameIcon: 'js'
 };
 
 // React
@@ -39,8 +36,9 @@ export const geniusSpaceCoursesReactReduxPracticeCounter: TLink = {
 };
 
 export const geniusSpaceCoursesReact: TLink = {
-  titleAsElement: ReactTitle,
+  title: TITLES_GENIUS_SPACE_COURSES.titleReact,
   url: '/genius-space-courses/react',
+  nameIcon: 'react',
   subLinks: [
     geniusSpaceCoursesReactTicTacToe,
     geniusSpaceCoursesReactToDoList,
@@ -51,14 +49,15 @@ export const geniusSpaceCoursesReact: TLink = {
 
 // Node.JS
 export const geniusSpaceCoursesNodeJS: TLink = {
-  titleAsElement: NodeJSTitle,
-  url: '/genius-space-courses/node-js'
+  title: TITLES_GENIUS_SPACE_COURSES.titleNodeJS,
+  url: '/genius-space-courses/node-js',
+  nameIcon: 'nodeJs'
 };
 
 export const geniusSpaceCourses: TLink = {
   title: TITLES_GENIUS_SPACE_COURSES.title,
   url: '/genius-space-courses',
-  getIcon: GeniusSpaceCoursesIcon,
+  nameIcon: 'geniusSpaceCourses',
   subMenuLinks: [
     geniusSpaceCoursesHtmlCss,
     geniusSpaceCoursesJS,

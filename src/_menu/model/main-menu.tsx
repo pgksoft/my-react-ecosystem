@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useContext, useEffect, useState } from 'react';
+import React, { FC, ReactNode, useEffect, useState } from 'react';
 import {
   AppBar,
   Box,
@@ -10,12 +10,12 @@ import {
 } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import { RouteContext } from '../../context/route-context';
 import { COLORS } from '../../_const/colors';
 import { LeftNavBar, drawerWidthLeft } from './left-nav-bar';
 import { SubMenuBox } from './sub-menu-box';
-import TitleAsElementWrap from '../../context/ui/TitleAsElementWrap';
 import NavigationDefaultGoBackIconButton from '../../domain/_infrastructure/ui/navigation-default-go-back-icon-button/navigation-default-go-back-icon-button';
+import useAppSelector from '../../store/use-app-selector';
+import { appPageLinksValueSelector } from '../../redux-toolkit/app-page-links/app-page-links-selectors';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -52,10 +52,13 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
   const [openLeft, setOpenLeft] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(true);
 
-  const { activeMainLink, activeLink } = useContext(RouteContext);
+  const { activePageLink, activeParentLink } = useAppSelector(
+    appPageLinksValueSelector
+  );
+
   const isAuthenticated = true;
 
-  const contentMarginTop = activeMainLink.subLinks ? '86px' : '50px';
+  const contentMarginTop = activeParentLink.subLinks ? '86px' : '50px';
 
   const timeoutShowSubMenu = () => {
     setShowSubMenu(false);
@@ -110,24 +113,21 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
               <MenuIcon />
             </IconButton>
           )}
-          {!openLeft && activeMainLink.isHaveDefaultGoBackIconButton && (
+          {!openLeft && activeParentLink.isHaveDefaultGoBackIconButton && (
             <NavigationDefaultGoBackIconButton />
           )}
-          {activeMainLink.titleAsElement && (
-            <TitleAsElementWrap Value={activeMainLink.titleAsElement} />
-          )}
-          {activeMainLink.title && (
+          {activeParentLink.title && (
             <Typography variant='h6' sx={{ flexGrow: 1 }}>
-              {activeMainLink.title}
+              {activeParentLink.title}
             </Typography>
           )}
         </Toolbar>
-        {activeMainLink.subLinks && showSubMenu && (
-          <SubMenuBox links={activeMainLink.subLinks} />
+        {activeParentLink.subLinks && showSubMenu && (
+          <SubMenuBox links={activeParentLink.subLinks} />
         )}
-        {activeLink.subLinks &&
-          !activeMainLink.subLinks?.length &&
-          showSubMenu && <SubMenuBox links={activeLink.subLinks} />}
+        {activePageLink.subLinks &&
+          !activeParentLink.subLinks?.length &&
+          showSubMenu && <SubMenuBox links={activePageLink.subLinks} />}
       </AppBar>
       <LeftNavBar
         drawerWidth={(openLeft && drawerWidthLeft) || 0}

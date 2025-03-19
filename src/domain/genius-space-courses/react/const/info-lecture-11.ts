@@ -11,6 +11,10 @@ const infoLecture11: TInfoLecture = {
     {
       title: 'React Router API Reference',
       href: 'https://api.reactrouter.com/v7/index.html'
+    },
+    {
+      title: 'query-string',
+      href: 'https://www.npmjs.com/package/query-string'
     }
   ]
 };
