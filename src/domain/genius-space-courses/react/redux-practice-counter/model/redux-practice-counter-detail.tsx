@@ -11,8 +11,8 @@ import {
 import useAppDispatch from '../../../../../store/use-app-dispatch';
 import useAppSelector from '../../../../../store/use-app-selector';
 import {
-  countSelect,
-  amountSelect
+  counterValueSelector,
+  counterAmountSelector
 } from '../../../../../redux-toolkit/counter/counter-selectors';
 import AmountSelect from '../ui/amount-select';
 import TITLES_GENIUS_SPACE_COURSES_REACT_REDUX_PRACTICE_COUNTER from '../const/titles';
@@ -23,8 +23,8 @@ const ReduxPracticeCounterDetail: FC = () => {
   const classes = useStylesDialog();
 
   const appDispatch = useAppDispatch();
-  const counterValue = useAppSelector(countSelect);
-  const amountValue = useAppSelector(amountSelect);
+  const counterValue = useAppSelector(counterValueSelector);
+  const counterAmount = useAppSelector(counterAmountSelector);
 
   const handleIncrement = () => {
     appDispatch(increment());
@@ -33,10 +33,10 @@ const ReduxPracticeCounterDetail: FC = () => {
     appDispatch(decrement());
   };
   const handleIncrementByAmount = () => {
-    appDispatch(incrementByAmount(amountValue));
+    appDispatch(incrementByAmount(counterAmount));
   };
   const handleDecrementByAmount = () => {
-    appDispatch(decrementByAmount(amountValue));
+    appDispatch(decrementByAmount(counterAmount));
   };
 
   return (

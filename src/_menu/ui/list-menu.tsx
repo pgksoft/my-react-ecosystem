@@ -16,9 +16,10 @@ import { IUserRole } from '../../domain/users/entity/role';
 import { LINKS_AUTH_USER } from '../../_route/links';
 import { isLinkName } from '../../_route/types/is-link-name';
 import { getGroupMenuKeys } from '../util/get-group-menu-keys';
-import { TLink } from '../../context/route-context';
 import { COLORS } from '../../_const/colors';
-import TitleAsElementWrap from '../../context/ui/TitleAsElementWrap';
+import choiceIcon from '../choice-icon/choice-icon';
+import getRandomUuid from '../../domain/_infrastructure/helpers/get-random-uuid';
+import TLink from '../../domain/_infrastructure/types/t-link';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -109,7 +110,7 @@ export const ListMenu: FC<TListMenu> = ({
         }
         return (
           <div key={LINKS_AUTH_USER[key].url}>
-            <ListItem>
+            <ListItem key={getRandomUuid()}>
               <ItemNavLink link={LINKS_AUTH_USER[key]} />
               <IconButton
                 sx={{ padding: '4px' }}
@@ -129,7 +130,7 @@ export const ListMenu: FC<TListMenu> = ({
               timeout='auto'
               unmountOnExit
             >
-              <List component='div' disablePadding sx={{ pl: 4, pr: 1 }}>
+              <Box sx={{ pl: 4, pr: 1 }}>
                 <Box
                   sx={{
                     p: 0.5,
@@ -152,7 +153,7 @@ export const ListMenu: FC<TListMenu> = ({
                     );
                   })}
                 </Box>
-              </List>
+              </Box>
             </Collapse>
           </div>
         );
@@ -167,7 +168,7 @@ type TItemNavLink = {
 
 const ItemNavLink: FC<TItemNavLink> = ({ link }) => {
   const classes = useStyles();
-  const getIcon = link?.getIcon;
+  const nameIcon = link?.nameIcon;
   return (
     <NavLink
       key={link.url}
@@ -177,10 +178,7 @@ const ItemNavLink: FC<TItemNavLink> = ({ link }) => {
         return isActive ? { ...activeNavLink } : {};
       }}
     >
-      {getIcon && getIcon()}
-      {link.titleAsElement && (
-        <TitleAsElementWrap Value={link.titleAsElement} />
-      )}
+      {nameIcon && choiceIcon[nameIcon]()}
       {link.title && <span>{link.title}</span>}
     </NavLink>
   );
@@ -188,7 +186,7 @@ const ItemNavLink: FC<TItemNavLink> = ({ link }) => {
 
 const ItemSubNavLink: FC<TItemNavLink> = ({ link }) => {
   const classes = useStyles();
-  const getIcon = link?.getIcon;
+  const nameIcon = link?.nameIcon;
   return (
     <NavLink
       key={link.url}
@@ -198,10 +196,7 @@ const ItemSubNavLink: FC<TItemNavLink> = ({ link }) => {
         return isActive ? { ...activeSubNavLink } : {};
       }}
     >
-      {getIcon && getIcon()}
-      {link.titleAsElement && (
-        <TitleAsElementWrap Value={link.titleAsElement} />
-      )}
+      {nameIcon && choiceIcon[nameIcon]()}
       {link.title && <span>{link.title}</span>}
     </NavLink>
   );

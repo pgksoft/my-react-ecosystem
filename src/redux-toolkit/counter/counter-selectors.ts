@@ -1,11 +1,11 @@
-import { TRootState } from '../../store/store';
+import { TStoreState } from '../../store/store';
 
-const countSelect = (state: TRootState) => {
+const counterValueSelector = (state: TStoreState) => {
   return state.counter.value;
 };
 
-const amountSelect = (state: TRootState) => {
+const counterAmountSelector = (state: TStoreState) => {
   return state.counter.amount;
 };
 
-export { countSelect, amountSelect };
+export { counterValueSelector, counterAmountSelector };

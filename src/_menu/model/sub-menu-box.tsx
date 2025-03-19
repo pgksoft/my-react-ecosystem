@@ -3,12 +3,11 @@ import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
 import { Box, Button, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { TLink } from '../../context/route-context';
 import { COLORS } from '../../_const/colors';
 import { AdaptiveMenu } from '../../domain/_infrastructure/adaptive-menu/adaptive-menu';
 import { isNotVisitorEntityTypes } from '../../domain/users/util/match-name-roles';
 import { getTestUser } from '../../domain/users/util/get-test-user';
-import TitleAsElementWrap from '../../context/ui/TitleAsElementWrap';
+import TLink from '../../domain/_infrastructure/types/t-link';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -96,9 +95,6 @@ export const SubMenuBox: FC<TMeinMenu> = ({ links }) => {
             disabled
             color='secondary'
           >
-            {link.titleAsElement && (
-              <TitleAsElementWrap Value={link.titleAsElement} />
-            )}
             {link.title && link.title}
           </Button>
         );

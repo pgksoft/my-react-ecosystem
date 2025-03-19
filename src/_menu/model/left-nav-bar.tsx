@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Divider,
@@ -13,9 +13,10 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { ListMenu, TSubMenuOpens } from '../ui/list-menu';
 import { getGroupMenuKeys } from '../util/get-group-menu-keys';
 import { LINKS_AUTH_USER } from '../../_route/links';
-import { RouteContext } from '../../context/route-context';
 import { getTestUser } from '../../domain/users/util/get-test-user';
 import { isLinkName } from '../../_route/types/is-link-name';
+import useAppSelector from '../../store/use-app-selector';
+import { appPageLinksValueSelector } from '../../redux-toolkit/app-page-links/app-page-links-selectors';
 
 export const drawerWidthLeft = 300;
 
@@ -46,7 +47,7 @@ export const LeftNavBar: React.FC<TLeftNavBar> = ({ drawerWidth, onClose }) => {
   );
   const [width, setWidth] = useState(0);
 
-  const { activeMainLink } = useContext(RouteContext);
+  const { activeParentLink } = useAppSelector(appPageLinksValueSelector);
   const user = getTestUser();
 
   useEffect(() => {
@@ -57,13 +58,13 @@ export const LeftNavBar: React.FC<TLeftNavBar> = ({ drawerWidth, onClose }) => {
 
   useEffect(() => {
     const activeKey = Object.keys(subMenuOpens).find((key) => {
-      return key === activeMainLink.url;
+      return key === activeParentLink.url;
     });
     if (activeKey) {
       setSubMenuOpens({ ...subMenuOpens, [activeKey]: true });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeMainLink]);
+  }, [activeParentLink]);
 
   return (
     <Drawer

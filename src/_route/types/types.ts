@@ -1,4 +1,4 @@
-import { TLink } from '../../context/route-context';
+import TLink from '../../domain/_infrastructure/types/t-link';
 import BaseLinkNames from './const/base-link-names';
 import FormicLinkNames from './const/formic-link-names';
 import GeniusSpaceCoursesLinkNames from './const/genius-space-courses-link-names';

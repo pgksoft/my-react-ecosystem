@@ -1,4 +1,4 @@
-import { TTypeEntityTypes } from '../../../_const/entities/type-entity';
+import { TTypeEntityTypes } from '../../_infrastructure/types/type-entity';
 import {
   ADMIN_USER_ROLE_NAMES,
   CREATOR_USER_ROLE_NAMES,
