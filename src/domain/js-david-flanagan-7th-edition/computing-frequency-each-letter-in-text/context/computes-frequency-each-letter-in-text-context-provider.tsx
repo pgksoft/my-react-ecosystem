@@ -1,4 +1,11 @@
-import React, { FC, ReactNode, useEffect, useState } from 'react';
+import React, {
+  FC,
+  ReactNode,
+  useEffect,
+  useState,
+  useCallback,
+  useDeferredValue
+} from 'react';
 import { SelectChangeEvent } from '@mui/material/Select';
 import {
   ComputesFrequencyEachLetterInTextContext,
@@ -9,13 +16,13 @@ import ComputesFrequencyEachLetterInText from '../util/computes-frequency-each-l
 
 type TContextProviderProps = { children: ReactNode };
 
-// eslint-disable-next-line prettier/prettier
-export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProviderProps> = ({
-  children
-}) => {
+export const ComputesFrequencyEachLetterInTextContextProvider: FC<
+  TContextProviderProps
+> = ({ children }) => {
   const [text, setText] = useState(
     initComputesFrequencyEachLetterInTextContext.text
   );
+  const deferredText = useDeferredValue(text);
   const [measurementYAxis, setMeasurementYAxis] = useState<TMeasurementYAxis>(
     initComputesFrequencyEachLetterInTextContext.measurementYAxis
   );
@@ -35,9 +42,12 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
     initComputesFrequencyEachLetterInTextContext.rowsPerPage
   );
 
-  const handleChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
-  };
+  const handleChangeText = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setText(e.target.value);
+    },
+    []
+  );
 
   const handleMeasurementYAxis = (
     event: React.MouseEvent<HTMLElement>,
@@ -50,20 +60,21 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<TContextProvid
     setPrecision(Number(event.target.value));
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = useCallback((event: unknown, newPage: number) => {
     setPage(newPage);
-  };
+  }, []);
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  const handleChangeRowsPerPage = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setRowsPerPage(+event.target.value);
+      setPage(0);
+    },
+    []
+  );
 
   useEffect(() => {
-    setDataCharts(ComputesFrequencyEachLetterInText(text, precision));
-  }, [text, precision]);
+    setDataCharts(ComputesFrequencyEachLetterInText(deferredText, precision));
+  }, [deferredText, precision]);
 
   // This is the chart data definition for the page when paginated
   useEffect(() => {
