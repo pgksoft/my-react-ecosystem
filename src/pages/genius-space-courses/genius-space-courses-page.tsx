@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Box, Theme, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { LINKS_AUTH_USER } from '../../_route/links';
-import { usePageContext } from '../hooks/page-context.hook';
+import { useActivePageLinks } from '../hooks/active-page-links.hook';
 import GeniusLogoIcon from './ui/genius-logo-icon';
 import { TITLES_GENIUS_SPACE_COURSES } from '../../domain/genius-space-courses/const/titles';
 
@@ -32,7 +32,7 @@ const GeniusSpaceCoursesPage: FC = () => {
 
   const link = LINKS_AUTH_USER.geniusSpaceCourses;
 
-  usePageContext(link, LINKS_AUTH_USER.geniusSpaceCourses);
+  useActivePageLinks(link, LINKS_AUTH_USER.geniusSpaceCourses);
 
   return (
     <Box className={classes.root} sx={{ overflow: 'auto' }}>

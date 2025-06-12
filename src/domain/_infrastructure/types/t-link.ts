@@ -1,11 +1,11 @@
 import { TIconNames } from '../../../_menu/choice-icon/types/types';
 import { IUserRole } from '../../users/entity/role';
-import { TTypeEntityTypes } from './type-entity';
+import TEntityNameKeys from '../api-platform/app-entities/app-entities-types/t-entity-key-names';
 
 type TLink = {
   title?: string;
-  url: string;
-  entityType?: TTypeEntityTypes;
+  appRoute: string;
+  entityNameKey?: TEntityNameKeys;
   userRoleNames?: IUserRole['name'][];
   subMenuLinks?: TLink[];
   subLinks?: TLink[];

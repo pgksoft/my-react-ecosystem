@@ -5,7 +5,7 @@ import { createStyles, makeStyles } from '@mui/styles';
 import logoPgkSoft from '../_images/author-cv.jpg';
 import logoReact from '../_images/logoReact.svg';
 import { LINKS_AUTH_USER } from '../_route/links';
-import { usePageContext } from './hooks/page-context.hook';
+import { useActivePageLinks } from './hooks/active-page-links.hook';
 import { TITLES_OF_APP } from '../_const/titles-of-app';
 import { COLORS } from '../_const/colors';
 
@@ -58,7 +58,7 @@ export const HomePage: FC = () => {
 
   const link = LINKS_AUTH_USER.home;
 
-  usePageContext(link, LINKS_AUTH_USER.home);
+  useActivePageLinks(link, LINKS_AUTH_USER.home);
 
   return (
     <Box className={classes.root}>

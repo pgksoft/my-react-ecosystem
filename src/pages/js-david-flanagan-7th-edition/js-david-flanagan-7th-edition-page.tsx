@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Box, Typography, Theme, Avatar } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { LINKS_AUTH_USER } from '../../_route/links';
-import { usePageContext } from '../hooks/page-context.hook';
+import { useActivePageLinks } from '../hooks/active-page-links.hook';
 import { TITLES_JS_DAVID_FLANAGAN_7TH_EDITION } from '../../domain/js-david-flanagan-7th-edition/const/titles';
 import SrcIcon from '../../_images/rhinoceros-sondaicus.webp';
 
@@ -31,7 +31,7 @@ export const JsDavidFlanagan7thEditionPage: FC = () => {
 
   const link = LINKS_AUTH_USER.jsDavidFlanagan7thEdition;
 
-  usePageContext(link, LINKS_AUTH_USER.jsDavidFlanagan7thEdition);
+  useActivePageLinks(link, LINKS_AUTH_USER.jsDavidFlanagan7thEdition);
 
   return (
     <Box className={classes.root}>

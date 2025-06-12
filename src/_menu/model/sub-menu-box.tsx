@@ -5,7 +5,7 @@ import { Box, Button, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { COLORS } from '../../_const/colors';
 import { AdaptiveMenu } from '../../domain/_infrastructure/adaptive-menu/adaptive-menu';
-import { isNotVisitorEntityTypes } from '../../domain/users/util/match-name-roles';
+import { isNotVisitorEntity } from '../../domain/users/util/match-name-roles';
 import { getTestUser } from '../../domain/users/util/get-test-user';
 import TLink from '../../domain/_infrastructure/types/t-link';
 
@@ -82,7 +82,7 @@ export const SubMenuBox: FC<TMeinMenu> = ({ links }) => {
 
   const getListSubMenu = (): JSX.Element => {
     const listSubMenu = links.map((link) => {
-      if (link.entityType && isNotVisitorEntityTypes(user, link.entityType))
+      if (link.entityNameKey && isNotVisitorEntity(user, link.entityNameKey))
         return <></>;
       if (link.disable) {
         return (
@@ -105,8 +105,8 @@ export const SubMenuBox: FC<TMeinMenu> = ({ links }) => {
           style={({ isActive }) => {
             return isActive ? { ...activeNavLink } : {};
           }}
-          key={link.url}
-          to={link.url}
+          key={link.appRoute}
+          to={link.appRoute}
         >
           {link.title}
         </NavLink>

@@ -1,9 +1,9 @@
-import React from 'react';
+import { Breakpoint } from '@mui/system';
 
 export type TModalButtonProps = {
   title?: string;
   fullWidth?: boolean;
-  maxWidth?: false | 'md' | 'xs' | 'sm' | 'lg' | 'xl' | undefined;
+  maxWidth?: false | Breakpoint;
   NestedForm?: React.FC<TNestedProps>;
   childrenNestedForm?: React.ReactNode;
   children?: React.ReactNode;

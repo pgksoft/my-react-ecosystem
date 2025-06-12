@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Avatar, Box, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { LINKS_AUTH_USER } from '../../_route/links';
-import { usePageContext } from '../hooks/page-context.hook';
+import { useActivePageLinks } from '../hooks/active-page-links.hook';
 import HtmlCssLogo from '../../_images/genius-space/html+css logo.png';
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -31,7 +31,7 @@ const GeniusSpaceCoursesHtmlCssPage: FC = () => {
 
   const link = LINKS_AUTH_USER.geniusSpaceCoursesHtmlCss;
 
-  usePageContext(link, LINKS_AUTH_USER.geniusSpaceCourses);
+  useActivePageLinks(link, LINKS_AUTH_USER.geniusSpaceCourses);
 
   return (
     <Box className={classes.root}>

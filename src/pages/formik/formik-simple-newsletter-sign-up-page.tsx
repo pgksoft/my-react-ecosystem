@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { SimpleNewsletterSignUpList } from '../../domain/simple-newsletter-sign-up';
 import { LINKS_AUTH_USER } from '../../_route/links';
-import { usePageContext } from '../hooks/page-context.hook';
+import { useActivePageLinks } from '../hooks/active-page-links.hook';
 
 export const FormikSimpleNewsletterSignUpPage = () => {
   const link = LINKS_AUTH_USER.formikSimpleNewsletterSignUp;
   const [show, setShow] = useState(false);
 
-  usePageContext(link, LINKS_AUTH_USER.formik);
+  useActivePageLinks(link, LINKS_AUTH_USER.formik);
 
   useEffect(() => {
     const timer = setTimeout(() => {

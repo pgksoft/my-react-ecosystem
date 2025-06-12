@@ -14,7 +14,7 @@ import { ListMenu, TSubMenuOpens } from '../ui/list-menu';
 import { getGroupMenuKeys } from '../util/get-group-menu-keys';
 import { LINKS_AUTH_USER } from '../../_route/links';
 import { getTestUser } from '../../domain/users/util/get-test-user';
-import { isLinkName } from '../../_route/types/is-link-name';
+import { isLinkName } from '../../_route/route-types/helpers/is-link-name';
 import useAppSelector from '../../store/use-app-selector';
 import { appPageLinksValueSelector } from '../../redux-toolkit/app-page-links/app-page-links-selectors';
 
@@ -58,7 +58,7 @@ export const LeftNavBar: React.FC<TLeftNavBar> = ({ drawerWidth, onClose }) => {
 
   useEffect(() => {
     const activeKey = Object.keys(subMenuOpens).find((key) => {
-      return key === activeParentLink.url;
+      return key === activeParentLink.appRoute;
     });
     if (activeKey) {
       setSubMenuOpens({ ...subMenuOpens, [activeKey]: true });
@@ -104,7 +104,7 @@ export const LeftNavBar: React.FC<TLeftNavBar> = ({ drawerWidth, onClose }) => {
 const initSubMenuOpens = (): TSubMenuOpens => {
   const subMenuOpens: TSubMenuOpens = {};
   getGroupMenuKeys().forEach((key) => {
-    if (isLinkName(key)) subMenuOpens[LINKS_AUTH_USER[key].url] = true;
+    if (isLinkName(key)) subMenuOpens[LINKS_AUTH_USER[key].appRoute] = true;
   });
   return subMenuOpens;
 };
