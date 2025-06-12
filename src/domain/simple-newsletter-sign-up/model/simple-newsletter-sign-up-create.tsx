@@ -3,7 +3,6 @@ import React, { FC, useState } from 'react';
 import clsx from 'clsx';
 import { Box } from '@mui/material';
 import { Field, Formik, FormikProps } from 'formik';
-import { InfoNotifier } from '../../_infrastructure/ui/app-notifiers/info-notifier';
 import { useStylesDialog } from '../../_infrastructure/ui/style/style-dialog';
 import { TITLES_SIMPLE_NEWSLETTER_SING_UP } from '../const/titles';
 import { DefaultButton } from '../../_infrastructure/ui/default-button/default-button';
@@ -14,6 +13,7 @@ import {
 } from '../util/values-for-create';
 import { validateForCreate } from '../util/validate-for-create/validate-for-create';
 import { FormikAppTextField } from '../../_infrastructure/ui/formik-app-mui-components';
+import InfoNotifier from '../../_infrastructure/ui/app-notifiers/info-notifier/info-notifier';
 
 export const SimpleNewsletterSignUpCreate: FC = () => {
   const classes = useStylesDialog();

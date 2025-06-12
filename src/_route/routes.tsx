@@ -13,81 +13,92 @@ import GeniusSpaceCoursesNodeJSPage from '../pages/genius-space-courses/genius-s
 import TicTacToePage from '../pages/genius-space-courses/react/tic-tac-toe-page';
 import ToDoListPage from '../pages/genius-space-courses/react/to-do-list-page';
 import ReduxPracticeCounterPage from '../pages/genius-space-courses/react/redux-practice-counter-page';
+import JsonServerAndAxiosPage from '../pages/genius-space-courses/react/json-server-and-axios-page';
+import GetParameterPopups from '../domain/_infrastructure/get-parameter-popups/model/get-parameter-popups';
 
 export const useRoutes = () => {
   return (
     <>
       <Routes>
-        <Route path={`${LINKS_AUTH_USER.home.url}`} element={<HomePage />} />
+        <Route
+          path={`${LINKS_AUTH_USER.home.appRoute}`}
+          element={<HomePage />}
+        />
 
         <Route
-          path={`${LINKS_AUTH_USER.formik.url}`}
+          path={`${LINKS_AUTH_USER.formik.appRoute}`}
           element={
             <Navigate
-              to={`${LINKS_AUTH_USER.formikSimpleNewsletterSignUp.url}`}
+              to={`${LINKS_AUTH_USER.formikSimpleNewsletterSignUp.appRoute}`}
               replace
             />
           }
         />
         <Route
-          path={`${LINKS_AUTH_USER.formikSimpleNewsletterSignUp.url}`}
+          path={`${LINKS_AUTH_USER.formikSimpleNewsletterSignUp.appRoute}`}
           element={<FormikSimpleNewsletterSignUpPage />}
         />
 
         <Route
-          path={LINKS_AUTH_USER.jsDavidFlanagan7thEdition.url}
+          path={LINKS_AUTH_USER.jsDavidFlanagan7thEdition.appRoute}
           element={<JsDavidFlanagan7thEditionPage />}
         />
         <Route
-          path={LINKS_AUTH_USER.computesFrequencyEachLetterInText.url}
+          path={LINKS_AUTH_USER.computesFrequencyEachLetterInText.appRoute}
           element={<ComputesFrequencyEachLetterInTextPage />}
         />
 
         <Route
-          path={LINKS_AUTH_USER.geniusSpaceCourses.url}
+          path={LINKS_AUTH_USER.geniusSpaceCourses.appRoute}
           element={<GeniusSpaceCoursesPage />}
         />
 
         <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesHtmlCss.url}
+          path={LINKS_AUTH_USER.geniusSpaceCoursesHtmlCss.appRoute}
           element={<GeniusSpaceCoursesHtmlCssPage />}
         />
 
         <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesJS.url}
+          path={LINKS_AUTH_USER.geniusSpaceCoursesJS.appRoute}
           element={<GeniusSpaceCoursesJSPage />}
         />
 
         <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesReact.url}
+          path={LINKS_AUTH_USER.geniusSpaceCoursesReact.appRoute}
           element={<GeniusSpaceCoursesReactPage />}
         />
         <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesReactTicTacToe.url}
+          path={LINKS_AUTH_USER.geniusSpaceCoursesReactTicTacToe.appRoute}
           element={<TicTacToePage />}
         />
         <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesReactToDoList.url}
+          path={LINKS_AUTH_USER.geniusSpaceCoursesReactToDoList.appRoute}
           element={<ToDoListPage />}
         />
         <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesReactReduxPracticeCounter.url}
+          path={
+            LINKS_AUTH_USER.geniusSpaceCoursesReactReduxPracticeCounter.appRoute
+          }
           element={<ReduxPracticeCounterPage />}
+        />
+        <Route
+          path={LINKS_AUTH_USER.geniusSpaceCoursesReactJServerAxios.appRoute}
+          element={<JsonServerAndAxiosPage />}
         />
 
         <Route
-          path={LINKS_AUTH_USER.geniusSpaceCoursesNodeJS.url}
+          path={LINKS_AUTH_USER.geniusSpaceCoursesNodeJS.appRoute}
           element={<GeniusSpaceCoursesNodeJSPage />}
         />
 
         <Route path='*' element={<NotFountPath />} />
       </Routes>
 
-      {/* <GetParameterPopups /> */}
+      <GetParameterPopups />
     </>
   );
 };
 
 const NotFountPath: FC = () => {
-  return <Navigate to={`${LINKS_AUTH_USER.home.url}`} replace />;
+  return <Navigate to={`${LINKS_AUTH_USER.home.appRoute}`} replace />;
 };

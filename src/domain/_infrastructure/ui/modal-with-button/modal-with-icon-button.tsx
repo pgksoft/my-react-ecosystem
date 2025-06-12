@@ -1,12 +1,11 @@
 /* eslint-disable react/require-default-props */
 import React, { FC, ReactNode, useState } from 'react';
-import clsx from 'clsx';
 import { Dialog, IconButton, Tooltip } from '@mui/material';
-import { useStyleIconButton } from '../style/style-icon-button';
 import { TransitionSlideUp } from '../transition-slide-up/transition-slide-up';
 import { COLORS } from '../../../../_const/colors';
 import { TModalButtonProps } from './props-of-modal-with-button';
 import TIconColor from '../../types/t-icon-color';
+import { sxShadowIconButton } from '../style/style-icon-button';
 
 type TIconButtonProps = {
   icon: ReactNode;
@@ -29,8 +28,6 @@ export const ModalWithIconButton: FC<TModalWithIconButtonProps> = ({
   childrenNestedForm,
   children
 }) => {
-  const classesIconButton = useStyleIconButton();
-
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -54,10 +51,7 @@ export const ModalWithIconButton: FC<TModalWithIconButtonProps> = ({
         enterNextDelay={1000}
       >
         <IconButton
-          className={clsx({
-            [classesIconButton.iconButton]: true,
-            [classesIconButton.shadow]: shadow
-          })}
+          sx={shadow ? { ...sxShadowIconButton } : {}}
           onClick={handleOpen}
           size='small'
           disabled={disabled}

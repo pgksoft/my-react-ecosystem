@@ -1,4 +1,4 @@
-import { TMember } from '../../_infrastructure/api-platform';
+import { TMember } from '../../_infrastructure/api-platform/hydra';
 import { IUserRole, isUserRole } from './role';
 
 export interface IUser extends TMember {

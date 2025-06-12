@@ -16,6 +16,7 @@ import { SubMenuBox } from './sub-menu-box';
 import NavigationDefaultGoBackIconButton from '../../domain/_infrastructure/ui/navigation-default-go-back-icon-button/navigation-default-go-back-icon-button';
 import useAppSelector from '../../store/use-app-selector';
 import { appPageLinksValueSelector } from '../../redux-toolkit/app-page-links/app-page-links-selectors';
+import EntityToolbar from '../../domain/_infrastructure/entity-tools/entity-toolbar/model/entity-toolbar';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -105,10 +106,7 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
               size='small'
               color='inherit'
               onClick={onLeftNavBarOpen}
-              sx={{
-                marginRight: 2,
-                ...(openLeft && { display: 'none' })
-              }}
+              sx={{ mr: 2, ...(openLeft && { display: 'none' }) }}
             >
               <MenuIcon />
             </IconButton>
@@ -120,6 +118,9 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
             <Typography variant='h6' sx={{ flexGrow: 1 }}>
               {activeParentLink.title}
             </Typography>
+          )}
+          {activePageLink.entityNameKey && (
+            <EntityToolbar entityNameKey={activePageLink.entityNameKey} />
           )}
         </Toolbar>
         {activeParentLink.subLinks && showSubMenu && (

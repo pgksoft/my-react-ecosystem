@@ -11,12 +11,12 @@ export type TAppPageLinksState = {
 
 const initialActivePageLink: TLink = {
   title: TITLES_OF_APP.title,
-  url: ''
+  appRoute: ''
 };
 
 const initialActiveParentLink: TLink = {
   title: '',
-  url: ''
+  appRoute: ''
 };
 
 export const initialAppPageLinksState: TAppPageLinksState = {

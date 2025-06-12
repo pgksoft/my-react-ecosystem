@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Avatar, Box, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { LINKS_AUTH_USER } from '../../_route/links';
-import { usePageContext } from '../hooks/page-context.hook';
+import { useActivePageLinks } from '../hooks/active-page-links.hook';
 import ReactPageLogo from '../../_images/genius-space/react-page-logo.png';
 import InfoLecturePanel from '../../domain/genius-space-courses/ui/info-lecture-panel';
 import infoLecture00 from '../../domain/genius-space-courses/react/const/info-lecture-00';
@@ -59,7 +59,7 @@ const GeniusSpaceCoursesReactPage: FC = () => {
 
   const link = LINKS_AUTH_USER.geniusSpaceCoursesReact;
 
-  usePageContext(link, LINKS_AUTH_USER.geniusSpaceCourses);
+  useActivePageLinks(link, LINKS_AUTH_USER.geniusSpaceCourses);
 
   return (
     <Box className={classes.root}>

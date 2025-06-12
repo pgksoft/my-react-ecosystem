@@ -14,7 +14,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { IUserRole } from '../../domain/users/entity/role';
 import { LINKS_AUTH_USER } from '../../_route/links';
-import { isLinkName } from '../../_route/types/is-link-name';
+import { isLinkName } from '../../_route/route-types/helpers/is-link-name';
 import { getGroupMenuKeys } from '../util/get-group-menu-keys';
 import { COLORS } from '../../_const/colors';
 import choiceIcon from '../choice-icon/choice-icon';
@@ -103,22 +103,22 @@ export const ListMenu: FC<TListMenu> = ({
         const subMenuLinks = LINKS_AUTH_USER[key]?.subMenuLinks;
         if (!subMenuLinks) {
           return (
-            <ListItem key={LINKS_AUTH_USER[key].url}>
+            <ListItem key={LINKS_AUTH_USER[key].appRoute}>
               <ItemNavLink link={LINKS_AUTH_USER[key]} />
             </ListItem>
           );
         }
         return (
-          <div key={LINKS_AUTH_USER[key].url}>
+          <div key={LINKS_AUTH_USER[key].appRoute}>
             <ListItem key={getRandomUuid()}>
               <ItemNavLink link={LINKS_AUTH_USER[key]} />
               <IconButton
                 sx={{ padding: '4px' }}
                 onClick={() => {
-                  subMenuToggleOpens(LINKS_AUTH_USER[key].url);
+                  subMenuToggleOpens(LINKS_AUTH_USER[key].appRoute);
                 }}
               >
-                {subMenuOpens[LINKS_AUTH_USER[key].url] ? (
+                {subMenuOpens[LINKS_AUTH_USER[key].appRoute] ? (
                   <ExpandLessIcon />
                 ) : (
                   <ExpandMoreIcon />
@@ -126,7 +126,7 @@ export const ListMenu: FC<TListMenu> = ({
               </IconButton>
             </ListItem>
             <Collapse
-              in={subMenuOpens[LINKS_AUTH_USER[key].url]}
+              in={subMenuOpens[LINKS_AUTH_USER[key].appRoute]}
               timeout='auto'
               unmountOnExit
             >
@@ -143,7 +143,7 @@ export const ListMenu: FC<TListMenu> = ({
                   {subMenuLinks.map((link, index) => {
                     return (
                       <>
-                        <ListItem key={link.url} disablePadding>
+                        <ListItem key={link.appRoute} disablePadding>
                           <ItemSubNavLink link={link} />
                         </ListItem>
                         {index !== subMenuLinks?.length - 1 && (
@@ -171,9 +171,9 @@ const ItemNavLink: FC<TItemNavLink> = ({ link }) => {
   const nameIcon = link?.nameIcon;
   return (
     <NavLink
-      key={link.url}
+      key={link.appRoute}
       className={classes.navLink}
-      to={link.url}
+      to={link.appRoute}
       style={({ isActive }) => {
         return isActive ? { ...activeNavLink } : {};
       }}
@@ -189,9 +189,9 @@ const ItemSubNavLink: FC<TItemNavLink> = ({ link }) => {
   const nameIcon = link?.nameIcon;
   return (
     <NavLink
-      key={link.url}
+      key={link.appRoute}
       className={classes.navLink}
-      to={link.url}
+      to={link.appRoute}
       style={({ isActive }) => {
         return isActive ? { ...activeSubNavLink } : {};
       }}

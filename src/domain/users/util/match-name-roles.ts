@@ -1,4 +1,4 @@
-import { TTypeEntityTypes } from '../../_infrastructure/types/type-entity';
+import TEntityNameKeys from '../../_infrastructure/api-platform/app-entities/app-entities-types/t-entity-key-names';
 import {
   ADMIN_USER_ROLE_NAMES,
   CREATOR_USER_ROLE_NAMES,
@@ -7,9 +7,9 @@ import {
 import { IUserRole } from '../entity/role';
 import { IUser } from '../entity/user';
 
-type TNotVisitorEntityTypes = Partial<TTypeEntityTypes>;
+type TNotVisitorEntity = Partial<TEntityNameKeys>;
 
-const notVisitorEntityTypes: TNotVisitorEntityTypes[] = [];
+const notVisitorEntity: TNotVisitorEntity[] = [];
 
 type TIsMatchNameRolesParam = {
   userRoles?: IUserRole[];
@@ -67,15 +67,15 @@ export const isVisitor = (user: IUser | null) => {
   return false;
 };
 
-export const isNotVisitorEntityTypes = (
+export const isNotVisitorEntity = (
   user: IUser | null,
-  entityType: TTypeEntityTypes
+  entityNameKey: TEntityNameKeys
 ) => {
   if (user) {
     return (
       isVisitor(user) &&
-      notVisitorEntityTypes.some((notVisitorEntityType) => {
-        return notVisitorEntityType === entityType;
+      notVisitorEntity.some((notVisitorEntityNameKey) => {
+        return notVisitorEntityNameKey === entityNameKey;
       })
     );
   }

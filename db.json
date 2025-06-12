@@ -1,0 +1,64 @@
+{
+  "contacts": [
+    {
+      "id": "1",
+      "name": "Harry",
+      "lastName": "Potter",
+      "about": "Harry was the only person to have ever survived an attack by Voldemort"
+    },
+    {
+      "id": "2",
+      "name": "Luck",
+      "lastName": "Luke Skywalker",
+      "about": "Jedi, son of Naboo Senator Padmé Amidala Naberrie and Jedi Knight Anakin Skywalker. Older twin brother of Leia Organa Solo."
+    },
+    {
+      "id": "36c3",
+      "name": "123",
+      "lastName": "456",
+      "about": ""
+    },
+    {
+      "id": "7a3c",
+      "name": "1111",
+      "lastName": "222222",
+      "about": ""
+    },
+    {
+      "id": "fc59",
+      "name": "akfdghlaeu",
+      "lastName": ";zdfjlbn;zdflbn",
+      "about": "239085-193846pugh;dfbn;adoihg [aoig[a eorhgaeru"
+    }
+  ],
+  "todos": [
+    {
+      "id": "1",
+      "text": "Eat",
+      "completed": true,
+      "meta": {
+        "author": "John",
+        "createdAt": "today"
+      }
+    },
+    {
+      "id": "2",
+      "text": "Code",
+      "completed": true,
+      "meta": {
+        "author": "Jane",
+        "createdAt": "yesterday"
+      }
+    },
+    {
+      "id": "3",
+      "text": "Sleep",
+      "completed": false
+    },
+    {
+      "id": "4",
+      "text": "Repeat",
+      "completed": false
+    }
+  ]
+}
