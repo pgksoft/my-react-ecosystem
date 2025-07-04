@@ -5,6 +5,7 @@ import { Box, IconButton, Popover, Paper, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { COLORS } from '../../../_const/colors';
+import { getNewMenuState, INewMenu, TMenu } from './helpers/get-new-menu-state';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -50,13 +51,13 @@ const useStyles = makeStyles((theme: Theme) => {
       overflow: 'auto',
       maxHeight: '40vh',
       maxWidth: '70vw',
-      padding: theme.spacing(1)
+      padding: '8px'
     },
     popUpElement: {
       display: 'flex',
       width: '100%',
       '&:not(:lastChild)': {
-        marginBottom: theme.spacing(1)
+        marginBottom: '8px'
       }
     },
     buttonOpenPopup: {
@@ -64,16 +65,6 @@ const useStyles = makeStyles((theme: Theme) => {
     }
   });
 });
-
-type TMenu = {
-  lineItems: JSX.Element[];
-  popUpItems: JSX.Element[];
-};
-
-interface INewMenu {
-  menu: TMenu;
-  isNewMenu: boolean;
-}
 
 interface IProps {
   elements: JSX.Element[];
@@ -99,7 +90,7 @@ export const AdaptiveMenu: React.FC<IProps> = ({
     lineItems: elements,
     popUpItems: []
   });
-  const [withPopUp, setWithPopUp] = useState<Boolean>(false);
+  const [withPopUp, setWithPopUp] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
@@ -204,61 +195,3 @@ export const AdaptiveMenu: React.FC<IProps> = ({
     </Box>
   );
 };
-
-const getListButtonRight = (
-  container: Element,
-  containerX: number,
-  menuKey: string
-): number[] => {
-  const temp: number[] = [];
-  const listButtons = container.querySelectorAll(`[data-name='${menuKey}']`);
-  if (listButtons) {
-    Array.from(listButtons.entries()).forEach((item) => {
-      temp.push(
-        item[1].getBoundingClientRect().x +
-          item[1].getBoundingClientRect().width -
-          containerX
-      );
-    });
-  }
-  return temp;
-};
-
-function getNewMenuState(
-  elements: JSX.Element[],
-  container: HTMLDivElement,
-  menuKey: string
-): INewMenu {
-  let newMenu: INewMenu = {
-    menu: {
-      lineItems: elements,
-      popUpItems: []
-    },
-    isNewMenu: false
-  };
-  const lineContainerRect: DOMRect = container.getBoundingClientRect();
-  const listButtonRight: number[] = getListButtonRight(
-    container,
-    lineContainerRect.x,
-    menuKey
-  );
-  if (listButtonRight[listButtonRight.length - 1] > lineContainerRect.width) {
-    const lineItems: JSX.Element[] = [];
-    const popUpItems: JSX.Element[] = [];
-    listButtonRight.forEach((buttonRight, index) => {
-      if (buttonRight < lineContainerRect.width) {
-        lineItems.push(elements[index]);
-      } else {
-        popUpItems.push(elements[index]);
-      }
-    });
-    newMenu = {
-      menu: {
-        lineItems,
-        popUpItems
-      },
-      isNewMenu: true
-    };
-  }
-  return newMenu;
-}

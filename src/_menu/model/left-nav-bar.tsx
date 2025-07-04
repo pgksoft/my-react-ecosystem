@@ -11,12 +11,10 @@ import { createStyles, makeStyles } from '@mui/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { ListMenu, TSubMenuOpens } from '../ui/list-menu';
-import { getGroupMenuKeys } from '../util/get-group-menu-keys';
-import { LINKS_AUTH_USER } from '../../_route/links';
 import { getTestUser } from '../../domain/users/util/get-test-user';
-import { isLinkName } from '../../_route/route-types/helpers/is-link-name';
 import useAppSelector from '../../store/use-app-selector';
 import { appPageLinksValueSelector } from '../../redux-toolkit/app-page-links/app-page-links-selectors';
+import initSubMenuOpens from '../helpers/init-sub-menu-opens';
 
 export const drawerWidthLeft = 300;
 
@@ -25,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => {
     drawerHeader: {
       display: 'flex',
       alignItems: 'center',
-      padding: theme.spacing(0, 1),
+      padding: '0 8px',
       height: 48,
       justifyContent: 'flex-end',
       transition: '0.2s'
@@ -33,18 +31,17 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 });
 
-type TLeftNavBar = {
+interface TLeftNavBar {
   drawerWidth: number;
   onClose: () => void;
-};
+}
 
 export const LeftNavBar: React.FC<TLeftNavBar> = ({ drawerWidth, onClose }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const [subMenuOpens, setSubMenuOpens] = useState<TSubMenuOpens>(
-    initSubMenuOpens()
-  );
+  const [subMenuOpens, setSubMenuOpens] =
+    useState<TSubMenuOpens>(initSubMenuOpens());
   const [width, setWidth] = useState(0);
 
   const { activeParentLink } = useAppSelector(appPageLinksValueSelector);
@@ -99,12 +96,4 @@ export const LeftNavBar: React.FC<TLeftNavBar> = ({ drawerWidth, onClose }) => {
       />
     </Drawer>
   );
-};
-
-const initSubMenuOpens = (): TSubMenuOpens => {
-  const subMenuOpens: TSubMenuOpens = {};
-  getGroupMenuKeys().forEach((key) => {
-    if (isLinkName(key)) subMenuOpens[LINKS_AUTH_USER[key].appRoute] = true;
-  });
-  return subMenuOpens;
 };

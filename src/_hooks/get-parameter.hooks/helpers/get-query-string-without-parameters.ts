@@ -3,7 +3,7 @@ import TDialogParameters from '../../../domain/_infrastructure/get-parameter-pop
 
 const getQueryStringWithoutParameters = (
   search: string,
-  withoutParameters?: TDialogParameters[]
+  withoutParameters?: TDialogParameters[] | string[]
 ): queryString.ParsedQuery<string> => {
   const query = queryString.parse(search);
   if (withoutParameters && !!withoutParameters.length) {

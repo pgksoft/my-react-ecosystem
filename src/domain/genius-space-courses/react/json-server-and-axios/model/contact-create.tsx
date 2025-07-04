@@ -52,6 +52,7 @@ const ContactCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
   return (
     <>
       <TextFieldInput
+        inputKind='yup'
         fieldName={keyContactDto.name}
         isValid={contactValid.name.valid}
         errorMessage={contactValid.name.errorMsg}
@@ -60,6 +61,7 @@ const ContactCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
         customOnChange={handleContactValueChange}
       />
       <TextFieldInput
+        inputKind='yup'
         fieldName={keyContactDto.lastName}
         isValid={contactValid.lastName.valid}
         errorMessage={contactValid.lastName.errorMsg}
@@ -68,6 +70,7 @@ const ContactCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
         customOnChange={handleContactValueChange}
       />
       <TextFieldInput
+        inputKind='yup'
         fieldName={keyContactDto.about}
         isValid={contactValid.about.valid}
         errorMessage={contactValid.about.errorMsg}

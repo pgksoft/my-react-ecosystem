@@ -11,10 +11,10 @@ import useAppDispatch from '../../../store/use-app-dispatch';
 import { setTableEntityBuilt } from '../../../redux-toolkit/table-entity-built/table-entity-built-slice';
 import { TFlagMutation } from '../../../redux-toolkit/mutation-entities/mutation-entities-actions';
 import { clearMutationEntity } from '../../../redux-toolkit/mutation-entities/mutation-entities-slice';
+import apiEntityUrl from '../api-platform/app-entities/const/api-entity-url';
 
 type TLoadingDataComponentProps<T> = {
   inData: T | null;
-  url: string;
   isShowDataEmptyWarning?: boolean;
   entityNameKey: TEntityNameKeys;
   mutation?: TFlagMutation;
@@ -25,7 +25,6 @@ type TLoadingDataComponentProps<T> = {
 
 function LoadingDataComponent<T>({
   inData,
-  url,
   isShowDataEmptyWarning = false,
   entityNameKey,
   mutation,
@@ -88,8 +87,8 @@ function LoadingDataComponent<T>({
   }, [mutation]);
 
   useEffect(() => {
-    !inData && update({ url });
-  }, [inData, update, url]);
+    !inData && update({ url: apiEntityUrl[`${entityNameKey}`] });
+  }, [entityNameKey, inData, update]);
 
   return (
     <>

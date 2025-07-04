@@ -42,10 +42,10 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 });
 
-type TMainMenuProps = {
+interface TMainMenuProps {
   // eslint-disable-next-line react/require-default-props
   children?: ReactNode;
-};
+}
 
 export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
   const classes = useStyles();

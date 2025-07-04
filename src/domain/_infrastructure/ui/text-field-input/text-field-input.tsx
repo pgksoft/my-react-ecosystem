@@ -2,7 +2,8 @@
 import React from 'react';
 import { TextField, TextFieldProps } from '@mui/material';
 
-type TTextFieldInput = {
+type TTextFieldInputYup = {
+  inputKind: 'yup';
   fieldName: string;
   isValid: boolean;
   errorMessage: string;
@@ -11,36 +12,41 @@ type TTextFieldInput = {
   isIntNumber?: boolean;
 };
 
+type TTextFieldInputMUI = {
+  inputKind: 'mui';
+  customOnChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+type TTextFieldInput = TextFieldProps &
+  (TTextFieldInputYup | TTextFieldInputMUI);
+
 const TextFieldInput: React.FC<TTextFieldInput & TextFieldProps> = (props) => {
-  const {
-    fieldName,
-    isValid,
-    errorMessage,
-    customOnChange,
-    isNumber,
-    isIntNumber,
-    ...rest
-  } = props;
+  const { inputKind, customOnChange, ...rest } = props;
 
   //   const { user } = useContext(AuthContext);
 
   const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let { value } = e.target;
-    if (isNumber || isIntNumber) {
-      value = replaceNumberString(value, true);
+    if (inputKind === 'yup') {
+      const { isNumber, isIntNumber, fieldName } = props;
+      let { value } = e.target;
+      if (isNumber || isIntNumber) {
+        value = replaceNumberString(value, true);
+      }
+      e.target.value = value;
+      customOnChange(fieldName, value);
+    } else {
+      customOnChange(e);
     }
-    e.target.value = value;
-    customOnChange(fieldName, value);
   };
 
   return (
     <TextField
       //   inputProps={{ ...rest?.inputProps, readOnly: isVisitor(user) }}
-      name={fieldName}
+      name={isYupProps(props) ? props.fieldName : rest.name}
       onChange={onChangeValue}
       multiline
-      error={!isValid}
-      helperText={errorMessage}
+      error={isYupProps(props) ? !props.isValid : rest.error}
+      helperText={isYupProps(props) ? props.errorMessage : rest.helperText}
       variant='standard'
       {...rest}
     />
@@ -50,7 +56,7 @@ const TextFieldInput: React.FC<TTextFieldInput & TextFieldProps> = (props) => {
 export default TextFieldInput;
 
 // helpers
-function replaceNumberString(value: string, isIntNumber: boolean): string {
+const replaceNumberString = (value: string, isIntNumber: boolean): string => {
   let regExp = new RegExp(/[^.,\d]/g);
   if (isIntNumber) {
     regExp = new RegExp(/[^\d]/g);
@@ -59,4 +65,10 @@ function replaceNumberString(value: string, isIntNumber: boolean): string {
     .replace(/^0+(?![^\d]|$)/g, '')
     .replace(regExp, '')
     .replace(',', '.');
-}
+};
+
+const isYupProps = (
+  props: TTextFieldInput
+): props is TextFieldProps & TTextFieldInputYup => {
+  return props.inputKind === 'yup';
+};

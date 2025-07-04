@@ -34,7 +34,7 @@ type TContactsViewTableProps = { contacts: IContact[] };
 
 const ContactsViewTable: FC<TContactsViewTableProps> = ({ contacts }) => {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [rowsPerPage, setRowsPerPage] = useState(50);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -51,7 +51,7 @@ const ContactsViewTable: FC<TContactsViewTableProps> = ({ contacts }) => {
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: '80vh' }}>
         <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
