@@ -4,7 +4,7 @@ import {
   DIALOG_CREATE_ROUTES,
   DIALOG_REMOVE_ROUTES
 } from '../../../../_infrastructure/get-parameter-popups';
-import LIST_REFRESH_ROUTES from '../../../../_infrastructure/get-parameter-popups/enity-list-refresh/const/list-refresh-routes';
+import LIST_REFRESH_ROUTES from '../../../../_infrastructure/get-parameter-popups/entity-list-refresh/const/list-refresh-routes';
 import TITLES_CONTACT from './titles';
 
 const CONTACT_TOOLS: TEntityToolList = {};

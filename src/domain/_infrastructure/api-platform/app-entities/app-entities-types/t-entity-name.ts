@@ -1,5 +1,5 @@
 import TCapitalizeFirstLetter from '../../../types/t-capitalize-first-letter';
-import TEntityNameKeys from '../app-entities-types/t-entity-key-names';
+import TEntityNameKeys from './t-entity-key-names';
 
 type TEntityName = TCapitalizeFirstLetter<TEntityNameKeys>;
 

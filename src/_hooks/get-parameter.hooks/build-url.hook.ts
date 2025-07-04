@@ -6,7 +6,7 @@ import getQueryStringWithoutParameters from './helpers/get-query-string-without-
 
 function useBuildUrl(
   getParameters: TGetParameters,
-  withoutParameters?: TDialogParameters[]
+  withoutParameters?: TDialogParameters[] | string[]
 ): string {
   const { pathname, search } = useLocation();
   const query = getQueryStringWithoutParameters(search, withoutParameters);

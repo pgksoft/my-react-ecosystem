@@ -10,9 +10,9 @@ import useBuildUrl from '../../../../_hooks/get-parameter.hooks/build-url.hook';
 import WITHOUT_DIALOG_PARAMETERS from '../const/without-dialog-parameters';
 import setCascadeReturnParameters from '../helpers/set-cascade-return-parameters';
 import CreateDialogWrapper from '../dialog-create/model/create-dialog-wrapper';
-import isListRefreshRoute from '../enity-list-refresh/helpers/is-list-refresh-route';
-import getEntityNameKeyFromListRefreshRoutes from '../enity-list-refresh/helpers/get-entity-name-key-from-list-refresh-routes';
-import EntityListRefreshWrapper from '../enity-list-refresh/model/entity-list-refresh-wrapper';
+import isListRefreshRoute from '../entity-list-refresh/helpers/is-list-refresh-route';
+import getEntityNameKeyFromListRefreshRoutes from '../entity-list-refresh/helpers/get-entity-name-key-from-list-refresh-routes';
+import EntityListRefreshWrapper from '../entity-list-refresh/model/entity-list-refresh-wrapper';
 
 const GetParameterPopups = () => {
   const { mountedPopup, isOpened, id, returnPopup, returnId } =

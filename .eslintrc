@@ -1,11 +1,26 @@
 {
-  "plugins": ["prettier", "@typescript-eslint"],
-  "extends": ["airbnb-typescript", "react-app", "prettier"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "prettier"
+  ],
+  "extends": [
+    "airbnb-typescript", // строгие правила + import
+    "plugin:react/recommended", // react best-practice
+    "plugin:react-hooks/recommended", // для useEffect, useMemo
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/stylistic",
+    "prettier" // отключение конфликтующих правил
+  ],
   "settings": {
+    "react": {
+      "version": "detect"
+    },
     "import/resolver": {
       "typescript": {
         "alwaysTryTypes": true
@@ -13,7 +28,14 @@
     }
   },
   "rules": {
-    "object-curly-spacing": ["warn", "always"],
+    "@typescript-eslint/consistent-type-definitions": [
+      "warn",
+      "type"
+    ],
+    "object-curly-spacing": [
+      "warn",
+      "always"
+    ],
     "no-unused-vars": [
       "warn",
       {
@@ -83,7 +105,19 @@
       }
     ],
     "no-console": 1,
-    "arrow-body-style": ["error", "always"],
-    "@typescript-eslint/no-shadow": ["off"]
+    "arrow-body-style": [
+      "error",
+      "always"
+    ],
+    "@typescript-eslint/no-shadow": [
+      "off"
+    ],
+    "no-unused-expressions": [
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true,
+        "allowTaggedTemplates": true
+      }
+    ]
   }
 }

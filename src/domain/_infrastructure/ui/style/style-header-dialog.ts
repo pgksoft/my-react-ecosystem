@@ -11,8 +11,8 @@ const styleHeaderDialog = makeStyles((theme: Theme) => {
       alignItems: 'flex-start',
       marginBottom: '12px',
       padding: '4px',
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
+      paddingLeft: '8px',
+      paddingRight: '8px',
       boxSizing: 'border-box',
       borderBottom: '1px solid gray'
     },

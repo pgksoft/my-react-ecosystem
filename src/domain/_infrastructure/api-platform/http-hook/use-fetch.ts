@@ -5,7 +5,7 @@ import {
   TAxiosParam
 } from './http-helpers/mutation-response';
 
-axios.defaults.baseURL = 'http://192.168.0.100:3030/';
+axios.defaults.baseURL = 'http://192.168.0.101:3030/';
 
 type TUseFetch<T> = {
   data: T | null;

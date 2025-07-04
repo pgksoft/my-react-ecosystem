@@ -19,8 +19,8 @@ const useStyle = makeStyles((theme: Theme) => {
       alignItems: 'center',
       width: '100%',
       '& > div': {
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1)
+        paddingLeft: '8px',
+        paddingRight: '8px'
       }
     }
   });
