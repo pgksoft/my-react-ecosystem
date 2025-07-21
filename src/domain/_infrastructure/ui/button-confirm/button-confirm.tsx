@@ -1,29 +1,18 @@
 /* eslint-disable react/require-default-props */
 import React, { FC } from 'react';
-import { Box, IconButton, Theme } from '@mui/material';
-import { createStyles, makeStyles } from '@mui/styles';
+import { Box, IconButton } from '@mui/material';
 import SaveIcon from '@mui/icons-material/Save';
 import { DefaultButton } from '../default-button/default-button';
 import TITLES_BUTTON_CONFIRM from './const';
-import useStylesPopupDialog from '../style/styles-popup-dialog';
+import { useStylesDialog } from '../style/style-dialog';
+import { COLORS } from '../../../../_const/colors';
 
-const useStyles = makeStyles((theme: Theme) => {
-  return createStyles({
-    iconButton: {
-      color: 'rgb(57, 203, 127)',
-      '&:disable': {
-        color: 'rgb(126, 126, 126)'
-      }
-    }
-  });
-});
-
-interface IButtonConfirm {
+type IButtonConfirm = {
   disabled: boolean;
   onClick: () => void;
   title?: string;
   isIconButton?: boolean;
-}
+};
 
 export const ButtonConfirm: FC<IButtonConfirm> = ({
   disabled,
@@ -31,16 +20,29 @@ export const ButtonConfirm: FC<IButtonConfirm> = ({
   title = TITLES_BUTTON_CONFIRM.create,
   isIconButton
 }) => {
-  const classes = useStylesPopupDialog();
-  const classesLocal = useStyles();
+  const classes = useStylesDialog();
 
   if (isIconButton) {
     return (
       <IconButton
+        aria-label='confirm'
         disabled={disabled}
         onClick={onClick}
         size='small'
-        className={classesLocal.iconButton}
+        sx={{
+          boxSizing: 'border-box',
+          color: `${COLORS.green}`,
+          '&:disable': {
+            color: `${COLORS.gray}`
+          },
+          '&:hover': {
+            '&.MuiIconButton-root': {
+              backgroundColor: `${COLORS.green}`,
+              color: `${COLORS.white}`
+            },
+            color: '#fff'
+          }
+        }}
       >
         <SaveIcon />
       </IconButton>
@@ -49,7 +51,7 @@ export const ButtonConfirm: FC<IButtonConfirm> = ({
   return (
     <Box className={classes.boxFooter}>
       <DefaultButton
-        className={classes.colorPrimary}
+        sx={{ color: COLORS.primaryLight }}
         disabled={disabled}
         variant='contained'
         onClick={onClick}

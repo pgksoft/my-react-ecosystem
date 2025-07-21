@@ -4,15 +4,25 @@ import { TGetParameters } from './get-parameters-type/t-get-parameters';
 import TDialogParameters from '../../domain/_infrastructure/get-parameter-popups/types-parameters-popup/t-dialog-parameters';
 import getQueryStringWithoutParameters from './helpers/get-query-string-without-parameters';
 
-function useBuildUrl(
-  getParameters: TGetParameters,
-  withoutParameters?: TDialogParameters[] | string[]
-): string {
+type TBuildUrlProps = {
+  getParameters: TGetParameters;
+  whatQueryIs?: 'search & getParameters' | 'only getParameters';
+  withoutParameters?: TDialogParameters[] | string[];
+};
+
+function useBuildUrl({
+  getParameters,
+  whatQueryIs = 'search & getParameters',
+  withoutParameters
+}: TBuildUrlProps): string {
   const { pathname, search } = useLocation();
   const query = getQueryStringWithoutParameters(search, withoutParameters);
   return queryString.stringifyUrl({
     url: pathname,
-    query: { ...query, ...getParameters }
+    query:
+      whatQueryIs === 'search & getParameters'
+        ? { ...query, ...getParameters }
+        : { ...getParameters }
   });
 }
 

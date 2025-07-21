@@ -5,13 +5,15 @@ import { keyContactDto } from '../entity/contacts';
 import TITLES_CONTACT from './titles';
 
 const contactsTableSchema: TTableSchema = [
+  { title: '', type: ColumnType.null, key: getRandomUuid(), dataKey: 'id' },
   {
     title: TITLES_CONTACT.name,
     type: ColumnType.search,
     key: getRandomUuid(),
     dataKey: keyContactDto.name,
     isSort: true,
-    valueSearch: ''
+    valueSearch: '',
+    sx: { width: '15%' }
   },
   {
     title: TITLES_CONTACT.lastName,
@@ -19,7 +21,8 @@ const contactsTableSchema: TTableSchema = [
     key: getRandomUuid(),
     dataKey: keyContactDto.lastName,
     isSort: true,
-    valueSearch: ''
+    valueSearch: '',
+    sx: { width: '20%' }
   },
   {
     title: TITLES_CONTACT.about,

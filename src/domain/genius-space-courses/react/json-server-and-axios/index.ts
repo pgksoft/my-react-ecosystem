@@ -1,3 +1,3 @@
-import choiceContactCrate from './const/choice-contact-create';
+import choiceContactCreate from './const/choice-contact-create';
 
-export { choiceContactCrate };
+export { choiceContactCreate as choiceContactCrate };

@@ -1,5 +1,10 @@
 import { object, ObjectSchema } from 'yup';
-import { keyContactDto, TKeyContactDto, TValueContactDto } from './contacts';
+import {
+  keyContactDto,
+  TContactDto,
+  TKeyContactDto,
+  TValueContactDto
+} from './contacts';
 import {
   aboutValidationSchema,
   lastNameValidationSchema,
@@ -9,10 +14,11 @@ import {
 import TValidate, {
   initialValidate
 } from '../../../../_infrastructure/types/t-validate';
+import { TValidField } from '../../../../_infrastructure/yup/types';
 
 type TContactDtoValid = Record<TKeyContactDto, TValidate>;
 
-const getInitialContactDtoValid = (): TContactDtoValid => {
+const getInitialContactDtoValid = (): TValidField<TContactDto> => {
   return {
     name: initialValidate,
     lastName: initialValidate,
@@ -20,16 +26,21 @@ const getInitialContactDtoValid = (): TContactDtoValid => {
   };
 };
 
-type TSchema = Record<TKeyContactDto, TValueContactDto>;
+type TContactValidateSchema = Record<TKeyContactDto, TValueContactDto>;
 
-const getContactValidationSchema = (): ObjectSchema<TSchema> => {
+const getContactValidationSchema = (): ObjectSchema<TContactValidateSchema> => {
   return object({
     [keyContactDto.name]: nameValidationSchema,
     [keyContactDto.lastName]: lastNameValidationSchema,
     [keyContactDto.about]: aboutValidationSchema
-  }) as ObjectSchema<TSchema>;
+  }) as ObjectSchema<TContactValidateSchema>;
 };
 
-export type { TContactDtoValid, TKeyContactDto, TValueContactDto };
+export type {
+  TContactValidateSchema,
+  TContactDtoValid,
+  TKeyContactDto,
+  TValueContactDto
+};
 
 export { getInitialContactDtoValid, getContactValidationSchema, keyContactDto };

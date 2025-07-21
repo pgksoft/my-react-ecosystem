@@ -1,14 +1,14 @@
 /* eslint-disable react/require-default-props */
 import React, { CSSProperties, ReactNode } from 'react';
-import clsx from 'clsx';
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { DefaultButton } from '../default-button/default-button';
-import useStylesPopupDialog from '../style/styles-popup-dialog';
+import { useStylesDialog } from '../style/style-dialog';
+import { COLORS } from '../../../../_const/colors';
 
 const OK_TITLE = 'Так';
 const CANCEL_TITLE = 'Ні';
 
-interface IProps {
+type IProps = {
   children?: ReactNode;
   title?: string;
   ComponentTitle?: JSX.Element;
@@ -23,7 +23,7 @@ interface IProps {
   modeInfo?: boolean;
   backdropStyle?: CSSProperties;
   paperStyle?: CSSProperties;
-}
+};
 
 export const ConfirmDialog: React.FC<IProps> = ({
   children,
@@ -41,10 +41,10 @@ export const ConfirmDialog: React.FC<IProps> = ({
   backdropStyle,
   paperStyle
 }) => {
-  const classes = useStylesPopupDialog();
+  const classes = useStylesDialog();
 
   const handleClose = (
-    event: {},
+    event: object,
     reason: 'backdropClick' | 'escapeKeyDown'
   ) => {
     if (reason !== 'backdropClick') {
@@ -60,8 +60,14 @@ export const ConfirmDialog: React.FC<IProps> = ({
       aria-labelledby='confirm-dialog'
       fullWidth={fullWidth}
       maxWidth={maxWidth}
-      BackdropProps={{ style: backdropStyle }}
-      PaperProps={{ style: paperStyle }}
+      slotProps={{
+        backdrop: {
+          sx: backdropStyle
+        },
+        paper: {
+          sx: paperStyle
+        }
+      }}
     >
       {ComponentTitle}
       {title && (
@@ -76,10 +82,7 @@ export const ConfirmDialog: React.FC<IProps> = ({
             <DefaultButton
               variant='contained'
               onClick={onClose}
-              className={clsx({
-                [classes.colorGreen]: modeInfo,
-                [classes.colorSecondary]: !modeInfo
-              })}
+              sx={{ color: (modeInfo && COLORS.green) || COLORS.secondary }}
             >
               {cancelTitle}
             </DefaultButton>
@@ -89,7 +92,7 @@ export const ConfirmDialog: React.FC<IProps> = ({
               onClick={(event) => {
                 onConfirm();
               }}
-              className={classes.colorGreen}
+              sx={{ color: COLORS.green }}
             >
               {okTitle}
             </DefaultButton>

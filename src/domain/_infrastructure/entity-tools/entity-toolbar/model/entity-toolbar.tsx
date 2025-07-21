@@ -8,17 +8,26 @@ import TEntityToolPopup from '../../entity-tools-types/t-entity-tool-popup';
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import useAppSelector from '../../../../../store/use-app-selector';
 import { tableEntityBuiltSelector } from '../../../../../redux-toolkit/table-entity-built/table-entity-built-selectors';
+import { selectedEntityItemsSelector } from '../../../../../redux-toolkit/selected-entity-items/selected-entity-items-selectors';
+import { generateButtonDisabledStrategyMap } from '../helpers/generate-button-disabled-strategy-map';
 
 type TEntityToolbarProps = { entityNameKey: TEntityNameKeys };
 
 const EntityToolbar: FC<TEntityToolbarProps> = ({ entityNameKey }) => {
   const built = useAppSelector(tableEntityBuiltSelector)[entityNameKey];
+  const selectedEntityItems = useAppSelector(selectedEntityItemsSelector)[
+    entityNameKey
+  ];
 
   if (!built || built === 'no') return null;
 
   const entityTools = CHOICE_ENTITY_TOOL_LIST[entityNameKey];
 
   if (!entityTools) return null;
+
+  const buttonDisabledStrategyMap = generateButtonDisabledStrategyMap(
+    (selectedEntityItems && selectedEntityItems.length) || 0
+  );
 
   return (
     <Toolbar
@@ -38,10 +47,9 @@ const EntityToolbar: FC<TEntityToolbarProps> = ({ entityNameKey }) => {
           return (
             <EntityToolIconButton
               key={`${entityNameKey}-${toolName}`}
-              entityNameKey={entityNameKey}
-              toolName={toolName}
               toolPopup={toolPopup}
               getIcon={ChoiceEntityToolIcon[toolName]}
+              disabled={buttonDisabledStrategyMap[toolName]}
             />
           );
         })}

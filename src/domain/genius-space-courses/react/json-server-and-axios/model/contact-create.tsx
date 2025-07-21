@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
-import { ValidationError } from 'yup';
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+import React, { FC } from 'react';
 import ICreateDialog from '../../../../_infrastructure/get-parameter-popups/dialog-create/t-choice-popup-create/i-create-dialog';
 import { getInitialContactDto, TContactDto } from '../entity/contacts';
 import TextFieldInput from '../../../../_infrastructure/ui/text-field-input/text-field-input';
@@ -8,75 +8,50 @@ import {
   getContactValidationSchema,
   getInitialContactDtoValid,
   keyContactDto,
-  TContactDtoValid
+  TContactValidateSchema
 } from '../entity/validation-schema';
+import useDtoValidation from '../../../../_infrastructure/yup/dto-validation.hook';
+import useFormResetSync from '../../../../_infrastructure/form/form-reset-sync.hook';
 
 const ContactCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
-  const [contact, setContact] = useState<TContactDto>(getInitialContactDto);
-  const [contactValid, setContactValid] = useState<TContactDtoValid>(
-    getInitialContactDtoValid
-  );
-
-  const handleContactValueChange = async (
-    fieldName: string,
-    value: unknown
-  ) => {
-    const schema = getContactValidationSchema();
-    const newContact = { ...contact, [fieldName]: value };
-    setContact(newContact);
-    schema
-      .validate(newContact, { abortEarly: false })
-      .then(() => {
-        setContactValid(getInitialContactDtoValid());
-      })
-      .catch((err: ValidationError) => {
-        const errors = err.inner.reduce((acc, curVal) => {
-          const tempValidate = {
-            [`${curVal.path}`]: { valid: false, errorMsg: curVal.message }
-          };
-          return { ...acc, ...tempValidate };
-        }, {});
-        setContactValid({ ...getInitialContactDtoValid(), ...errors });
-      });
-  };
-
-  useEffect(() => {
-    const schema = getContactValidationSchema();
-    schema.isValid(contact).then((valid) => {
-      if (valid) {
-        valid && onCreateDtoReady(JSON.stringify(contact));
-      }
+  const { dto, dtoValid, handleValueChange, reset, isModified } =
+    useDtoValidation<TContactDto, TContactValidateSchema>({
+      initialDto: getInitialContactDto,
+      initDtoValid: getInitialContactDtoValid,
+      getSchema: getContactValidationSchema,
+      onValidDtoReady: onCreateDtoReady
     });
-  }, [contact, onCreateDtoReady]);
+
+  useFormResetSync(reset, isModified);
 
   return (
     <>
       <TextFieldInput
         inputKind='yup'
         fieldName={keyContactDto.name}
-        isValid={contactValid.name.valid}
-        errorMessage={contactValid.name.errorMsg}
+        isValid={dtoValid.name.valid}
+        errorMessage={dtoValid.name.errorMsg}
         label={TITLES_CONTACT.name}
-        value={contact.name}
-        customOnChange={handleContactValueChange}
+        value={dto.name}
+        customOnChange={handleValueChange}
       />
       <TextFieldInput
         inputKind='yup'
         fieldName={keyContactDto.lastName}
-        isValid={contactValid.lastName.valid}
-        errorMessage={contactValid.lastName.errorMsg}
+        isValid={dtoValid.lastName.valid}
+        errorMessage={dtoValid.lastName.errorMsg}
         label={TITLES_CONTACT.lastName}
-        value={contact.lastName}
-        customOnChange={handleContactValueChange}
+        value={dto.lastName}
+        customOnChange={handleValueChange}
       />
       <TextFieldInput
         inputKind='yup'
         fieldName={keyContactDto.about}
-        isValid={contactValid.about.valid}
-        errorMessage={contactValid.about.errorMsg}
+        isValid={dtoValid.about.valid}
+        errorMessage={dtoValid.about.errorMsg}
         label={TITLES_CONTACT.about}
-        value={contact.about}
-        customOnChange={handleContactValueChange}
+        value={dto.about}
+        customOnChange={handleValueChange}
       />
     </>
   );
