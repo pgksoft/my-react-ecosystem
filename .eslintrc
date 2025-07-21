@@ -10,12 +10,14 @@
     "prettier"
   ],
   "extends": [
-    "airbnb-typescript", // строгие правила + import
+    "airbnb-typescript", // strict rules + import
     "plugin:react/recommended", // react best-practice
-    "plugin:react-hooks/recommended", // для useEffect, useMemo
+    "plugin:react-hooks/recommended", // for useEffect, useMemo
+    "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
     "plugin:@typescript-eslint/stylistic",
-    "prettier" // отключение конфликтующих правил
+    "prettier" // disabling conflicting rules
   ],
   "settings": {
     "react": {
@@ -113,10 +115,20 @@
       "off"
     ],
     "no-unused-expressions": [
+      "off",
       {
         "allowShortCircuit": true,
         "allowTernary": true,
         "allowTaggedTemplates": true
+      }
+    ],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": [
+          "state"
+        ] // allows changing «state»
       }
     ]
   }

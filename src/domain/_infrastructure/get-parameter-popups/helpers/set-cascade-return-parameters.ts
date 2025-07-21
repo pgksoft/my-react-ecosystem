@@ -7,30 +7,23 @@ type TSetCascadeReturnParametersInput = {
   returnParameters: TGetParameters;
   listSearchParameters: TGetParameters;
   returnPopup: string;
-  returnId: string;
 };
 
 const setCascadeReturnParameters = ({
   returnParameters,
   listSearchParameters,
-  returnPopup,
-  returnId
+  returnPopup
 }: TSetCascadeReturnParametersInput): void => {
   if (returnPopup) {
-    checkReturnParameters.Push({ returnPopup, returnId });
-    setReturnParameters(returnParameters, returnPopup, returnId);
+    checkReturnParameters.Push({ returnPopup });
+    setReturnParameters(returnParameters, returnPopup);
     setListSearchParameters(listSearchParameters, returnPopup);
   }
 
   if (!returnPopup) {
-    const { returnPopup: cascadeReturnPopup, returnId: cascadeReturnId } =
-      checkReturnParameters.Get();
+    const { returnPopup: cascadeReturnPopup } = checkReturnParameters.Get();
     if (cascadeReturnPopup) {
-      setReturnParameters(
-        returnParameters,
-        cascadeReturnPopup,
-        cascadeReturnId
-      );
+      setReturnParameters(returnParameters, cascadeReturnPopup);
       setListSearchParameters(listSearchParameters, cascadeReturnPopup);
     }
   }

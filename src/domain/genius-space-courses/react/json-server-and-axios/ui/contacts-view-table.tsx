@@ -7,10 +7,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import IContact from '../entity/contacts';
+import TContact from '../entity/contacts';
 
 interface Column {
-  id: keyof IContact;
+  id: keyof TContact;
   label: string;
   minWidth?: number;
   align?: 'left';
@@ -30,7 +30,7 @@ const columns: readonly Column[] = [
   }
 ];
 
-type TContactsViewTableProps = { contacts: IContact[] };
+type TContactsViewTableProps = { contacts: TContact[] };
 
 const ContactsViewTable: FC<TContactsViewTableProps> = ({ contacts }) => {
   const [page, setPage] = useState(0);

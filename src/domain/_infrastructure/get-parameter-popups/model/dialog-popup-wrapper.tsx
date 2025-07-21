@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react/require-default-props */
 import React, { FC, ReactNode, useCallback } from 'react';
 import { Breakpoint } from '@mui/system';
@@ -29,7 +30,7 @@ const DialogPopupWrapper: FC<TDialogPopupWrapperProps> = ({
   const appDispatch = useAppDispatch();
 
   const handleClose = useCallback(
-    (event: {}, reason: 'backdropClick' | 'escapeKeyDown') => {
+    (event: object, reason: 'backdropClick' | 'escapeKeyDown') => {
       if (reason !== 'backdropClick') {
         checkReturnParameters.Pop();
         entityDialogsFieldsKey &&

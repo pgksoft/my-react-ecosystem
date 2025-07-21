@@ -1,6 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 
-/* eslint-disable no-param-reassign */
 export type TCounterState = {
   value: number;
   amount: number;

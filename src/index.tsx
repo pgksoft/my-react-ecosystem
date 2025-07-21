@@ -7,21 +7,24 @@ import reportWebVitals from './reportWebVitals';
 import { ErrorBoundary } from './domain/_infrastructure/error-boundary/error-boundary';
 import { store } from './store/store';
 
+const container = document.getElementById('root') as HTMLElement;
+container.style.overflow = 'hidden';
+
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-  // <ErrorBoundary>
-  //   <ReduxProvider store={store}>
-  //     <App />
-  //   </ReduxProvider>
-  // </ErrorBoundary>
+  <ErrorBoundary>
+    <ReduxProvider store={store}>
+      <App />
+    </ReduxProvider>
+  </ErrorBoundary>
 
-  <React.StrictMode>
-    <ErrorBoundary>
-      <ReduxProvider store={store}>
-        <App />
-      </ReduxProvider>
-    </ErrorBoundary>
-  </React.StrictMode>
+  // <React.StrictMode>
+  //   <ErrorBoundary>
+  //     <ReduxProvider store={store}>
+  //       <App />
+  //     </ReduxProvider>
+  //   </ErrorBoundary>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

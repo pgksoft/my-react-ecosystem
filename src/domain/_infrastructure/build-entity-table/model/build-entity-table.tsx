@@ -11,36 +11,38 @@ import transformDataBySchema from '../helpers/transform-data-by-schema';
 import LoadingDataComponent from '../../loading-data-component/loading-data-component';
 import isEntityMemberArray from '../helpers/is-entity-member-array';
 import BuildDataTable from './build-data-table/build-data-table';
+import { IEntityMember } from '../../api-platform/app-entities/entity-member/entity-member';
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    height: '100%'
+    height: '100%',
+    overflow: 'hidden'
   },
   container: {
     overflow: 'auto'
   }
 });
 
-interface TBuildTable {
+type TBuildTable = {
   entityNameKey: TEntityNameKeys;
   tableSchema: TTableSchema;
   returnPopup?: string;
-}
+};
 
 const BuildEntityTable: FC<TBuildTable> = (props) => {
   const { entityNameKey, tableSchema, returnPopup } = props;
 
   const classes = useStyles();
 
-  const [entityData, setEntityData] = useState<TDataTable | null>(null);
+  const [entityData, setEntityData] = useState<IEntityMember[] | null>(null);
   const [tableData, setTableData] = useState<TDataTable>([]);
 
   const mutation = useAppSelector(mutationEntitySelector)[entityNameKey];
 
-  const containerHeight = '100%'; // later to account for the display of the validation panel
+  const containerHeight = '80vh'; // later to account for the display of the validation panel
 
-  const onEntityDataLoaded = (data: TDataTable | null) => {
+  const onEntityDataLoaded = (data: IEntityMember[] | null) => {
     setEntityData(data);
   };
 
@@ -60,15 +62,12 @@ const BuildEntityTable: FC<TBuildTable> = (props) => {
         isShowDataEmptyWarning
       />
       <Paper className={classes.root}>
-        <TableContainer
-          className={classes.container}
-          sx={{ h: containerHeight }}
-        >
+        <TableContainer sx={{ height: containerHeight }}>
           {isEntityMemberArray(entityData) && (
             <BuildDataTable
               entityNameKey={entityNameKey}
               tableSchema={tableSchema}
-              tableData={tableData}
+              dataTable={tableData}
               entityData={entityData}
               returnPopup={returnPopup}
             />

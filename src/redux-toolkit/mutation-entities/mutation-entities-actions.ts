@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { PayloadAction } from '@reduxjs/toolkit';
 import TEntityNameKeys from '../../domain/_infrastructure/api-platform/app-entities/app-entities-types/t-entity-key-names';
 import { entityNameKeysList } from '../../domain/_infrastructure/api-platform/app-entities/helpers/entity-name-key-list';

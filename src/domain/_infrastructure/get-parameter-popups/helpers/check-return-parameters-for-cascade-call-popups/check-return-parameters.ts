@@ -1,6 +1,5 @@
 type TPopupReturnParam = {
   returnPopup?: string;
-  returnId?: string;
 };
 
 class CheckReturnParameters {

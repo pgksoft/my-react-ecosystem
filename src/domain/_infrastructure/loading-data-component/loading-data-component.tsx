@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react/require-default-props */
 import React, { useEffect, useState } from 'react';
 import useFetch from '../api-platform/http-hook/use-fetch';

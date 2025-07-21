@@ -20,7 +20,7 @@ import EntityToolbar from '../../domain/_infrastructure/entity-tools/entity-tool
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
-    root: { display: 'flex' },
+    root: { display: 'flex', overflow: 'hidden' },
     appBar: {
       transition: '.2s',
       background: COLORS.primaryMain
@@ -42,10 +42,10 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 });
 
-interface TMainMenuProps {
+type TMainMenuProps = {
   // eslint-disable-next-line react/require-default-props
   children?: ReactNode;
-}
+};
 
 export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
   const classes = useStyles();
@@ -88,7 +88,7 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
   }, [isAuthenticated]);
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} aria-description='main-menu'>
       <CssBaseline />
       <AppBar
         position='fixed'

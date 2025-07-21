@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react/require-default-props */
 import React, { FC, useCallback, useState } from 'react';
 import { Box } from '@mui/material';
@@ -9,12 +10,13 @@ import { TEntityDialogsFieldsKey } from '../../../../../redux-toolkit/entity-dia
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import { clearEntityDialogsFields } from '../../../../../redux-toolkit/entity-dialogs-fields-values/entity-dialogs-fields-values-slice';
 import { setMutationEntity } from '../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
-import HeaderOfPopupDialog from '../../../header-of-popup-dialog/header-of-popup-dialog';
+import PopupDialogHeader from '../../../popup-dialog-header/popup-dialog-header';
 import { ButtonConfirm } from '../../../ui/button-confirm/button-confirm';
 import EntityMutationAlertDialog from '../../entity-mutation-alert-dialog/entity-mutation-alert-dialog';
 import { ConfirmDialog } from '../../../ui/confirm-dialog/confirm-dialog';
 import checkReturnParameters from '../../helpers/check-return-parameters-for-cascade-call-popups/check-return-parameters';
 import ICreateDialog from '../t-choice-popup-create/i-create-dialog';
+import useConfirmDialogWrapper from '../../hooks/confirm-dialog-wrapper.hook';
 
 type TCreateDialogWrapperProps = {
   ComponentCreate: IPopupCreate;
@@ -34,18 +36,21 @@ const CreateDialogWrapper: FC<TCreateDialogWrapperProps> = (props) => {
   } = props;
 
   const [createDto, setCreateDto] = useState<string | null>(null);
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [isConfirm, setIsConfirm] = useState(false);
+
+  const {
+    confirmOpen,
+    isConfirm,
+    handleClose,
+    handleConfirm,
+    handleCloseInConfirmDialog,
+    handleConfirmInConfirmDialog
+  } = useConfirmDialogWrapper();
 
   const appDispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onCloseError = useCallback(() => {
-    setIsConfirm(false);
-  }, []);
-
-  const onSuccess = useCallback(() => {
-    setIsConfirm(false);
+  const handleSuccess = useCallback(() => {
+    handleClose();
     setCreateDto(null);
     entityDialogsFieldsKey &&
       appDispatch(clearEntityDialogsFields(entityDialogsFieldsKey));
@@ -58,17 +63,18 @@ const CreateDialogWrapper: FC<TCreateDialogWrapperProps> = (props) => {
     appDispatch,
     entityDialogsFieldsKey,
     entityNameKeyPopup,
+    handleClose,
     navigate,
     returnUrl
   ]);
 
-  const onClose = useCallback(() => {
+  const handlePopupHeaderClose = useCallback(() => {
     entityDialogsFieldsKey &&
       appDispatch(clearEntityDialogsFields(entityDialogsFieldsKey));
     checkReturnParameters.Pop();
   }, [appDispatch, entityDialogsFieldsKey]);
 
-  const onCreateDtoReady = useCallback<ICreateDialog['onCreateDtoReady']>(
+  const handleCreateDtoReady = useCallback<ICreateDialog['onCreateDtoReady']>(
     (dto = null) => {
       setCreateDto(dto);
     },
@@ -77,44 +83,35 @@ const CreateDialogWrapper: FC<TCreateDialogWrapperProps> = (props) => {
 
   return (
     <>
-      <HeaderOfPopupDialog
+      <PopupDialogHeader
         title={ComponentCreate.title}
         returnUrl={returnUrl}
-        onClose={onClose}
+        onClose={handlePopupHeaderClose}
+        isConfirm={false}
       />
       <Box
         className={classes.rootPopupDialog}
         style={{ flexDirection: 'column' }}
       >
-        <ComponentCreate.Component onCreateDtoReady={onCreateDtoReady} />
+        <ComponentCreate.Component onCreateDtoReady={handleCreateDtoReady} />
         {!isConfirm && (
-          <ButtonConfirm
-            disabled={!createDto}
-            onClick={() => {
-              setConfirmOpen(true);
-            }}
-          />
+          <ButtonConfirm disabled={!createDto} onClick={handleConfirm} />
         )}
         {isConfirm && !!createDto && (
           <Box className={classes.boxFooter}>
             <EntityMutationAlertDialog
               url={ComponentCreate.url}
               dto={createDto}
-              onCloseSuccess={onSuccess}
-              onCloseError={onCloseError}
+              onCloseSuccess={handleSuccess}
+              onCloseError={handleClose}
               titleSuccess={ComponentCreate.titleSuccess}
             />
           </Box>
         )}
         <ConfirmDialog
           open={confirmOpen}
-          onClose={() => {
-            setConfirmOpen(false);
-          }}
-          onConfirm={() => {
-            setConfirmOpen(false);
-            setIsConfirm(true);
-          }}
+          onClose={handleCloseInConfirmDialog}
+          onConfirm={handleConfirmInConfirmDialog}
           title={ComponentCreate.createConfirmTitle}
         />
       </Box>

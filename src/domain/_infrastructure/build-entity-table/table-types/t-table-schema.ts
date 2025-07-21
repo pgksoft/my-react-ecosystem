@@ -1,3 +1,4 @@
+import { SxProps, Theme } from '@mui/material';
 import {
   ColumnType,
   TColumnCalendar,
@@ -7,9 +8,11 @@ import {
 } from './t-column-schemas';
 import { TDataTable, TValueType } from './t-data-table';
 
-export interface IGetContent {
-  (value: TValueType, data?: TDataTable, isDialog?: boolean): TValueType;
-}
+export type IGetContent = (
+  value: TValueType,
+  data?: TDataTable,
+  isDialog?: boolean
+) => TValueType;
 
 type TColumnSchemaBase = {
   title: string;
@@ -17,6 +20,7 @@ type TColumnSchemaBase = {
   dataKey: string;
   nameGetParameter?: string;
   isSort?: boolean;
+  sx?: SxProps<Theme>;
   getContent?: IGetContent;
 };
 

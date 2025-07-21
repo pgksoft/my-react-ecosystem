@@ -1,5 +1,5 @@
-interface ICreateDialog {
+type ICreateDialog = {
   onCreateDtoReady: (dto: string | null) => void;
-}
+};
 
 export default ICreateDialog;

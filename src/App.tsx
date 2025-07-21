@@ -26,7 +26,7 @@ function App() {
     <StylesProvider injectFirst>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
-          <Box aria-labelledby='app-container'>
+          <Box aria-labelledby='app-container' sx={{ overflow: 'hidden' }}>
             <MainMenu>{routes}</MainMenu>
           </Box>
         </BrowserRouter>

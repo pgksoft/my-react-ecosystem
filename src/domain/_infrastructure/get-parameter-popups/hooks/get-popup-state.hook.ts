@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { useEffect, useMemo, useState } from 'react';
 import useGetParameter from '../../../../_hooks/get-parameter.hooks/get-parameter.hook';
 
@@ -5,11 +6,7 @@ let timeout: ReturnType<typeof setTimeout>;
 
 const useGetPopupState = () => {
   const [popupName] = useGetParameter('popup');
-  const [idDetail] = useGetParameter('idDetail');
-  const [idRemove] = useGetParameter('idRemove');
-  const id = idDetail || idRemove;
   const [returnPopup] = useGetParameter('returnPopup');
-  const [returnId] = useGetParameter('returnId');
 
   const [mountedPopup, setMountedPopup] = useState<string | null>(popupName);
 
@@ -37,9 +34,7 @@ const useGetPopupState = () => {
   return {
     mountedPopup,
     isOpened,
-    id,
-    returnPopup,
-    returnId
+    returnPopup
   };
 };
 

@@ -3,10 +3,9 @@ import getReturnParameters from './get-return-parameters';
 
 const setReturnParameters = (
   returnParameters: TGetParameters,
-  returnPopup: string,
-  returnId?: string
+  returnPopup: string
 ) => {
-  const temp = getReturnParameters(returnPopup, returnId);
+  const temp = getReturnParameters(returnPopup);
   Object.assign(returnParameters, temp);
 };
 
