@@ -18,11 +18,11 @@ import { ItemNavLink, ItemSubNavLink } from './item-nav-link';
 
 export type TSubMenuOpens = Record<string, boolean>;
 
-interface TListMenu {
+type TListMenu = {
   userRoles: IUserRole[];
   subMenuOpens: TSubMenuOpens;
   setSubMenuOpens: (subMenuOpens: TSubMenuOpens) => void;
-}
+};
 
 export const ListMenu: FC<TListMenu> = ({
   userRoles,
