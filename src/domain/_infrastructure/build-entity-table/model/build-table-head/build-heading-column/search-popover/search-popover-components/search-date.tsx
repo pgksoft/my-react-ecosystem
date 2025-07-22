@@ -13,8 +13,12 @@ import buildQueryString from '../../../../../../../../_hooks/get-parameter.hooks
 import toISOStringLocaleTime from '../../../../../../helpers/to-iso-string-locale-time';
 import { TColumnDateSearch } from '../../../../../table-types/t-column-schemas';
 import { TITLES_BUILD_TABLE } from '../../../../../const/title';
+import TEntityNameKeys from '../../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
+import useAppDispatch from '../../../../../../../../store/use-app-dispatch';
+import { setMutationEntity } from '../../../../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
 
 type IDateSearch = {
+  entityNameKey: TEntityNameKeys;
   dataKey: string;
   inDateValue: TColumnDateSearch;
   text: string;
@@ -33,14 +37,17 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 export const SearchDate: React.FC<IDateSearch> = ({
+  entityNameKey,
   dataKey,
   inDateValue,
   text
 }) => {
   const classes = useStyles();
+
   const textLabel = `${TITLES_BUILD_TABLE.searchLabel} ${text.toLowerCase()}`;
   const beforeDateKey = `${dataKey}[before]`;
   const afterDateKey = `${dataKey}[after]`;
+
   const [getParameterBeforeDate] = useGetParameter(`${beforeDateKey}`);
   const [getParameterAfterDate] = useGetParameter(`${afterDateKey}`);
 
@@ -61,6 +68,7 @@ export const SearchDate: React.FC<IDateSearch> = ({
     setSelectedAfterCreateDate
   ] = useState<Date | null>(initAfterDateValue);
 
+  const appDispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const getParameters = {
@@ -114,6 +122,7 @@ export const SearchDate: React.FC<IDateSearch> = ({
       };
       const url = buildQueryString(pathname, getParameters);
       navigate(url);
+      appDispatch(setMutationEntity([entityNameKey, 'yes']));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

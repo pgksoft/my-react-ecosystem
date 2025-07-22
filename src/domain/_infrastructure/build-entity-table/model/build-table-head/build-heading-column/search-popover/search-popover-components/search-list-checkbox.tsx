@@ -9,20 +9,27 @@ import buildQueryString from '../../../../../../../../_hooks/get-parameter.hooks
 import { TColumnCheckboxItems } from '../../../../../table-types/t-column-schemas';
 import { TITLES_BUILD_TABLE } from '../../../../../const/title';
 import trueValues from './helpers/true-values';
+import TEntityNameKeys from '../../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
+import useAppDispatch from '../../../../../../../../store/use-app-dispatch';
+import { setMutationEntity } from '../../../../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
 
 type ISearchListCheckbox = {
+  entityNameKey: TEntityNameKeys;
   dataKey: string;
   inCheckboxes: TColumnCheckboxItems;
   text: string;
 };
 
 export const SearchListCheckbox: React.FC<ISearchListCheckbox> = ({
+  entityNameKey,
   dataKey,
   inCheckboxes,
   text
 }) => {
   const label = `${TITLES_BUILD_TABLE.choose} ${text.toLowerCase()}`;
+
   const getAllParameters = useGetParameter(`${dataKey}[]`);
+
   const initValuesCheckbox = inCheckboxes.map(({ key, title }) => {
     if (getAllParameters && getAllParameters.includes(key)) {
       return {
@@ -42,6 +49,7 @@ export const SearchListCheckbox: React.FC<ISearchListCheckbox> = ({
     initValuesCheckbox
   );
 
+  const appDispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const getParameters = { [`${dataKey}[]`]: trueValues(checkboxes) };
@@ -84,6 +92,7 @@ export const SearchListCheckbox: React.FC<ISearchListCheckbox> = ({
       } else {
         navigate(urlWithoutGetParameter);
       }
+      appDispatch(setMutationEntity([entityNameKey, 'yes']));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

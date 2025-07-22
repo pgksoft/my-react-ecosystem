@@ -78,6 +78,7 @@ function BuildDataTable<T extends IEntityMember>({
   return (
     <Table aria-label='sticky table' stickyHeader size='small'>
       <BuildTableHead
+        entityNameKey={entityNameKey}
         tableSchema={tableSchema}
         sortDataKey={sortDataKey}
         numSelected={selected.length}

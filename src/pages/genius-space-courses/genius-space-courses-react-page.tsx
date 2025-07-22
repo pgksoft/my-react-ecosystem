@@ -19,13 +19,14 @@ import infoLecture10 from '../../domain/genius-space-courses/react/const/info-le
 import infoLecture11 from '../../domain/genius-space-courses/react/const/info-lecture-11';
 import infoLecture12 from '../../domain/genius-space-courses/react/const/info-lecture-12';
 import infoLecture13 from '../../domain/genius-space-courses/react/const/info-lecture-13';
+import { COLORS } from '../../_const/colors';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     root: {
       display: 'flex',
       width: '100%',
-      padding: '1% 0',
+      padding: 0,
       height: '100%',
       wordBreak: 'break-word',
       flexDirection: 'column'
@@ -35,14 +36,17 @@ const useStyles = makeStyles((theme: Theme) => {
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
-      padding: '1% 0'
+      padding: '0.5% 0'
     },
     infoLectures: {
       display: 'flex',
       flexWrap: 'wrap',
-      padding: '1%',
+      padding: '0.5% 0',
+      maxHeight: '80vh',
+      overflow: 'auto',
       '&>:nth-child(n)': {
         display: 'flex',
+        backgroundColor: COLORS.transparencyLightGray,
         flexDirection: 'column',
         padding: '0.5% 1%',
         minWidth: '14%',

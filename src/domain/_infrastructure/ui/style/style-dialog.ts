@@ -4,7 +4,7 @@ import { COLORS } from '../../../../_const/colors';
 
 export const useStylesDialog = makeStyles((theme: Theme) => {
   return createStyles({
-    rootList: { display: 'flex', flexDirection: 'column' },
+    rootList: { display: 'flex', flexDirection: 'column', paddingTop: '0.7%' },
     rootToolbar: {
       boxSizing: 'border-box',
       border: `1px solid ${COLORS.lightGray}`,
