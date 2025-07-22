@@ -20,7 +20,7 @@ import EntityToolbar from '../../domain/_infrastructure/entity-tools/entity-tool
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
-    root: { display: 'flex', overflow: 'hidden' },
+    root: { display: 'flex', overflow: 'hidden', height: '100%' },
     appBar: {
       transition: '.2s',
       background: COLORS.primaryMain
@@ -59,7 +59,8 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
 
   const isAuthenticated = true;
 
-  const contentMarginTop = activeParentLink.subLinks ? '86px' : '50px';
+  const contentMarginTop =
+    activeParentLink.subLinks || activePageLink.subLinks ? '80px' : '50px';
 
   const timeoutShowSubMenu = () => {
     setShowSubMenu(false);

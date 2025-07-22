@@ -12,7 +12,9 @@ import useAppDispatch from '../../../store/use-app-dispatch';
 import { setTableEntityBuilt } from '../../../redux-toolkit/table-entity-built/table-entity-built-slice';
 import { TFlagMutation } from '../../../redux-toolkit/mutation-entities/mutation-entities-actions';
 import { clearMutationEntity } from '../../../redux-toolkit/mutation-entities/mutation-entities-slice';
+import useBuildUrl from '../../../_hooks/get-parameter.hooks/build-url.hook';
 import apiEntityUrl from '../api-platform/app-entities/const/api-entity-url';
+import WITHOUT_DIALOG_PARAMETERS from '../get-parameter-popups/const/without-dialog-parameters';
 
 type TLoadingDataComponentProps<T> = {
   inData: T | null;
@@ -36,6 +38,12 @@ function LoadingDataComponent<T>({
   const [isDataEmptyArray, setIsDataEmptyArray] = useState(false);
 
   const { data, isLoading, error, update, resetError } = useFetch<T>();
+
+  const url = useBuildUrl({
+    apiEntityUrl: apiEntityUrl[entityNameKey],
+    getParameters: {},
+    withoutParameters: WITHOUT_DIALOG_PARAMETERS
+  });
 
   const appDispatch = useAppDispatch();
 
@@ -88,8 +96,10 @@ function LoadingDataComponent<T>({
   }, [mutation]);
 
   useEffect(() => {
-    !inData && update({ url: apiEntityUrl[`${entityNameKey}`] });
-  }, [entityNameKey, inData, update]);
+    if (!inData) {
+      update({ url });
+    }
+  }, [inData, update, url]);
 
   return (
     <>

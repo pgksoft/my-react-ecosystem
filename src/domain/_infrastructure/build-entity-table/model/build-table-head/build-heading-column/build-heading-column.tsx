@@ -17,6 +17,9 @@ import useBuildUrl from '../../../../../../_hooks/get-parameter.hooks/build-url.
 import { TITLES_BUILD_TABLE } from '../../../const/title';
 import { SearchOrderBy } from './search-order-by/search-order-by';
 import { SearchPopover } from './search-popover/search-popover';
+import TEntityNameKeys from '../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
+import useAppDispatch from '../../../../../../store/use-app-dispatch';
+import { setMutationEntity } from '../../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -54,20 +57,24 @@ const useStyles = makeStyles((theme: Theme) => {
 });
 
 type TBuildHeadingColumnTable = {
+  entityNameKey: TEntityNameKeys;
   columnSchema: TColumnSchema;
   horizontal: PopoverOrigin['horizontal'];
 };
 
 const BuildHeadingColumn: FC<TBuildHeadingColumnTable> = (props) => {
-  const { columnSchema, horizontal } = props;
+  const { entityNameKey, columnSchema, horizontal } = props;
   const classes = useStyles();
 
   const { isSort, type, title } = columnSchema;
+
   const dataKey = columnSchema?.nameGetParameter || columnSchema.dataKey;
+
   const [getParameterDataKey] = useGetParameter(dataKey);
   const [getParameterDateBefore] = useGetParameter(`${dataKey}[before]`);
   const [getParameterDateAfter] = useGetParameter(`${dataKey}[after]`);
   const getParameterDataKeyArray = useGetParameter(`${dataKey}[]`);
+
   const urlWithoutParameterDataKey = useBuildUrl({
     getParameters: {},
     withoutParameters: [
@@ -77,15 +84,20 @@ const BuildHeadingColumn: FC<TBuildHeadingColumnTable> = (props) => {
       `${dataKey}[before]`
     ]
   });
+
   const isPrimary =
     !!getParameterDataKey ||
     !!getParameterDataKeyArray.length ||
     !!getParameterDateBefore ||
     !!getParameterDateAfter;
+
   const Icon = getHeadingColumnIcon(type, isPrimary);
-  const navigate = useNavigate();
+
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const appDispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handlePopoverOpen = (
     event: React.MouseEvent<HTMLElement, MouseEvent>
@@ -112,6 +124,7 @@ const BuildHeadingColumn: FC<TBuildHeadingColumnTable> = (props) => {
   const handleCleanSearch = () => {
     setAnchorEl(null);
     navigate(urlWithoutParameterDataKey);
+    appDispatch(setMutationEntity([entityNameKey, 'yes']));
   };
 
   return (
@@ -159,6 +172,7 @@ const BuildHeadingColumn: FC<TBuildHeadingColumnTable> = (props) => {
       {isSort && <SearchOrderBy dataKey={dataKey} />}
       {isSearchOpen && (
         <SearchPopover
+          entityNameKey={entityNameKey}
           anchorEl={anchorEl}
           handleClose={searchPopoverClose}
           horizontal={horizontal}

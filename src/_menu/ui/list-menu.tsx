@@ -18,11 +18,11 @@ import { ItemNavLink, ItemSubNavLink } from './item-nav-link';
 
 export type TSubMenuOpens = Record<string, boolean>;
 
-interface TListMenu {
+type TListMenu = {
   userRoles: IUserRole[];
   subMenuOpens: TSubMenuOpens;
   setSubMenuOpens: (subMenuOpens: TSubMenuOpens) => void;
-}
+};
 
 export const ListMenu: FC<TListMenu> = ({
   userRoles,
@@ -78,18 +78,16 @@ export const ListMenu: FC<TListMenu> = ({
                       '1px 1px 5px rgba(154, 147, 140, 0.5), 1px 1px 5px rgba(255, 255, 255, 1)'
                   }}
                 >
-                  {subMenuLinks.map((link, index) => {
+                  {subMenuLinks.map((link) => {
                     return (
-                      <>
-                        <ListItem key={link.appRoute} disablePadding>
-                          <ItemSubNavLink link={link} />
-                        </ListItem>
-                        {index !== subMenuLinks?.length - 1 && (
-                          <Divider variant='middle' sx={{ opacity: 0.6 }} />
-                        )}
-                      </>
+                      <ListItem key={link.appRoute} disablePadding>
+                        <ItemSubNavLink link={link} />
+                      </ListItem>
                     );
                   })}
+                  {subMenuLinks?.length > 0 && (
+                    <Divider variant='middle' sx={{ opacity: 0.6 }} />
+                  )}
                 </Box>
               </Box>
             </Collapse>

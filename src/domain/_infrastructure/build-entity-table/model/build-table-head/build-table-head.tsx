@@ -9,8 +9,10 @@ import {
 } from '@mui/material';
 import { TTableSchema } from '../../table-types/t-table-schema';
 import BuildHeadingColumn from './build-heading-column/build-heading-column';
+import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 
 type TBuildTableHeadProps = {
+  entityNameKey: TEntityNameKeys;
   tableSchema: TTableSchema;
   sortDataKey: string[];
   numSelected: number;
@@ -19,6 +21,7 @@ type TBuildTableHeadProps = {
 };
 
 const BuildTableHead: FC<TBuildTableHeadProps> = ({
+  entityNameKey,
   tableSchema,
   sortDataKey,
   numSelected,
@@ -63,6 +66,7 @@ const BuildTableHead: FC<TBuildTableHeadProps> = ({
               }}
             >
               <BuildHeadingColumn
+                entityNameKey={entityNameKey}
                 key={columnSchema.key}
                 columnSchema={columnSchema}
                 horizontal={getHorizontal(i)}

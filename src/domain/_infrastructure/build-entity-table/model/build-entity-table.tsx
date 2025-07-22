@@ -40,7 +40,7 @@ const BuildEntityTable: FC<TBuildTable> = (props) => {
 
   const mutation = useAppSelector(mutationEntitySelector)[entityNameKey];
 
-  const containerHeight = '80vh'; // later to account for the display of the validation panel
+  const containerHeight = '85vh'; // later to account for the display of the validation panel
 
   const onEntityDataLoaded = (data: IEntityMember[] | null) => {
     setEntityData(data);

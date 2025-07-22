@@ -12,5 +12,6 @@ export const COLORS = {
   gray: 'rgb(126, 126, 126)', // (серый)
   black: 'rgb(0,0,0)',
   lightGray: 'rgb(211,211,211)',
-  white: 'rgb(255,255,255)'
+  white: 'rgb(255,255,255)',
+  transparencyLightGray: 'rgba(211,211,211,0.2)'
 };

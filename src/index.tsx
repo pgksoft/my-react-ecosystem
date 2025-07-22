@@ -9,6 +9,7 @@ import { store } from './store/store';
 
 const container = document.getElementById('root') as HTMLElement;
 container.style.overflow = 'hidden';
+container.style.height = '100vh';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(

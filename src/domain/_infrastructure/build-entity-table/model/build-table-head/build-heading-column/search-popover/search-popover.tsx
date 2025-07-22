@@ -3,8 +3,10 @@ import { Popover, PopoverOrigin, Box } from '@mui/material';
 import { TColumnSchema } from '../../../../table-types/t-table-schema';
 import { strategyMap } from './search-field-strategy/strategy-map';
 import useStrategyHandler from './search-field-strategy/strategy-handler.hook';
+import TEntityNameKeys from '../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 
 type ISearchPopover = {
+  entityNameKey: TEntityNameKeys;
   anchorEl: HTMLElement | null;
   handleClose: () => void;
   horizontal: PopoverOrigin['horizontal'];
@@ -12,6 +14,7 @@ type ISearchPopover = {
 };
 
 export const SearchPopover: React.FC<ISearchPopover> = ({
+  entityNameKey,
   anchorEl,
   handleClose,
   horizontal,
@@ -30,6 +33,7 @@ export const SearchPopover: React.FC<ISearchPopover> = ({
   const strategyFn = useStrategyHandler(columnSchema, strategyMap);
 
   const searchPopoverElement = strategyFn({
+    entityNameKey,
     dataKey,
     title,
     columnSchema
