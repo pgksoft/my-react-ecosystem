@@ -82,8 +82,8 @@ export const LINKS_AUTH_USER_GENIUS_SPACE_COURSES: TAuthUserGeniusSpaceCoursesLi
     geniusSpaceCoursesJS,
     geniusSpaceCoursesReact,
     geniusSpaceCoursesReactTicTacToe,
-    geniusSpaceCoursesNodeJS,
     geniusSpaceCoursesReactToDoList,
     geniusSpaceCoursesReactReduxPracticeCounter,
-    geniusSpaceCoursesReactJServerAxios
+    geniusSpaceCoursesReactJServerAxios,
+    geniusSpaceCoursesNodeJS
   };
