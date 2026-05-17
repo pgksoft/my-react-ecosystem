@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Box, Typography, Theme, Avatar } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { LINKS_AUTH_USER } from '../../_route/links';
+import { LINKS_AUTH_USER } from '../../app-infrastructure/app-route/links';
 import { useActivePageLinks } from '../hooks/active-page-links.hook';
 import { TITLES_JS_DAVID_FLANAGAN_7TH_EDITION } from '../../domain/js-david-flanagan-7th-edition/const/titles';
-import SrcIcon from '../../_images/rhinoceros-sondaicus.webp';
+import SrcIcon from '../../app-infrastructure/app-images/rhinoceros-sondaicus.webp';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

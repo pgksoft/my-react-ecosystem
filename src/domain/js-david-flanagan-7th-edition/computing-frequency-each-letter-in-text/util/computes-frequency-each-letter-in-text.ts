@@ -3,7 +3,7 @@ import DefaultMap from './default-map';
 
 const ComputesFrequencyEachLetterInText = (
   text: string,
-  decimalPrecision: number = 3
+  decimalPrecision = 3
 ): TDataCharts => {
   if (!text) return null;
   const dataCharts: TDataCharts = [];

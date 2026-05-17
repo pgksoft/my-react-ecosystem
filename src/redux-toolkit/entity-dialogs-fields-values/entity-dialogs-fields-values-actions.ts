@@ -1,15 +1,20 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction } from '@reduxjs/toolkit';
-import TDialogCreateRoute from '../../domain/_infrastructure/get-parameter-popups/dialog-create/t-choice-popup-create/t-dialog-create-route';
-import TDialogDetailRoute from '../../domain/_infrastructure/get-parameter-popups/dialog-detail/t-choice-popup-detail/t-dialog-detail-route';
-import isDialogCreateRouter from '../../domain/_infrastructure/get-parameter-popups/dialog-create/helpers/is-dialog-create-router';
-import isDialogDetailRouter from '../../domain/_infrastructure/get-parameter-popups/dialog-detail/helpers/is-dialog-detail-router';
 import {
   entityNameKeysList,
   isEntityNameKeys
-} from '../../domain/_infrastructure/api-platform/app-entities/helpers/entity-name-key-list';
-import { DIALOG_CREATE_ROUTES } from '../../domain/_infrastructure/get-parameter-popups';
-import DIALOG_DETAIL_ROUTES from '../../domain/_infrastructure/get-parameter-popups/dialog-detail/const/dialog-detail-routes';
+} from '../../app-infrastructure/api-platform/app-entities/helpers/entity-name-key-list';
+import { LIST_DIALOG_CREATE_ROUTES } from '../../app-infrastructure/get-parameter-popups';
+import LIST_DIALOG_DETAIL_ROUTES, {
+  isDialogDetailKey,
+  isDialogDetailRouter,
+  type TDialogDetailRoute
+} from '../../app-infrastructure/get-parameter-popups/dialog-detail/const/dialog-detail-routes';
+import {
+  isDialogCreateKey,
+  isDialogCreateRouter,
+  type TDialogCreateRoute
+} from '../../app-infrastructure/get-parameter-popups/dialog-create/const/dialog-create-routes';
 
 export type TEntityDialogsFieldsKey = TDialogCreateRoute | TDialogDetailRoute;
 
@@ -45,19 +50,23 @@ const getInitialEntityDialogsFields = (): TEntityDialogsFields => {
   let initialEntityDialogsFields: TEntityDialogsFields = {};
   entityNameKeysList.forEach((entityNameKey) => {
     if (isEntityNameKeys(entityNameKey)) {
-      const dialogCreateRoute = DIALOG_CREATE_ROUTES[entityNameKey];
-      if (dialogCreateRoute) {
-        initialEntityDialogsFields = {
-          ...initialEntityDialogsFields,
-          [`${dialogCreateRoute}`]: null
-        };
+      if (isDialogCreateKey(entityNameKey)) {
+        const dialogCreateRoute = LIST_DIALOG_CREATE_ROUTES[entityNameKey];
+        if (dialogCreateRoute) {
+          initialEntityDialogsFields = {
+            ...initialEntityDialogsFields,
+            [`${dialogCreateRoute}`]: null
+          };
+        }
       }
-      const dialogDetailRoute = DIALOG_DETAIL_ROUTES[entityNameKey];
-      if (dialogDetailRoute) {
-        initialEntityDialogsFields = {
-          ...initialEntityDialogsFields,
-          [`${dialogDetailRoute}`]: null
-        };
+      if (isDialogDetailKey(entityNameKey)) {
+        const dialogDetailRoute = LIST_DIALOG_DETAIL_ROUTES[entityNameKey];
+        if (dialogDetailRoute) {
+          initialEntityDialogsFields = {
+            ...initialEntityDialogsFields,
+            [`${dialogDetailRoute}`]: null
+          };
+        }
       }
     }
   });

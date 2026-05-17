@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Avatar, Box, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { LINKS_AUTH_USER } from '../../_route/links';
+import { LINKS_AUTH_USER } from '../../app-infrastructure/app-route/links';
 import { useActivePageLinks } from '../hooks/active-page-links.hook';
-import ReactPageLogo from '../../_images/genius-space/react-page-logo.png';
+import ReactPageLogo from '../../app-infrastructure/app-images/genius-space/react-page-logo.png';
 import InfoLecturePanel from '../../domain/genius-space-courses/ui/info-lecture-panel';
 import infoLecture00 from '../../domain/genius-space-courses/react/const/info-lecture-00';
 import infoLecture01 from '../../domain/genius-space-courses/react/const/info-lecture-01';
@@ -19,7 +19,7 @@ import infoLecture10 from '../../domain/genius-space-courses/react/const/info-le
 import infoLecture11 from '../../domain/genius-space-courses/react/const/info-lecture-11';
 import infoLecture12 from '../../domain/genius-space-courses/react/const/info-lecture-12';
 import infoLecture13 from '../../domain/genius-space-courses/react/const/info-lecture-13';
-import { COLORS } from '../../_const/colors';
+import { COLORS } from '../../app-infrastructure/app-const/colors';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import TDialogParameters from '../../../domain/_infrastructure/get-parameter-popups/types-parameters-popup/t-dialog-parameters';
+import TDialogParameters from '../../../app-infrastructure/get-parameter-popups/types-parameters-popup/t-dialog-parameters';
 
 const getQueryStringWithoutParameters = (
   search: string,

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction } from '@reduxjs/toolkit';
-import { TITLES_OF_APP } from '../../_const/titles-of-app';
-import TLink from '../../domain/_infrastructure/types/t-link';
+import { TITLES_OF_APP } from '../../app-infrastructure/app-const/titles-of-app';
+import TLink from '../../app-infrastructure/app-types/t-link';
 
 export type TAppPageLinks = { activePageLink: TLink; activeParentLink: TLink };
 

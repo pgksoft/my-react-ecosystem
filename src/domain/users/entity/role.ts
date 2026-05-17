@@ -1,4 +1,4 @@
-import { TMember } from '../../_infrastructure/api-platform/hydra';
+import { TMember } from '../../../app-infrastructure/api-platform/hydra';
 
 export interface IUserRole extends TMember {
   name: string;

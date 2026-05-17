@@ -12,8 +12,8 @@ const winLines = [
 ];
 
 const calculateWinner = (gameField: TGameField): TCellVal => {
-  for (let i = 0; i < winLines.length; i++) {
-    const [a, b, c] = winLines[i];
+  for (const line of winLines) {
+    const [a, b, c] = line;
     if (
       gameField[a] &&
       gameField[a] === gameField[b] &&

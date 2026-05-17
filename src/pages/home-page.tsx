@@ -2,12 +2,12 @@ import React, { FC } from 'react';
 import clsx from 'clsx';
 import { Box, Typography, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import logoPgkSoft from '../_images/author-cv.jpg';
-import logoReact from '../_images/logoReact.svg';
-import { LINKS_AUTH_USER } from '../_route/links';
+import logoPgkSoft from '../app-infrastructure/app-images/author-cv.jpg';
+import logoReact from '../app-infrastructure/app-images/logoReact.svg';
+import { LINKS_AUTH_USER } from '../app-infrastructure/app-route/links';
 import { useActivePageLinks } from './hooks/active-page-links.hook';
-import { TITLES_OF_APP } from '../_const/titles-of-app';
-import { COLORS } from '../_const/colors';
+import { TITLES_OF_APP } from '../app-infrastructure/app-const/titles-of-app';
+import { COLORS } from '../app-infrastructure/app-const/colors';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

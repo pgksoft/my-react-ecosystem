@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SimpleNewsletterSignUpList } from '../../domain/simple-newsletter-sign-up';
-import { LINKS_AUTH_USER } from '../../_route/links';
+import { LINKS_AUTH_USER } from '../../app-infrastructure/app-route/links';
 import { useActivePageLinks } from '../hooks/active-page-links.hook';
 
 export const FormikSimpleNewsletterSignUpPage = () => {

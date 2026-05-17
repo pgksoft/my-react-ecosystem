@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { FC, useCallback, useEffect } from 'react';
-import TDetailDialog from '../../../../_infrastructure/get-parameter-popups/dialog-detail/t-choice-popup-detail/t-dialog-detail';
-import { IEntityMember } from '../../../../_infrastructure/api-platform/app-entities/entity-member/entity-member';
+import TDetailDialog from '../../../../../app-infrastructure/get-parameter-popups/dialog-detail/t-choice-popup-detail/t-dialog-detail';
+import { IEntityMember } from '../../../../../app-infrastructure/api-platform/app-entities/entity-member/entity-member';
 import {
   getInitialDetailContactDto,
   keyContactDto,
@@ -12,11 +12,11 @@ import {
   getInitialContactDtoValid,
   TContactValidateSchema
 } from '../entity/validation-schema';
-import TextFieldInput from '../../../../_infrastructure/ui/text-field-input/text-field-input';
+import TextFieldInput from '../../../../../app-infrastructure/ui/text-field-input/text-field-input';
 import TITLES_CONTACT from '../const/titles';
-import useDtoValidation from '../../../../_infrastructure/yup/dto-validation.hook';
+import useDtoValidation from '../../../../../app-infrastructure/yup/dto-validation.hook';
 import getContactBriefDescription from '../helpers/get-contact-brief-description';
-import useFormResetSync from '../../../../_infrastructure/form/form-reset-sync.hook';
+import useFormResetSync from '../../../../../app-infrastructure/form/form-reset-sync.hook';
 
 const ContactDetail: FC<TDetailDialog<IEntityMember>> = ({
   entity,

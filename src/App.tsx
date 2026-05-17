@@ -3,9 +3,9 @@ import { StylesProvider } from '@mui/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { MainMenu } from './_menu/model/main-menu';
-import { useRoutes } from './_route/routes';
-import { COLORS } from './_const/colors';
+import { useRoutes } from './app-infrastructure/app-route/routes';
+import { COLORS } from './app-infrastructure/app-const/colors';
+import { MainMenu } from './app-infrastructure/app-menu/model/main-menu';
 
 const theme = createTheme({
   typography: {

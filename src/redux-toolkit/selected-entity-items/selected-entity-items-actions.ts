@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { PayloadAction } from '@reduxjs/toolkit';
-import { IEntityMember } from '../../domain/_infrastructure/api-platform/app-entities/entity-member/entity-member';
-import TEntityNameKeys from '../../domain/_infrastructure/api-platform/app-entities/app-entities-types/t-entity-key-names';
-import { entityNameKeysList } from '../../domain/_infrastructure/api-platform/app-entities/helpers/entity-name-key-list';
+import { IEntityMember } from '../../app-infrastructure/api-platform/app-entities/entity-member/entity-member';
+import TEntityNameKeys from '../../app-infrastructure/api-platform/app-entities/app-entities-types/t-entity-key-names';
+import { entityNameKeysList } from '../../app-infrastructure/api-platform/app-entities/helpers/entity-name-key-list';
 
 export type TSelectedEntityItemsMap<T extends IEntityMember> = Partial<
   Record<TEntityNameKeys, T[]>
@@ -25,9 +25,10 @@ const getInitialEntityItemsMap = <
   return initialEntityItemsMap;
 };
 
-export const initialSelectedEntityItemsState: TSelectedEntityItemsState<IEntityMember> = {
-  selectedEntityItems: getInitialEntityItemsMap()
-};
+export const initialSelectedEntityItemsState: TSelectedEntityItemsState<IEntityMember> =
+  {
+    selectedEntityItems: getInitialEntityItemsMap()
+  };
 
 const setSelectedEntityItemsAction = <T extends IEntityMember>(
   state: TSelectedEntityItemsState<T>,
