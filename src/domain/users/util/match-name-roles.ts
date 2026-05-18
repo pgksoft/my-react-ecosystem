@@ -1,4 +1,4 @@
-import TEntityNameKeys from '../../_infrastructure/api-platform/app-entities/app-entities-types/t-entity-key-names';
+import TEntityNameKeys from '../../../app-infrastructure/api-platform/app-entities/app-entities-types/t-entity-key-names';
 import {
   ADMIN_USER_ROLE_NAMES,
   CREATOR_USER_ROLE_NAMES,

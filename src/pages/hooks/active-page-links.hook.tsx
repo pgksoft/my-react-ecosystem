@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import useAppDispatch from '../../store/use-app-dispatch';
 import { setAppPageLinks } from '../../redux-toolkit/app-page-links/app-page-links-slice';
-import TLink from '../../domain/_infrastructure/types/t-link';
+import TLink from '../../app-infrastructure/app-types/t-link';
 
 export function useActivePageLinks(
   activePageLink: TLink,

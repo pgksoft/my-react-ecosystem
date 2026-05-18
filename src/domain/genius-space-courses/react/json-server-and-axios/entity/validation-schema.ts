@@ -13,8 +13,8 @@ import {
 
 import TValidate, {
   initialValidate
-} from '../../../../_infrastructure/types/t-validate';
-import { TValidField } from '../../../../_infrastructure/yup/types';
+} from '../../../../../app-infrastructure/app-types/t-validate';
+import { TValidField } from '../../../../../app-infrastructure/yup/types';
 
 type TContactDtoValid = Record<TKeyContactDto, TValidate>;
 

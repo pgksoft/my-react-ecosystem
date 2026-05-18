@@ -10,7 +10,7 @@ import {
   YAxis
 } from 'recharts';
 import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
-import getRandomColor from '../../../_infrastructure/helpers/get-random-color';
+import getRandomColor from '../../../../app-infrastructure/app-helpers/get-random-color';
 import { TKeyDataCharts } from '../context/types/types';
 
 const BarCharWrapper: FC = () => {

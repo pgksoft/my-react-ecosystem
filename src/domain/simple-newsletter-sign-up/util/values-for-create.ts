@@ -1,18 +1,16 @@
-export interface IValues {
+export type IValuesForCreate = {
   firstName: string;
   lastName: string;
   email: string;
-}
+};
 
-export type TKeyValues = keyof IValues;
+export type TKeyValues = keyof IValuesForCreate;
 
 export const KeyValues: Record<TKeyValues, TKeyValues> = {
   firstName: 'firstName',
   lastName: 'lastName',
   email: 'email'
 };
-
-export interface IValuesForCreate extends Omit<IValues, ''> {}
 
 export type TKeyValuesForCreate = keyof IValuesForCreate;
 

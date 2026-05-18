@@ -10,6 +10,15 @@ import {
   KeyValuesForCreate
 } from '../values-for-create';
 
+const getErrorMessage = (
+  error: Joi.ValidationError | undefined
+): string | undefined => {
+  if (error) {
+    return error.message;
+  }
+  return undefined;
+};
+
 export type TErrors = Partial<Record<TKeyValuesForCreate, string>>;
 
 export const validateForCreate = (values: IValuesForCreate) => {
@@ -37,13 +46,4 @@ export const validateForCreate = (values: IValuesForCreate) => {
   if (emailErrorMessage) errors.email = emailErrorMessage;
 
   return errors;
-};
-
-const getErrorMessage = (
-  error: Joi.ValidationError | undefined
-): string | undefined => {
-  if (error) {
-    return error.message;
-  }
-  return undefined;
 };

@@ -78,11 +78,13 @@ export const ComputesFrequencyEachLetterInTextContextProvider: FC<
 
   // This is the chart data definition for the page when paginated
   useEffect(() => {
-    !dataCharts
-      ? setPageOfDataCharts(null)
-      : setPageOfDataCharts(
-          dataCharts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        );
+    if (dataCharts) {
+      setPageOfDataCharts(
+        dataCharts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+      );
+    } else {
+      setPageOfDataCharts(null);
+    }
   }, [dataCharts, page, rowsPerPage]);
 
   return (

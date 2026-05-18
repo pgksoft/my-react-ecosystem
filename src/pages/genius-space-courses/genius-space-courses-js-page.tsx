@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Avatar, Box, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { LINKS_AUTH_USER } from '../../_route/links';
+import { LINKS_AUTH_USER } from '../../app-infrastructure/app-route/links';
 import { useActivePageLinks } from '../hooks/active-page-links.hook';
-import JSLogo from '../../_images/genius-space/js-logo.png';
+import JSLogo from '../../app-infrastructure/app-images/genius-space/js-logo.png';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

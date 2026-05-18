@@ -1,7 +1,14 @@
-import { IEntityMember } from '../../../../_infrastructure/api-platform/app-entities/entity-member/entity-member';
-import { isEntityMember } from '../../../../_infrastructure/build-entity-table/helpers/is-entity-member';
-import TValueOf from '../../../../_infrastructure/types/t-value-of';
-import TypeGuard from '../../../../_infrastructure/types/type-guard';
+import {
+  IEntityMember,
+  isEntityMember
+} from '../../../../../app-infrastructure/api-platform/app-entities/entity-member/entity-member';
+import createIsUnknownRecordKeyGuard from '../../../../../app-infrastructure/app-helpers/create-is-unknown-record-key-guard';
+import {
+  createKeyNames,
+  getInitialDetailDto
+} from '../../../../../app-infrastructure/app-helpers/dto-utils';
+import TValueOf from '../../../../../app-infrastructure/app-types/t-value-of';
+import TypeGuard from '../../../../../app-infrastructure/app-types/type-guard';
 
 type TContact = {
   id: string;
@@ -29,34 +36,15 @@ export const getInitialContactDto = (): TContactDto => {
   return { name: '', lastName: '', about: '' };
 };
 
-export const getInitialDetailContactDto = (
-  entity: IEntityMember
-): TContactDto => {
-  return (
-    (isContact(entity) &&
-      (({ id, ...rest }) => {
-        return rest;
-      })(entity)) ||
-    getInitialContactDto()
-  );
+export const getInitialDetailContactDto = (entity: IEntityMember) => {
+  return getInitialDetailDto(entity, isContact, getInitialContactDto);
 };
 
 export type TKeyContactDto = keyof TContactDto;
 export type TValueContactDto = TValueOf<TContact>;
 
-type TKeyNamesContactDto = Record<TKeyContactDto, TKeyContactDto>;
+export const keyContactDto = createKeyNames<TContactDto>(
+  getInitialContactDto()
+);
 
-export const keyContactDto: TKeyNamesContactDto = {
-  name: 'name',
-  lastName: 'lastName',
-  about: 'about'
-};
-
-export const isKeyContactDto: TypeGuard<TContactDto> = (
-  value: unknown
-): value is TContactDto => {
-  return (
-    typeof value === 'string' &&
-    Object.values(keyContactDto).includes(value as TKeyContactDto)
-  );
-};
+export const isKeyContactDto = createIsUnknownRecordKeyGuard(keyContactDto);

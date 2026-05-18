@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { FC } from 'react';
-import ICreateDialog from '../../../../_infrastructure/get-parameter-popups/dialog-create/t-choice-popup-create/i-create-dialog';
+import ICreateDialog from '../../../../../app-infrastructure/get-parameter-popups/dialog-create/t-choice-popup-create/i-create-dialog';
 import { getInitialContactDto, TContactDto } from '../entity/contacts';
-import TextFieldInput from '../../../../_infrastructure/ui/text-field-input/text-field-input';
+import TextFieldInput from '../../../../../app-infrastructure/ui/text-field-input/text-field-input';
 import TITLES_CONTACT from '../const/titles';
 import {
   getContactValidationSchema,
@@ -10,8 +10,8 @@ import {
   keyContactDto,
   TContactValidateSchema
 } from '../entity/validation-schema';
-import useDtoValidation from '../../../../_infrastructure/yup/dto-validation.hook';
-import useFormResetSync from '../../../../_infrastructure/form/form-reset-sync.hook';
+import useDtoValidation from '../../../../../app-infrastructure/yup/dto-validation.hook';
+import useFormResetSync from '../../../../../app-infrastructure/form/form-reset-sync.hook';
 
 const ContactCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
   const { dto, dtoValid, handleValueChange, reset, isModified } =

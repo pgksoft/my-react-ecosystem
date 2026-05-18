@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import clsx from 'clsx';
 import { Avatar, Box } from '@mui/material';
-import { useStylesDialog } from '../../../../_infrastructure/ui/style/style-dialog';
-import ToDoListLogo from '../../../../../_images/genius-space/to-do-list-logo.png';
+import { useStylesDialog } from '../../../../../app-infrastructure/ui/style/style-dialog';
+import ToDoListLogo from '../../../../../app-infrastructure/app-images/genius-space/to-do-list-logo.png';
 
 const ToDoListDetail: FC = () => {
   const classes = useStylesDialog();

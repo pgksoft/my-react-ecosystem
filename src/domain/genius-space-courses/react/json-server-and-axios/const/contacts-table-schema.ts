@@ -1,6 +1,6 @@
-import { ColumnType } from '../../../../_infrastructure/build-entity-table/table-types/t-column-schemas';
-import { TTableSchema } from '../../../../_infrastructure/build-entity-table/table-types/t-table-schema';
-import getRandomUuid from '../../../../_infrastructure/helpers/get-random-uuid';
+import { ColumnType } from '../../../../../app-infrastructure/build-entity-table/table-types/t-column-schemas';
+import { TTableSchema } from '../../../../../app-infrastructure/build-entity-table/table-types/t-table-schema';
+import getRandomUuid from '../../../../../app-infrastructure/app-helpers/get-random-uuid';
 import { keyContactDto } from '../entity/contacts';
 import TITLES_CONTACT from './titles';
 

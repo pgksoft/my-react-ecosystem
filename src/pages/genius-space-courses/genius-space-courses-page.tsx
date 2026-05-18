@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Box, Theme, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { LINKS_AUTH_USER } from '../../_route/links';
+import { LINKS_AUTH_USER } from '../../app-infrastructure/app-route/links';
 import { useActivePageLinks } from '../hooks/active-page-links.hook';
 import GeniusLogoIcon from './ui/genius-logo-icon';
 import { TITLES_GENIUS_SPACE_COURSES } from '../../domain/genius-space-courses/const/titles';
