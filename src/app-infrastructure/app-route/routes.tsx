@@ -20,7 +20,7 @@ import ElIfTechDeliveryPage from '../../pages/el-if-tech-delivery/el-if-tech-del
 import DeliveryShopPage from '../../pages/el-if-tech-delivery/delivery-shop-page';
 import DeliveryProductCategoryPage from '../../pages/el-if-tech-delivery/delivery-product-category-page';
 import DeliveryProductPage from '../../pages/el-if-tech-delivery/delivery-product-page';
-import DeliveryProductsInShopsPage from '../../pages/el-if-tech-delivery/ui/delivery-products-in-shops-page';
+import DeliveryProductsInShopsPage from '../../pages/el-if-tech-delivery/delivery-products-in-shops-page';
 
 const NotFountPath: TElement = () => {
   return <Navigate to={`${LINKS_AUTH_USER.home.appRoute}`} replace />;

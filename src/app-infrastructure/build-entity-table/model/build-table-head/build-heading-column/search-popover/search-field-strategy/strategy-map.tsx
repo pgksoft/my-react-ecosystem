@@ -1,5 +1,4 @@
-import React from 'react';
-import { ColumnType } from '../../../../../table-types/t-column-schemas';
+import React, { type ReactNode } from 'react';
 import {
   TColumnSchema,
   TColumnSchemas
@@ -7,53 +6,75 @@ import {
 import { SearchDate } from '../search-popover-components/search-date';
 import { SearchListCheckbox } from '../search-popover-components/search-list-checkbox';
 import { SearchTextField } from '../search-popover-components/search-text-field';
+import { SearchFixedNumRanges } from '../search-popover-components/search-fixed-num-ranges';
 import TEntityNameKeys from '../../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 
-export type TStrategyFn<T extends TColumnSchema> = (props: {
+export type TStrategyFn<T extends TColumnSchema<string>> = (props: {
   entityNameKey: TEntityNameKeys;
   columnSchema: T;
-  dataKey: string;
-  title: string;
-}) => JSX.Element;
+  handleClose: () => void;
+}) => ReactNode;
 
-export type TValidTypes = Exclude<keyof TColumnSchemas, ColumnType.null>;
+export type TValidTypes = Exclude<keyof TColumnSchemas<string>, 'null'>;
 
 export type TStrategyMap = {
-  [K in TValidTypes]: TStrategyFn<TColumnSchemas[K]>;
+  [K in TValidTypes]: TStrategyFn<TColumnSchemas<string>[K]>;
 };
 
-export function createStrategyMap<T extends TStrategyMap>(map: T): T {
+export function createStrategySearchMap<T extends TStrategyMap>(map: T): T {
   return map;
 }
 
-export const strategyMap = createStrategyMap({
-  [ColumnType.search]: ({ entityNameKey, columnSchema, dataKey, title }) => {
+const getDataKey = (columnSchema: TColumnSchema<string>): string => {
+  return columnSchema.nameGetParameter ?? columnSchema.dataKey;
+};
+
+export const strategySearchMap = createStrategySearchMap({
+  search: ({ entityNameKey, columnSchema, handleClose }) => {
     return (
       <SearchTextField
         entityNameKey={entityNameKey}
-        dataKey={dataKey}
+        dataKey={getDataKey(columnSchema)}
         inValue={columnSchema.valueSearch}
-        text={title}
+        text={columnSchema.title}
+        handleClose={handleClose}
       />
     );
   },
-  [ColumnType.checkBox]: ({ entityNameKey, columnSchema, dataKey, title }) => {
+  checkBox: ({ entityNameKey, columnSchema, handleClose }) => {
     return (
       <SearchListCheckbox
         entityNameKey={entityNameKey}
-        dataKey={dataKey}
+        dataKey={getDataKey(columnSchema)}
         inCheckboxes={columnSchema.checkboxes}
-        text={title}
+        text={columnSchema.title}
+        handleClose={handleClose}
       />
     );
   },
-  [ColumnType.calendar]: ({ entityNameKey, columnSchema, dataKey, title }) => {
+  calendar: ({ entityNameKey, columnSchema, handleClose }) => {
     return (
       <SearchDate
         entityNameKey={entityNameKey}
-        dataKey={dataKey}
+        dataKey={getDataKey(columnSchema)}
         inDateValue={columnSchema.dateSearch}
-        text={title}
+        text={columnSchema.title}
+        handleClose={handleClose}
+      />
+    );
+  },
+  'fixed-set-numerical-ranges': ({
+    entityNameKey,
+    columnSchema,
+    handleClose
+  }) => {
+    return (
+      <SearchFixedNumRanges
+        entityNameKey={entityNameKey}
+        dataKey={getDataKey(columnSchema)}
+        inFixedNumRangesValue={columnSchema.ranges}
+        text={columnSchema.title}
+        handleClose={handleClose}
       />
     );
   }

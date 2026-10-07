@@ -1,6 +1,6 @@
-import TEntityToolPopup from './t-entity-tool-popup';
+import TEntityToolTypes from './t-entity-tool-types';
 import TEntityToolName from './t-entity-tool-names';
 
-type TEntityToolList = Partial<Record<TEntityToolName, TEntityToolPopup>>;
+type TEntityToolList = Partial<{ [K in TEntityToolName]: TEntityToolTypes<K> }>;
 
 export default TEntityToolList;

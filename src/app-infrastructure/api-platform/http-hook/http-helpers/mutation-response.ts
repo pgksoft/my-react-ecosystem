@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 export type TAxiosParam = {
   url: string;
   method?: AxiosRequestConfig['method'];
-  data?: AxiosRequestConfig['data'];
+  data?: AxiosRequestConfig['data'] | FormData;
   headers?: AxiosRequestConfig['headers'];
   signal?: AxiosRequestConfig['signal'];
   baseURL?: AxiosRequestConfig['baseURL'];

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <!-- radio-box blank -->
+    <g transform="translate(-0.8,0.5) scale(0.4)">
+        <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="45"
+            vector-effect="non-scaling-stroke" />
+    </g>
+    <g transform="translate(4,-2) scale(0.6)">
+        <path
+            d="M11,7A2,2 0 0,0 9,9V15A2,2 0 0,0 11,17H13A2,2 0 0,0 15,15V9A2,2 0 0,0 13,7H11M11,9H13V15H11V9Z" />
+    </g>
+    <g transform="translate(11.3,-1) scale(0.5)">
+        <path d="M19,13H6V11H13V13Z" />
+    </g>
+    <g transform="translate(14,-2) scale(0.6)">
+        <path d="M9,7V13H13V17H15V7H13V11H11V7H9Z" />
+    </g>
+
+    <!-- radio-box marked -->
+    <g transform="translate(-0.8,11.5) scale(0.4)">
+        <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="45"
+            vector-effect="non-scaling-stroke" />
+        <!-- marker circle -->
+        <circle cx="12" cy="12" r="4.2" fill="currentColor" />
+    </g>
+    <g transform="translate(4,9) scale(0.6)">
+        <path d="M9,7V13H13V15H9V17H13A2,2 0 0,0 15,15V13A2,2 0 0,0 13,11H11V9H15V7H9Z" />
+    </g>
+    <g transform="translate(11.3,10) scale(0.5)">
+        <path d="M19,13H6V11H13V13Z" />
+    </g>
+    <g transform="translate(14,9) scale(0.6)">
+        <path
+            d="M13,17A2,2 0 0,0 15,15V9A2,2 0 0,0 13,7H11A2,2 0 0,0 9,9V11A2,2 0 0,0 11,13H13V15H9V17H13M13,11H11V9H13V11Z" />
+    </g>
+</svg>

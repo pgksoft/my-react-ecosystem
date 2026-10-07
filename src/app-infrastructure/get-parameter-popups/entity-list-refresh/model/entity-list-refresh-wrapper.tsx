@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import useAppDispatch from '../../../../store/use-app-dispatch';
 import { setMutationEntity } from '../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
+import checkReturnParameters from '../../helpers/check-return-parameters-for-cascade-call-popups/check-return-parameters';
 
 type TEntityListRefreshWrapperProps = {
   entityNameKeyRefresh: TEntityNameKeys;
@@ -20,6 +21,7 @@ const EntityListRefreshWrapper: FC<TEntityListRefreshWrapperProps> = (
   useEffect(() => {
     navigate(returnUrl);
     appDispatch(setMutationEntity([entityNameKeyRefresh, 'yes']));
+    checkReturnParameters.Pop();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -1,9 +1,9 @@
 import React, { FC, useContext } from 'react';
 import { Avatar, Box, Theme, Typography } from '@mui/material';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { createStyles, makeStyles } from '@mui/styles';
 import { TicTacToeContext } from '../context/tic-tac-toe-context';
-import { useStylesDialog } from '../../../../../app-infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../../../../app-infrastructure/app-ui/style/style-dialog';
 import TicTakToeLogo from '../../../../../app-infrastructure/app-images/genius-space/tic-tac-toe.png';
 import CellCross from './cell-cross';
 import CellZero from './cell-zero';

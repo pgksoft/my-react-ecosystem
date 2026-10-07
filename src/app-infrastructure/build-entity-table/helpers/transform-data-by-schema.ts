@@ -4,7 +4,7 @@ import { TTableSchema } from '../table-types/t-table-schema';
 import findValuesInObject from './find-values-in-object';
 
 const transformDataBySchema = (
-  tableSchema: TTableSchema = [],
+  tableSchema: TTableSchema<string> = [],
   entityData: IEntityMember[] = []
 ): TDataTable => {
   const transformedDataTable: TDataTable = [];

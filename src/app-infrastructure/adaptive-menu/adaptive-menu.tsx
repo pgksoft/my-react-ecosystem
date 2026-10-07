@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React, { useEffect, useRef, useState } from 'react';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { Box, IconButton, Popover, Paper, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -66,13 +66,13 @@ const useStyles = makeStyles((theme: Theme) => {
   });
 });
 
-interface IProps {
+type IProps = {
   elements: JSX.Element[];
   menuKey: string;
   className?: string;
   style?: React.CSSProperties;
   popUpClassName?: string;
-}
+};
 
 export const AdaptiveMenu: React.FC<IProps> = ({
   elements,
@@ -91,9 +91,7 @@ export const AdaptiveMenu: React.FC<IProps> = ({
     popUpItems: []
   });
   const [withPopUp, setWithPopUp] = useState<boolean>(false);
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null
-  );
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
 
   const onPopUpButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

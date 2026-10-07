@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { isProductsInShops } from '../../entity/products-in-stores';
-import { ShopRatingView } from '../../../shops/ui/shop-rating-list-view/shop-rating-view';
+import RatingView from '../../../../../app-infrastructure/app-ui/rating-view';
 
 const ProductsInShopsRatingListView = (
   value: unknown,
@@ -9,7 +9,7 @@ const ProductsInShopsRatingListView = (
   if (!(typeof value === 'number' && isProductsInShops(data))) {
     throw new Error('is not a Shop entity');
   }
-  return <ShopRatingView rating={value} />;
+  return <RatingView defaultValue={value} />;
 };
 
 export default ProductsInShopsRatingListView;

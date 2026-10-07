@@ -12,10 +12,7 @@ const TITLES_DELIVERY_PRODUCT_CATEGORY = {
   messageSuccessRemove: 'Product category data successfully deleted',
   removeConfirmTitle: 'Delete product category data?',
   name: 'Name',
-  mutationDate: 'Mutation date',
-  stringValidateMin: 'Must be at least ${min} characters',
-  stringValidateMax: 'Must be ${max} characters or less',
-  stringValidateEmpty: 'Required'
+  mutationDate: 'Mutation date'
 };
 
 export default TITLES_DELIVERY_PRODUCT_CATEGORY;

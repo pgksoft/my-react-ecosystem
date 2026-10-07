@@ -1,6 +1,7 @@
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import type { TParameterizedEntityName } from '../../../api-platform/app-entities/app-entities-types/t-entity-name';
 import { isEntityNameKeys } from '../../../api-platform/app-entities/helpers/entity-name-key-list';
+import createIsStringRecordValueGuard from '../../../app-helpers/create-is-string-record-value-guard';
 
 type TParameterizedListRefreshRoute<K extends TEntityNameKeys> =
   `${TParameterizedEntityName<K>}Refresh`;
@@ -24,13 +25,9 @@ const LIST_ENTITIES_REFRESH_ROUTES = {
 export default LIST_ENTITIES_REFRESH_ROUTES;
 
 // Helpers
-export const isListRefreshRoute = (
-  value: string
-): value is TListRefreshRoute => {
-  return Object.values(LIST_ENTITIES_REFRESH_ROUTES).includes(
-    value as TListRefreshRoute
-  );
-};
+export const isListRefreshRoute = createIsStringRecordValueGuard(
+  LIST_ENTITIES_REFRESH_ROUTES
+);
 
 export const getEntityNameKeyFromListRefreshRoutes = (
   listRefreshRoute: TListRefreshRoute

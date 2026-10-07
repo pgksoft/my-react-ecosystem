@@ -1,9 +1,9 @@
 import React, { FC, useContext } from 'react';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { Box } from '@mui/material';
-import { useStylesDialog } from '../../../../../app-infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../../../../app-infrastructure/app-ui/style/style-dialog';
 import { TicTacToeContext } from '../context/tic-tac-toe-context';
-import { DefaultButton } from '../../../../../app-infrastructure/ui/default-button/default-button';
+import { DefaultButton } from '../../../../../app-infrastructure/app-ui/default-button/default-button';
 import HistoryPlayerSteps from './history-player-steps';
 
 const ControlPanel: FC = () => {

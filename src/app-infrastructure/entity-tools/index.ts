@@ -1,5 +1,5 @@
 import TEntityToolList from './entity-tools-types/t-entity-tool-list';
 import TChoiceEntityToolList from './entity-tools-types/t-choice-entity-tool-list';
-import TEntityToolPopup from './entity-tools-types/t-entity-tool-popup';
+import TEntityToolTypes from './entity-tools-types/t-entity-tool-types';
 
-export type { TChoiceEntityToolList, TEntityToolList, TEntityToolPopup };
+export type { TChoiceEntityToolList, TEntityToolList, TEntityToolTypes };

@@ -1,4 +1,4 @@
-import React, { ErrorInfo, ReactNode } from 'react';
+import React, { Component, ErrorInfo, ReactNode } from 'react';
 
 type MyProps = {
   children: ReactNode;
@@ -9,7 +9,7 @@ type MyState = {
   errorInfo: ErrorInfo | null;
 };
 
-export class ErrorBoundary extends React.Component<MyProps, MyState> {
+export class ErrorBoundary extends Component<MyProps, MyState> {
   constructor(props: MyProps) {
     super(props);
     this.state = { error: null, errorInfo: null };

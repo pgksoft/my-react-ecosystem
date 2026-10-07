@@ -1,5 +1,6 @@
 export type TGetParameter =
   | string
+  | number
   | boolean
   | string[]
   | (string | null)[]

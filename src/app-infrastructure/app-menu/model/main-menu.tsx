@@ -15,7 +15,7 @@ import { LeftNavBar, drawerWidthLeft } from './left-nav-bar';
 import { SubMenuBox } from './sub-menu-box';
 import useAppSelector from '../../../store/use-app-selector';
 import { appPageLinksValueSelector } from '../../../redux-toolkit/app-page-links/app-page-links-selectors';
-import NavigationDefaultGoBackIconButton from '../../ui/navigation-default-go-back-icon-button/navigation-default-go-back-icon-button';
+import NavigationDefaultGoBackIconButton from '../../app-ui/navigation-default-go-back-icon-button/navigation-default-go-back-icon-button';
 import EntityToolbar from '../../entity-tools/entity-toolbar/model/entity-toolbar';
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -92,6 +92,7 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
     <Box className={classes.root} aria-description='main-menu'>
       <CssBaseline />
       <AppBar
+        aria-description='app-bar'
         position='fixed'
         className={classes.appBar}
         sx={{
@@ -101,7 +102,7 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
           })
         }}
       >
-        <Toolbar variant='dense'>
+        <Toolbar variant='dense' aria-description='tool-bar'>
           {isAuthenticated && (
             <IconButton
               size='small'
@@ -116,7 +117,17 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
             <NavigationDefaultGoBackIconButton />
           )}
           {activeParentLink.title && (
-            <Typography variant='h6' sx={{ flexGrow: 1 }}>
+            <Typography
+              variant='h6'
+              sx={{
+                flexGrow: 1,
+                minWidth: '20%',
+                textWrap: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                mr: 3
+              }}
+            >
               {activeParentLink.title}
             </Typography>
           )}
@@ -137,6 +148,7 @@ export const MainMenu: FC<TMainMenuProps> = ({ children }) => {
       />
       <Box
         component='main'
+        aria-description='context'
         className={classes.content}
         sx={{
           mt: contentMarginTop

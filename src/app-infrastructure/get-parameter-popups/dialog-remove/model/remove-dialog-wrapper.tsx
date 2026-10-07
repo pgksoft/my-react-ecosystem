@@ -5,17 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import { IEntityMember } from '../../../api-platform/app-entities/entity-member/entity-member';
 import TPopupRemove from '../t-choice-popup-remove/t-popup-remove';
-import { useStylesDialog } from '../../../ui/style/style-dialog';
+import { useStylesDialog } from '../../../app-ui/style/style-dialog';
 import useAppDispatch from '../../../../store/use-app-dispatch';
 import useAppSelector from '../../../../store/use-app-selector';
 import { selectedEntityItemsSelector } from '../../../../redux-toolkit/selected-entity-items/selected-entity-items-selectors';
 import checkReturnParameters from '../../helpers/check-return-parameters-for-cascade-call-popups/check-return-parameters';
 import { setMutationEntity } from '../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
-import PopupDialogHeader from '../../../popup-dialog-header/popup-dialog-header';
-import { ButtonConfirm } from '../../../ui/button-confirm/button-confirm';
+import PopupDialogHeader from '../../../app-ui/popup-dialog-header/popup-dialog-header';
+import { ButtonConfirm } from '../../../app-ui/button-confirm/button-confirm';
 import { TITLES_OF_APP } from '../../../app-const/titles-of-app';
 import EntityMutationAlertDialog from '../../entity-mutation-alert-dialog/entity-mutation-alert-dialog';
-import { ConfirmDialog } from '../../../ui/confirm-dialog/confirm-dialog';
+import { ConfirmDialog } from '../../../app-ui/confirm-dialog/confirm-dialog';
 import useConfirmDialogWrapper from '../../hooks/confirm-dialog-wrapper.hook';
 import resolveBaseUrl from '../../../api-platform/app-entities/resolve-base-url';
 
@@ -100,7 +100,7 @@ const RemoveDialogWrapper: FC<TRemoveDialogWrapper> = (props) => {
             <EntityMutationAlertDialog
               url={`${ComponentRemove.apiUrl}/${id}`}
               baseURL={resolveBaseUrl(entityNameKeyPopup)}
-              dto='{}'
+              dto={{}}
               method='delete'
               onCloseSuccess={handleSuccess}
               onCloseError={handleClose}

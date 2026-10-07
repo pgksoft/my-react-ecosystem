@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
-import type TEntityList from '../../../../app-infrastructure/get-parameter-popups/dialog-list/t-choice-popup-list/t-entity-list';
 import type { TTableSchema } from '../../../../app-infrastructure/build-entity-table/table-types/t-table-schema';
-import useCachingDataInSessionStorage from '../../../../app-infrastructure/app-hook-helpers/caching-data-in-session-storage.hook.ts';
+import useCachingDataInSessionStorage from '../../../../app-infrastructure/app-hook-helpers/caching-data-in-session-storage.hook';
 import {
   isProductCategory,
   type TProductCategory
@@ -12,9 +11,12 @@ import productsInStoresTableSchema from '../const/products-in-stores-table-schem
 import { defineItemsCheckboxColumn } from '../../../../app-infrastructure/build-entity-table/helpers/define-items-checkbox-column';
 import getProductCategoryColumnCheckboxItems from '../../product-category-dic/helpers/get-product-category-column-checkbox-items';
 import getShopColumnCheckboxItems from '../../shops/helpers/get-shop-column-checkbox-items';
+import type { TKeyProductsInStore } from '../entity/products-in-stores';
 
-const ProductsInStoreList: FC<TEntityList> = ({ mountedPopup = undefined }) => {
-  const [tableSchema, setTableSchema] = useState<TTableSchema>([]);
+const ProductsInStoreList: FC = () => {
+  const [tableSchema, setTableSchema] = useState<
+    TTableSchema<TKeyProductsInStore>
+  >([]);
 
   const productCategories = useCachingDataInSessionStorage<TProductCategory>({
     entityNameKey: 'productCategoryDic',
@@ -27,20 +29,23 @@ const ProductsInStoreList: FC<TEntityList> = ({ mountedPopup = undefined }) => {
   });
 
   useEffect(() => {
-    let newTableSchema: TTableSchema = productsInStoresTableSchema;
+    let newTableSchema: TTableSchema<TKeyProductsInStore> =
+      productsInStoresTableSchema;
     if (productCategories) {
-      newTableSchema = defineItemsCheckboxColumn(
+      newTableSchema = defineItemsCheckboxColumn<
+        TKeyProductsInStore,
+        TTableSchema<TKeyProductsInStore>
+      >(
         productsInStoresTableSchema,
         getProductCategoryColumnCheckboxItems(productCategories),
         'product.category.name'
       );
     }
     if (shops) {
-      newTableSchema = defineItemsCheckboxColumn(
-        newTableSchema as typeof productsInStoresTableSchema,
-        getShopColumnCheckboxItems(shops),
-        'shop.name'
-      );
+      newTableSchema = defineItemsCheckboxColumn<
+        TKeyProductsInStore,
+        TTableSchema<TKeyProductsInStore>
+      >(newTableSchema, getShopColumnCheckboxItems(shops), 'shop.name');
     }
     setTableSchema(newTableSchema);
   }, [productCategories, shops]);
@@ -48,11 +53,7 @@ const ProductsInStoreList: FC<TEntityList> = ({ mountedPopup = undefined }) => {
   if (tableSchema.length === 0) return null;
 
   return (
-    <BuildEntityTable
-      entityNameKey='shopProduct'
-      tableSchema={tableSchema}
-      returnPopup={mountedPopup}
-    />
+    <BuildEntityTable entityNameKey='shopProduct' tableSchema={tableSchema} />
   );
 };
 

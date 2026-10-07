@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Box, Typography } from '@mui/material';
-import { useStylesDialog } from '../../../../../app-infrastructure/ui/style/style-dialog';
-import { DefaultButton } from '../../../../../app-infrastructure/ui/default-button/default-button';
+import { useStylesDialog } from '../../../../../app-infrastructure/app-ui/style/style-dialog';
+import { DefaultButton } from '../../../../../app-infrastructure/app-ui/default-button/default-button';
 import {
   increment,
   decrement,

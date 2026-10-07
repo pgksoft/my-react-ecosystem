@@ -1,15 +1,18 @@
 /* eslint-disable react/require-default-props */
 import React, { FC, useEffect } from 'react';
 import useFetch from '../../api-platform/http-hook/use-fetch';
-import { LoadPopupWrapper } from '../../ui/load-popup-wrapper/load-popup-wrapper';
-import { Loader } from '../../ui/loader/loader';
-import SuccessNotifier from '../../ui/app-notifiers/success-notifier/success-notifier';
-import ErrorNotifier from '../../ui/app-notifiers/error-notifier/error-notifier';
+import { LoadPopupWrapper } from '../../app-ui/load-popup-wrapper/load-popup-wrapper';
+import { Loader } from '../../app-ui/loader/loader';
+import SuccessNotifier from '../../app-ui/app-notifiers/success-notifier/success-notifier';
+import ErrorNotifier from '../../app-ui/app-notifiers/error-notifier/error-notifier';
+import { successStatuses } from '../../app-const/success-statuses';
+import WarningNotifier from '../../app-ui/app-notifiers/warning-notifier/warning-notifier';
+import type TUnknownRecord from '../../app-types/t-unknown-record';
 
 type TEntityMutationAlertDialog = {
   url: string;
   baseURL: string;
-  dto: string;
+  dto: TUnknownRecord | FormData;
   method?: string;
   onCloseSuccess: () => void;
   onCloseError: () => void;
@@ -27,7 +30,7 @@ const EntityMutationAlertDialog: FC<TEntityMutationAlertDialog> = ({
   onGetError,
   titleSuccess = ''
 }) => {
-  const { update, data, isLoading, error, resetError } = useFetch();
+  const { update, status, isLoading, error, resetError } = useFetch();
 
   const onResetError = () => {
     resetError();
@@ -56,13 +59,19 @@ const EntityMutationAlertDialog: FC<TEntityMutationAlertDialog> = ({
         </LoadPopupWrapper>
       ) : (
         <>
-          {data && !error && (
+          {status && successStatuses.includes(status) && !error && (
             <SuccessNotifier message={titleSuccess} onClose={onCloseSuccess} />
           )}
           {error && (
             <ErrorNotifier
               error={new Error(error.message)}
               onClose={onResetError}
+            />
+          )}
+          {status && !successStatuses.includes(status) && !error && (
+            <WarningNotifier
+              message={`Unknown response status: ${status}`}
+              onClose={onCloseSuccess}
             />
           )}
         </>

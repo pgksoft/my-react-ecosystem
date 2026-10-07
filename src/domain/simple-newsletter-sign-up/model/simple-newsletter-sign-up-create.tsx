@@ -1,18 +1,18 @@
 import React, { FC, useState } from 'react';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { Box } from '@mui/material';
 import { Field, Formik, FormikProps } from 'formik';
-import { useStylesDialog } from '../../../app-infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../../app-infrastructure/app-ui/style/style-dialog';
 import { TITLES_SIMPLE_NEWSLETTER_SING_UP } from '../const/titles';
-import { DefaultButton } from '../../../app-infrastructure/ui/default-button/default-button';
+import { DefaultButton } from '../../../app-infrastructure/app-ui/default-button/default-button';
 import {
   getInitialValuesOfCreate,
   KeyValuesForCreate,
   IValuesForCreate
 } from '../util/values-for-create';
 import { validateForCreate } from '../util/validate-for-create/validate-for-create';
-import { FormikAppTextField } from '../../../app-infrastructure/ui/formik-app-mui-components';
-import InfoNotifier from '../../../app-infrastructure/ui/app-notifiers/info-notifier/info-notifier';
+import { FormikAppTextField } from '../../../app-infrastructure/app-ui/formik-app-mui-components';
+import InfoNotifier from '../../../app-infrastructure/app-ui/app-notifiers/info-notifier/info-notifier';
 
 export const SimpleNewsletterSignUpCreate: FC = () => {
   const classes = useStylesDialog();

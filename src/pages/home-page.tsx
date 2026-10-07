@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { Box, Typography, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import logoPgkSoft from '../app-infrastructure/app-images/author-cv.jpg';

@@ -2,6 +2,7 @@ export const COLORS = {
   primaryLight: 'rgb(27, 151, 245)', // (голубой)
   primaryMain: 'rgb(30, 77, 183)', // (синий)
   secondary: 'rgb(252, 75, 108)', // soft red
+  error: 'rgb(244, 67, 54)',
   purple: 'rgb(156, 39, 176)', // (фиолетовый)
   yellow: 'rgb(253, 201, 15)', // (желтый)
   green: 'rgb(57, 203, 127)', // (зеленый)
@@ -13,5 +14,6 @@ export const COLORS = {
   black: 'rgb(0,0,0)',
   lightGray: 'rgb(211,211,211)',
   white: 'rgb(255,255,255)',
+  warning: 'rgb(237, 108, 2)',
   transparencyLightGray: 'rgba(211,211,211,0.2)'
 };

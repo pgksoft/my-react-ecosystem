@@ -1,4 +1,4 @@
-import * as Joi from 'joi';
+import Joi from 'joi';
 import { TITLES_SIMPLE_NEWSLETTER_SING_UP } from '../../const/titles';
 import { KeyValues } from '../values-for-create';
 

@@ -1,5 +1,11 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import { Box, Theme, Typography } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
@@ -7,8 +13,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { uk } from 'date-fns/locale';
-import useGetParameter from '../../../../../../../_hooks/get-parameter.hooks/get-parameter.hook';
-import useBuildQuery from '../../../../../../../_hooks/get-parameter.hooks/get-path-and-query.hook';
+import useGetPathAndQuery from '../../../../../../../_hooks/get-parameter.hooks/get-path-and-query.hook';
 import buildQueryString from '../../../../../../../_hooks/get-parameter.hooks/helpers/build-query-string';
 import toISOStringLocaleTime from '../../../../../../app-helpers/to-iso-string-locale-time';
 import { TColumnDateSearch } from '../../../../../table-types/t-column-schemas';
@@ -16,12 +21,17 @@ import { TITLES_BUILD_TABLE } from '../../../../../const/title';
 import TEntityNameKeys from '../../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import useAppDispatch from '../../../../../../../store/use-app-dispatch';
 import { setMutationEntity } from '../../../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
+import useEntitySearchParamsInLocalStorage from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
+import SearchConfirm from './ui/search-confirm';
+import { omitKeys } from '../../../../../../app-helpers/omit-keys';
+import { getIsoTwoDate } from './search-helpers/get-iso-two-date';
 
-type IDateSearch = {
+export type IDateSearch = {
   entityNameKey: TEntityNameKeys;
   dataKey: string;
   inDateValue: TColumnDateSearch;
   text: string;
+  handleClose: () => void;
 };
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -29,9 +39,6 @@ const useStyles = makeStyles((theme: Theme) => {
     dataTimePicker: {
       width: '300px',
       paddingRight: '14px'
-    },
-    box: {
-      display: 'flex'
     }
   });
 });
@@ -40,131 +47,189 @@ export const SearchDate: React.FC<IDateSearch> = ({
   entityNameKey,
   dataKey,
   inDateValue,
-  text
+  text,
+  handleClose
 }) => {
   const classes = useStyles();
 
-  const textLabel = `${TITLES_BUILD_TABLE.searchLabel} ${text.toLowerCase()}`;
-  const beforeDateKey = `${dataKey}[before]`;
-  const afterDateKey = `${dataKey}[after]`;
+  const isHandle = useRef<boolean>(false);
 
-  const [getParameterBeforeDate] = useGetParameter(`${beforeDateKey}`);
-  const [getParameterAfterDate] = useGetParameter(`${afterDateKey}`);
+  const { getSearchParam, setSearchParam, removeSearchParam } =
+    useEntitySearchParamsInLocalStorage(entityNameKey, dataKey);
 
-  const initBeforeDateValue = !getParameterBeforeDate
-    ? inDateValue.beforeCreateDate
-    : new Date(getParameterBeforeDate);
+  const searchParam = getSearchParam<TColumnDateSearch>();
 
-  const initAfterDateValue = !getParameterAfterDate
-    ? inDateValue.afterCreateDate
-    : new Date(getParameterAfterDate);
+  const initFromDate = useRef(
+    (inDateValue.fromDate && new Date(inDateValue.fromDate)) ||
+      (searchParam?.fromDate && new Date(searchParam.fromDate)) ||
+      null
+  );
 
-  const [selectedBeforeCreateDate, setSelectedBeforeCreateDate] =
-    useState<Date | null>(initBeforeDateValue);
-  const [selectedAfterCreateDate, setSelectedAfterCreateDate] =
-    useState<Date | null>(initAfterDateValue);
+  const initToDate = useRef(
+    (inDateValue.toDate && new Date(inDateValue.toDate)) ||
+      (searchParam?.toDate && new Date(searchParam.toDate)) ||
+      null
+  );
+
+  const [fromDate, setFromDate] = useState<Date | null>(initFromDate.current);
+  const [toDate, setToDate] = useState<Date | null>(initToDate.current);
 
   const appDispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const getParameters = {
-    [beforeDateKey]: toISOStringLocaleTime(selectedBeforeCreateDate),
-    [afterDateKey]: toISOStringLocaleTime(selectedAfterCreateDate)
-  };
-  const { pathname, query } = useBuildQuery(getParameters);
+  const { pathname, query } = useGetPathAndQuery();
 
-  const valBefore = useRef<string>();
-  const valAfter = useRef<string>();
+  const fromDataKey = useMemo(() => {
+    return `${dataKey}[gt]`;
+  }, [dataKey]);
+  const toDataKey = useMemo(() => {
+    return `${dataKey}[lt]`;
+  }, [dataKey]);
 
-  const DateBeforeChange = (date: unknown) => {
+  const fromDateChange = (date: unknown) => {
     if (date === null || date instanceof Date) {
-      setSelectedBeforeCreateDate(date);
+      setFromDate(date);
     }
   };
-  const DateAfterChange = (date: unknown) => {
+  const toDateChange = (date: unknown) => {
     if (date === null || date instanceof Date) {
-      setSelectedAfterCreateDate(date);
+      setToDate(date);
     }
   };
 
-  useEffect(() => {
-    valBefore.current = toISOStringLocaleTime(selectedBeforeCreateDate);
-    valAfter.current = toISOStringLocaleTime(selectedAfterCreateDate);
-  }, [selectedBeforeCreateDate, selectedAfterCreateDate]);
-
-  useEffect(() => {
-    return () => {
-      let paramBefore = {};
-      let paramAfter = {};
-      if (valBefore.current) {
-        paramBefore = {
-          [beforeDateKey]: valBefore.current
-        };
-      } else {
-        delete query[beforeDateKey];
-      }
-      if (valAfter.current) {
-        paramAfter = {
-          [afterDateKey]: valAfter.current
-        };
-      } else {
-        delete query[afterDateKey];
-      }
-      const getParameters = {
-        ...query,
-        ...paramBefore,
-        ...paramAfter,
-        page: '1'
-      };
-      const url = buildQueryString(pathname, getParameters);
-      navigate(url);
-      appDispatch(setMutationEntity([entityNameKey, 'yes']));
+  const confirmHandle = () => {
+    let paramFromDate = {};
+    let paramToDate = {};
+    let columnDateSearch: TColumnDateSearch = {
+      fromDate: null,
+      toDate: null
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (fromDate) {
+      const isoFromDate = toISOStringLocaleTime(fromDate);
+      paramFromDate = {
+        [fromDataKey]: isoFromDate
+      };
+      columnDateSearch = {
+        ...columnDateSearch,
+        fromDate: isoFromDate
+      };
+    } else {
+      delete query[fromDataKey];
+    }
+    if (toDate) {
+      const isoToDate = toISOStringLocaleTime(toDate);
+      paramToDate = {
+        [toDataKey]: isoToDate
+      };
+      columnDateSearch = { ...columnDateSearch, toDate: isoToDate };
+    } else {
+      delete query[toDataKey];
+    }
+    const getParameters = {
+      ...query,
+      ...paramFromDate,
+      ...paramToDate
+      // page: '1'
+    };
+    setSearchParam(columnDateSearch);
+    const url = buildQueryString(pathname, getParameters);
+    isHandle.current = true;
+    navigate(url);
+  };
+
+  const clearHandle = () => {
+    removeSearchParam();
+    const getParameters = omitKeys(query, [fromDataKey, toDataKey]);
+    const url = buildQueryString(pathname, getParameters);
+    isHandle.current = true;
+    navigate(url);
+  };
+
+  const disableConfirm = useCallback((): boolean => {
+    return (
+      (!fromDate && !toDate) ||
+      (fromDate && toDate && fromDate > toDate) ||
+      (fromDate === initFromDate.current && toDate === initToDate.current)
+    );
+  }, [fromDate, toDate]);
+
+  const disableClear = useCallback((): boolean => {
+    return !initFromDate.current && !initToDate.current;
   }, []);
 
+  useEffect(() => {
+    if (!isHandle.current) return;
+
+    const newISOFromDate = query[fromDataKey];
+    const newISOToDate = query[toDataKey];
+    const initISOFromDate =
+      (initFromDate.current && toISOStringLocaleTime(initFromDate.current)) ||
+      '';
+    const initISOToDate =
+      (initToDate.current && toISOStringLocaleTime(initToDate.current)) || '';
+    const newISODate = getIsoTwoDate(newISOFromDate, newISOToDate);
+    const initISODate = getIsoTwoDate(initISOFromDate, initISOToDate);
+
+    const isReadyToMutation =
+      (!!initISODate && !newISODate) ||
+      (!!newISODate && !initISODate) ||
+      (!!initISODate && !!newISODate && initISODate !== newISODate);
+    if (isReadyToMutation) {
+      isHandle.current = false;
+      appDispatch(setMutationEntity([entityNameKey, 'yes']));
+      handleClose();
+    }
+  }, [appDispatch, entityNameKey, fromDataKey, handleClose, query, toDataKey]);
+
   return (
-    <Box>
-      <Typography align='center' component='h5'>
-        {textLabel}
-      </Typography>
-      <LocalizationProvider
-        dateAdapter={AdapterDateFns}
-        adapterLocale={uk}
-        localeText={{
-          okButtonLabel: TITLES_BUILD_TABLE.confirmOk,
-          cancelButtonLabel: TITLES_BUILD_TABLE.confirmCancel
-        }}
-      >
-        <DateTimePicker
-          className={classes.dataTimePicker}
-          ampm={false}
-          disableFuture
-          value={selectedAfterCreateDate}
-          onChange={DateAfterChange}
-          label={TITLES_BUILD_TABLE.searchAfter}
-          format='dd.MM.yyyy HH:mm'
-          maxDate={
-            selectedBeforeCreateDate === null
-              ? new Date()
-              : selectedBeforeCreateDate
-          }
-        />
-        <DateTimePicker
-          className={classes.dataTimePicker}
-          ampm={false}
-          minDate={
-            selectedAfterCreateDate === null
-              ? new Date('01.01.2000')
-              : selectedAfterCreateDate
-          }
-          disableFuture
-          value={selectedBeforeCreateDate}
-          onChange={DateBeforeChange}
-          label={TITLES_BUILD_TABLE.searchBefore}
-          format='dd.MM.yyyy HH:mm'
-        />
-      </LocalizationProvider>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
+      <Box>
+        <Typography align='center' component='h5'>
+          {`${TITLES_BUILD_TABLE.searchLabel} ${text.toLowerCase()}`}
+        </Typography>
+        <LocalizationProvider
+          dateAdapter={AdapterDateFns}
+          adapterLocale={uk}
+          localeText={{
+            okButtonLabel: TITLES_BUILD_TABLE.confirmOk,
+            cancelButtonLabel: TITLES_BUILD_TABLE.confirmCancel
+          }}
+        >
+          <DateTimePicker
+            className={classes.dataTimePicker}
+            ampm={false}
+            disableFuture
+            value={fromDate}
+            onChange={fromDateChange}
+            label={TITLES_BUILD_TABLE.searchAfter}
+            format='dd.MM.yyyy HH:mm'
+            maxDate={toDate === null ? new Date() : toDate}
+            slotProps={{ field: { clearable: true } }}
+          />
+          <DateTimePicker
+            className={classes.dataTimePicker}
+            ampm={false}
+            minDate={fromDate === null ? new Date('01.01.2000') : fromDate}
+            disableFuture
+            value={toDate}
+            onChange={toDateChange}
+            label={TITLES_BUILD_TABLE.searchBefore}
+            format='dd.MM.yyyy HH:mm'
+            slotProps={{ field: { clearable: true } }}
+          />
+        </LocalizationProvider>
+      </Box>
+      <SearchConfirm
+        disabledConfirm={disableConfirm()}
+        onConfirm={confirmHandle}
+        disabledClear={disableClear()}
+        onClear={clearHandle}
+      />
     </Box>
   );
 };

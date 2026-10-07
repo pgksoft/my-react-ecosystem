@@ -5,9 +5,15 @@ import type {
   TPopupListRoute
 } from '../../dialog-list/const/popup-list-routes';
 
+const storageKey = 'check-list-search-return';
+
 type TEntityPopupListRoute = TPopupListRoute | TPopupFilteredListRoute;
 
 class CheckListSearchParameters {
+  private constructor() {
+    this.Save();
+  }
+
   // Fields
   private static instanceAbout: CheckListSearchParameters | null = null;
 
@@ -35,6 +41,15 @@ class CheckListSearchParameters {
     listSearchParameters: TGetParameters
   ): void {
     this.listSearchParameters[entityPopupListRoute] = listSearchParameters;
+    this.Save();
+  }
+
+  // Debug helpers
+  private Save(): void {
+    sessionStorage.setItem(
+      storageKey,
+      JSON.stringify(this.listSearchParameters)
+    );
   }
 }
 
@@ -42,7 +57,9 @@ export default CheckListSearchParameters.instance;
 
 // Helpers
 export const isEntityPopupListRoute = (
-  value: string
+  value: unknown
 ): value is TEntityPopupListRoute => {
-  return Object.keys(choicePopupList).includes(value);
+  return (
+    typeof value === 'string' && Object.keys(choicePopupList).includes(value)
+  );
 };

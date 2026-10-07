@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Box } from '@mui/material';
 import { LINKS_AUTH_USER } from '../../../app-infrastructure/app-route/links';
 import { useActivePageLinks } from '../../hooks/active-page-links.hook';
-import { useStylesDialog } from '../../../app-infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../../app-infrastructure/app-ui/style/style-dialog';
 import TicTacToeDetail from '../../../domain/genius-space-courses/react/tic-tac-toe/model/tic-tak-toe-detail';
 import TicTacToeContextProvider from '../../../domain/genius-space-courses/react/tic-tac-toe/context/tic-tac-toe-context-provider';
 

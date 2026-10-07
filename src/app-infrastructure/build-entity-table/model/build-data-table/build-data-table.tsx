@@ -1,5 +1,5 @@
 /* eslint-disable react/require-default-props */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Table, TableBody } from '@mui/material';
 import useAppDispatch from '../../../../store/use-app-dispatch';
 import {
@@ -7,28 +7,28 @@ import {
   setSelectedEntityItems
 } from '../../../../redux-toolkit/selected-entity-items/selected-entity-items-slice';
 import { TTableSchema } from '../../table-types/t-table-schema';
-import { TDataTable } from '../../table-types/t-data-table';
 import { IEntityMember } from '../../../api-platform/app-entities/entity-member/entity-member';
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import BuildTableHead from '../build-table-head/build-table-head';
 import BuildTableRow from '../build-table-row/build-table-row';
+import transformDataBySchema from '../../helpers/transform-data-by-schema';
 
 type TBuildDataTable<T> = {
   entityNameKey: TEntityNameKeys;
-  tableSchema: TTableSchema;
-  dataTable: TDataTable;
+  tableSchema: TTableSchema<string>;
   entityData: T[];
-  returnPopup?: string;
 };
 
 function BuildDataTable<T extends IEntityMember>({
   entityNameKey,
   tableSchema,
-  dataTable,
-  entityData,
-  returnPopup
+  entityData
 }: TBuildDataTable<T>) {
   const [selected, setSelected] = useState<readonly string[]>([]);
+
+  const dataTable = useMemo(() => {
+    return transformDataBySchema(tableSchema, entityData);
+  }, [entityData, tableSchema]);
 
   const appDispatch = useAppDispatch();
 
@@ -92,13 +92,11 @@ function BuildDataTable<T extends IEntityMember>({
             return (
               <BuildTableRow
                 key={idRecord}
-                entityNameKey={entityNameKey}
                 dataRecord={dataRecord}
                 sortDataKey={sortDataKey}
                 tableSchema={tableSchema}
                 onClick={handleClick}
                 isItemSelected={selected.includes(idRecord)}
-                returnPopup={returnPopup}
               />
             );
           })}

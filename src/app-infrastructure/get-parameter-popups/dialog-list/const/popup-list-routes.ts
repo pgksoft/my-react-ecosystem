@@ -1,5 +1,7 @@
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import type { TParameterizedEntityName } from '../../../api-platform/app-entities/app-entities-types/t-entity-name';
+import { isEntityNameKeys } from '../../../api-platform/app-entities/helpers/entity-name-key-list';
+import createIsStringRecordValueGuard from '../../../app-helpers/create-is-string-record-value-guard';
 import type TCapitalizeFirstLetter from '../../../app-types/t-capitalize-first-letter';
 
 type TParameterizedPopupListRoute<K extends TEntityNameKeys> =
@@ -7,10 +9,9 @@ type TParameterizedPopupListRoute<K extends TEntityNameKeys> =
 
 type TPopupListRoute = TParameterizedPopupListRoute<TEntityNameKeys>;
 
-type TEntityPopupListRouts = {
+type TListEntityPopupListRouts = {
   [K in TEntityNameKeys]: TParameterizedPopupListRoute<K>;
 };
-type TListPopupListRoutes = Partial<TEntityPopupListRouts>;
 
 const LIST_POPUP_LIST_ROUTES = {
   contact: 'ContactList',
@@ -18,8 +19,9 @@ const LIST_POPUP_LIST_ROUTES = {
   shop: 'ShopList',
   productCategoryDic: 'ProductCategoryDicList',
   productDic: 'ProductDicList',
-  shopProduct: 'ShopProductList'
-} as const satisfies TListPopupListRoutes;
+  shopProduct: 'ShopProductList',
+  simpleNewsletterSignUp: 'SimpleNewsletterSignUpList'
+} as const satisfies TListEntityPopupListRouts;
 
 type TEntityFilteredNameKey = `${TEntityNameKeys}Filtered`;
 
@@ -32,11 +34,9 @@ type TParameterizedPopupFilteredListRoute<K extends TEntityFilteredNameKey> =
 type TPopupFilteredListRoute =
   TParameterizedPopupFilteredListRoute<TEntityFilteredNameKey>;
 
-type TEntityPopupFilteredListRoutes = {
+type TListEntityPopupFilteredListRoutes = {
   [K in TEntityFilteredNameKey]: TParameterizedPopupFilteredListRoute<K>;
 };
-
-type TListPopupFilteredListRoutes = Partial<TEntityPopupFilteredListRoutes>;
 
 const LIST_POPUP_FILTERED_LIST_ROUTS = {
   contactFiltered: 'ContactFilteredList',
@@ -44,8 +44,29 @@ const LIST_POPUP_FILTERED_LIST_ROUTS = {
   shopFiltered: 'ShopFilteredList',
   productCategoryDicFiltered: 'ProductCategoryDicFilteredList',
   productDicFiltered: 'ProductDicFilteredList',
-  shopProductFiltered: 'ShopProductFilteredList'
-} as const satisfies TListPopupFilteredListRoutes;
+  shopProductFiltered: 'ShopProductFilteredList',
+  simpleNewsletterSignUpFiltered: 'SimpleNewsletterSignUpFilteredList'
+} as const satisfies TListEntityPopupFilteredListRoutes;
 
 export { LIST_POPUP_LIST_ROUTES, LIST_POPUP_FILTERED_LIST_ROUTS };
 export type { TPopupListRoute, TPopupFilteredListRoute };
+
+export const isPopupListRouter = createIsStringRecordValueGuard(
+  LIST_POPUP_LIST_ROUTES
+);
+
+export const getEntityNameKeyFromPopupListRoutes = (
+  popupListRoute: TPopupListRoute
+): TEntityNameKeys | null => {
+  const entityNameKey = Object.entries(LIST_POPUP_LIST_ROUTES).find(
+    ([key, value]) => {
+      return value === popupListRoute;
+    }
+  )?.[0];
+  if (entityNameKey && isEntityNameKeys(entityNameKey)) return entityNameKey;
+  return null;
+};
+
+export const isPopupListFilteredRouter = createIsStringRecordValueGuard(
+  LIST_POPUP_FILTERED_LIST_ROUTS
+);

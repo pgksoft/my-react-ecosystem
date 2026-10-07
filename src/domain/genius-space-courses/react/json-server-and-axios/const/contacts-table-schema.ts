@@ -1,35 +1,34 @@
-import { ColumnType } from '../../../../../app-infrastructure/build-entity-table/table-types/t-column-schemas';
 import { TTableSchema } from '../../../../../app-infrastructure/build-entity-table/table-types/t-table-schema';
 import getRandomUuid from '../../../../../app-infrastructure/app-helpers/get-random-uuid';
-import { keyContactDto } from '../entity/contacts';
+import { type TKeyContact } from '../entity/contacts';
 import TITLES_CONTACT from './titles';
 
-const contactsTableSchema: TTableSchema = [
-  { title: '', type: ColumnType.null, key: getRandomUuid(), dataKey: 'id' },
+const contactsTableSchema = [
+  { title: '', type: 'null', key: getRandomUuid(), dataKey: 'id' },
   {
     title: TITLES_CONTACT.name,
-    type: ColumnType.search,
+    type: 'search',
     key: getRandomUuid(),
-    dataKey: keyContactDto.name,
+    dataKey: 'name',
     isSort: true,
     valueSearch: '',
     sx: { width: '15%' }
   },
   {
     title: TITLES_CONTACT.lastName,
-    type: ColumnType.search,
+    type: 'search',
     key: getRandomUuid(),
-    dataKey: keyContactDto.lastName,
+    dataKey: 'lastName',
     isSort: true,
     valueSearch: '',
     sx: { width: '20%' }
   },
   {
     title: TITLES_CONTACT.about,
-    type: ColumnType.null,
+    type: 'null',
     key: getRandomUuid(),
-    dataKey: keyContactDto.about
+    dataKey: 'about'
   }
-];
+] as const satisfies TTableSchema<TKeyContact>;
 
 export default contactsTableSchema;

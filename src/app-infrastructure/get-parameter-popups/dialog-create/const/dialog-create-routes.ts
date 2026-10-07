@@ -1,6 +1,8 @@
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import type { TParameterizedEntityName } from '../../../api-platform/app-entities/app-entities-types/t-entity-name';
 import { isEntityNameKeys } from '../../../api-platform/app-entities/helpers/entity-name-key-list';
+import createIsStringRecordValueGuard from '../../../app-helpers/create-is-string-record-value-guard';
+import createIsUnknownRecordKeyGuard from '../../../app-helpers/create-is-unknown-record-key-guard';
 import type TValueOf from '../../../app-types/t-value-of';
 
 type TParameterizedDialogCreateRoute<K extends TEntityNameKeys> =
@@ -26,23 +28,17 @@ const LIST_DIALOG_CREATE_ROUTES = {
 
 export default LIST_DIALOG_CREATE_ROUTES;
 
-// Helpers
-type TValueOfListDialogCreateRoutes = TValueOf<
+export type TValueOfListDialogCreateRoutes = TValueOf<
   typeof LIST_DIALOG_CREATE_ROUTES
 >;
-export const isDialogCreateRouter = (
-  value: string
-): value is TValueOfListDialogCreateRoutes => {
-  return Object.values(LIST_DIALOG_CREATE_ROUTES).includes(
-    value as TValueOfListDialogCreateRoutes
-  );
-};
 
-export const isDialogCreateKey = (
-  value: string
-): value is keyof typeof LIST_DIALOG_CREATE_ROUTES => {
-  return Object.keys(LIST_DIALOG_CREATE_ROUTES).includes(value);
-};
+export const isDialogCreateRouter = createIsStringRecordValueGuard(
+  LIST_DIALOG_CREATE_ROUTES
+);
+
+export const isDialogCreateKey = createIsUnknownRecordKeyGuard(
+  LIST_DIALOG_CREATE_ROUTES
+);
 
 export const getEntityNameKeyFromDialogCreateRoutes = (
   dialogCreateRoute: TDialogCreateRoute

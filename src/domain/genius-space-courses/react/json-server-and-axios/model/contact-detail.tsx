@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 import React, { FC, useCallback, useEffect } from 'react';
 import TDetailDialog from '../../../../../app-infrastructure/get-parameter-popups/dialog-detail/t-choice-popup-detail/t-dialog-detail';
-import { IEntityMember } from '../../../../../app-infrastructure/api-platform/app-entities/entity-member/entity-member';
 import {
   getInitialDetailContactDto,
   keyContactDto,
@@ -12,11 +11,12 @@ import {
   getInitialContactDtoValid,
   TContactValidateSchema
 } from '../entity/validation-schema';
-import TextFieldInput from '../../../../../app-infrastructure/ui/text-field-input/text-field-input';
+import TextFieldInput from '../../../../../app-infrastructure/app-ui/text-field-input/text-field-input';
 import TITLES_CONTACT from '../const/titles';
 import useDtoValidation from '../../../../../app-infrastructure/yup/dto-validation.hook';
 import getContactBriefDescription from '../helpers/get-contact-brief-description';
 import useFormResetSync from '../../../../../app-infrastructure/form/form-reset-sync.hook';
+import type { IEntityMember } from '../../../../../app-infrastructure/api-platform/app-entities/entity-member/entity-member';
 
 const ContactDetail: FC<TDetailDialog<IEntityMember>> = ({
   entity,
@@ -28,17 +28,28 @@ const ContactDetail: FC<TDetailDialog<IEntityMember>> = ({
   }, [entity]);
 
   const { dto, dtoValid, handleValueChange, reset, isModified } =
-    useDtoValidation<TContactDto, TContactValidateSchema>({
-      initialDto: getInitialContactDto,
+    useDtoValidation<
+      TContactDto,
+      TContactDto,
+      TContactValidateSchema,
+      TContactDto
+    >({
+      getInitialValidationDto: getInitialContactDto,
       initDtoValid: getInitialContactDtoValid,
       getSchema: getContactValidationSchema,
-      onValidDtoReady: onUpdateDtoReady
+      onValidDtoReady: onUpdateDtoReady,
+      transformToDto: (validationDto: TContactDto) => {
+        return validationDto;
+      },
+      formDtoKey: 'ContactDetail'
     });
 
   useFormResetSync(reset, isModified);
 
   useEffect(() => {
-    getBriefDescription(getContactBriefDescription(getInitialContactDto()));
+    getBriefDescription(
+      getContactBriefDescription(getInitialContactDto().validationDto)
+    );
   }, [getBriefDescription, getInitialContactDto]);
 
   return (
