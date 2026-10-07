@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Box } from '@mui/material';
 import { LINKS_AUTH_USER } from '../../../app-infrastructure/app-route/links';
 import { useActivePageLinks } from '../../hooks/active-page-links.hook';
-import { useStylesDialog } from '../../../app-infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../../app-infrastructure/app-ui/style/style-dialog';
 import ToDoListDetail from '../../../domain/genius-space-courses/react/to-do-list/model/to-do-list-detail';
 
 const ToDoListPage: FC = () => {

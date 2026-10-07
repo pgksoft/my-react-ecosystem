@@ -1,11 +1,18 @@
-enum EDialogParameters {
-  popup,
-  idDetail,
-  idRemove,
-  returnPopup,
-  returnId
-}
+type TPopupDialogParameters =
+  | 'popup'
+  | 'idDetail'
+  | 'idRemove'
+  | 'returnPopup'
+  | 'returnId';
 
-type TDialogParameters = keyof typeof EDialogParameters;
+export const PopupDialogParameterNames = {
+  popup: 'popup',
+  returnPopup: 'returnPopup',
+  returnId: 'returnId',
+  idDetail: 'idDetail',
+  idRemove: 'idRemove'
+} as const satisfies {
+  [K in TPopupDialogParameters]: K;
+};
 
-export default TDialogParameters;
+export default TPopupDialogParameters;

@@ -1,32 +1,29 @@
 /* eslint-disable react/require-default-props */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Box, Checkbox, TableCell, TableRow } from '@mui/material';
 import { TDataRecord } from '../../table-types/t-data-table';
-import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import getRandomUuid from '../../../app-helpers/get-random-uuid';
 import renderDataValue from './helpers/render-data-value';
 import { TTableSchema } from '../../table-types/t-table-schema';
 
 type TBuildTableRow = {
-  entityNameKey: TEntityNameKeys;
   dataRecord: TDataRecord;
   sortDataKey: string[];
-  tableSchema: TTableSchema;
+  tableSchema: TTableSchema<unknown>;
   onClick: (event: React.MouseEvent<unknown>, id: string) => void;
   isItemSelected: boolean;
-  returnPopup?: string;
 };
 
 function BuildTableRow({
-  entityNameKey,
   dataRecord,
   sortDataKey,
   tableSchema,
   onClick,
-  isItemSelected,
-  returnPopup
+  isItemSelected
 }: TBuildTableRow) {
-  const uniqueKey = dataRecord.id.toString();
+  const uniqueKey = useMemo(() => {
+    return dataRecord.id.toString();
+  }, [dataRecord.id]);
 
   return (
     <TableRow
@@ -41,7 +38,10 @@ function BuildTableRow({
       selected={isItemSelected}
       sx={{ cursor: 'pointer' }}
     >
-      <TableCell padding='checkbox'>
+      <TableCell
+        padding='checkbox'
+        sx={{ borderWidth: 1, borderColor: '#cecece', borderStyle: 'solid' }}
+      >
         <Checkbox
           color='primary'
           checked={isItemSelected}
@@ -59,6 +59,7 @@ function BuildTableRow({
         });
         return (
           <TableCell
+            align='left'
             sx={{
               verticalAlign: 'top',
               borderWidth: 1,
@@ -67,7 +68,6 @@ function BuildTableRow({
               p: 0,
               ...columnSchema?.sx
             }}
-            align='left'
             key={key}
           >
             <Box
@@ -75,7 +75,7 @@ function BuildTableRow({
                 display: 'flex',
                 wordBreak: 'break-word',
                 alignItems: 'center',
-                width: '100%',
+                alignSelf: 'center',
                 padding: 0
               }}
             >

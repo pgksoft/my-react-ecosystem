@@ -1,8 +1,8 @@
 import React, { FC, useContext } from 'react';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { Box, TextField } from '@mui/material';
-import { useStylesDialog } from '../../../../app-infrastructure/ui/style/style-dialog';
-import { ViewWrap } from '../../../../app-infrastructure/ui/view-wrap/view-wrap';
+import { useStylesDialog } from '../../../../app-infrastructure/app-ui/style/style-dialog';
+import { ViewWrap } from '../../../../app-infrastructure/app-ui/view-wrap/view-wrap';
 import { TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT } from '../const/titles';
 import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
 import BarCharWrapper from '../ui/bar-chart-wrapper';

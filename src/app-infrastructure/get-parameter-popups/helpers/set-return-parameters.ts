@@ -1,9 +1,12 @@
-import { TGetParameters } from '../../../_hooks/get-parameter.hooks/get-parameters-type/t-get-parameters';
+import {
+  TGetParameters,
+  type TGetParameter
+} from '../../../_hooks/get-parameter.hooks/get-parameters-type/t-get-parameters';
 import getReturnParameters from './get-return-parameters';
 
 const setReturnParameters = (
   returnParameters: TGetParameters,
-  returnPopup: string
+  returnPopup: TGetParameter
 ) => {
   const temp = getReturnParameters(returnPopup);
   Object.assign(returnParameters, temp);

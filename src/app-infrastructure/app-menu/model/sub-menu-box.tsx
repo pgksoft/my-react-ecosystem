@@ -1,5 +1,5 @@
 import React, { CSSProperties, FC } from 'react';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { NavLink } from 'react-router-dom';
 import { Box, Button, Theme } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';

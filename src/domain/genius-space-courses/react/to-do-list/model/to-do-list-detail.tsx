@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import clsx from 'clsx';
+import { clsx } from 'clsx';
 import { Avatar, Box } from '@mui/material';
-import { useStylesDialog } from '../../../../../app-infrastructure/ui/style/style-dialog';
+import { useStylesDialog } from '../../../../../app-infrastructure/app-ui/style/style-dialog';
 import ToDoListLogo from '../../../../../app-infrastructure/app-images/genius-space/to-do-list-logo.png';
 
 const ToDoListDetail: FC = () => {

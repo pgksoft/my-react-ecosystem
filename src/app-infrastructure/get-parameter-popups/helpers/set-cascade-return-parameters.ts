@@ -1,4 +1,7 @@
-import { TGetParameters } from '../../../_hooks/get-parameter.hooks/get-parameters-type/t-get-parameters';
+import {
+  TGetParameters,
+  type TGetParameter
+} from '../../../_hooks/get-parameter.hooks/get-parameters-type/t-get-parameters';
 import checkReturnParameters from './check-return-parameters-for-cascade-call-popups/check-return-parameters';
 import setListSearchParameters from './set-list-search-parameters';
 import setReturnParameters from './set-return-parameters';
@@ -6,7 +9,7 @@ import setReturnParameters from './set-return-parameters';
 type TSetCascadeReturnParametersInput = {
   returnParameters: TGetParameters;
   listSearchParameters: TGetParameters;
-  returnPopup: string;
+  returnPopup: TGetParameter;
 };
 
 const setCascadeReturnParameters = ({

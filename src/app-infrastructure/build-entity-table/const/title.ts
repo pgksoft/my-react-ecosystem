@@ -7,5 +7,8 @@ export const TITLES_BUILD_TABLE = {
   noDataSearch: 'Не вдалося знайти дані для пошуку',
   cleanSearch: 'очистити',
   choose: 'обрати',
-  find: 'Знайти'
+  find: 'Знайти',
+  sortMarker: 'sort'
 };
+
+export const SORT_MARKER = 'sort';

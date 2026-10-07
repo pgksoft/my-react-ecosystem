@@ -13,7 +13,7 @@ import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-typ
 
 type TBuildTableHeadProps = {
   entityNameKey: TEntityNameKeys;
-  tableSchema: TTableSchema;
+  tableSchema: TTableSchema<string>;
   sortDataKey: string[];
   numSelected: number;
   rowCount: number;
@@ -37,7 +37,10 @@ const BuildTableHead: FC<TBuildTableHeadProps> = ({
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding='checkbox'>
+        <TableCell
+          padding='checkbox'
+          sx={{ borderWidth: 1, borderColor: '#cecece', borderStyle: 'solid' }}
+        >
           <Checkbox
             color='primary'
             indeterminate={numSelected > 0 && numSelected < rowCount}

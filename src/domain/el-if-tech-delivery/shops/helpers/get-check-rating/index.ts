@@ -18,20 +18,21 @@ type TRatingLabel =
 export type TCheckRating = {
   color: TypographyOwnProps['color'];
   label: TRatingLabel;
+  bgColor: string;
 };
 
 const mapCheckRating = {
-  0: { color: 'textDisabled', label: 'No Rating' },
-  5: { color: COLORS.secondary, label: 'Useless' },
-  10: { color: COLORS.secondary, label: 'Useless+' },
-  15: { color: 'warning', label: 'Poor' },
-  20: { color: 'warning', label: 'Poor+' },
-  25: { color: 'info', label: 'Ok' },
-  30: { color: 'info', label: 'Ok+' },
-  35: { color: 'secondary', label: 'Good' },
-  40: { color: 'secondary', label: 'Good+' },
-  45: { color: 'success', label: 'Excellent' },
-  50: { color: 'success', label: 'Excellent+' }
+  0: { color: 'textDisabled', label: 'No Rating', bgColor: COLORS.lightGray },
+  5: { color: COLORS.secondary, label: 'Useless', bgColor: COLORS.secondary },
+  10: { color: COLORS.secondary, label: 'Useless+', bgColor: COLORS.secondary },
+  15: { color: 'warning', label: 'Poor', bgColor: COLORS.warning },
+  20: { color: 'warning', label: 'Poor+', bgColor: COLORS.warning },
+  25: { color: 'info', label: 'Ok', bgColor: COLORS.primaryLight },
+  30: { color: 'info', label: 'Ok+', bgColor: COLORS.primaryLight },
+  35: { color: 'secondary', label: 'Good', bgColor: COLORS.purple },
+  40: { color: 'secondary', label: 'Good+', bgColor: COLORS.purple },
+  45: { color: 'success', label: 'Excellent', bgColor: COLORS.greenDeep },
+  50: { color: 'success', label: 'Excellent+', bgColor: COLORS.greenDeep }
 } as const satisfies Record<string, TCheckRating>;
 
 const isMapCheckRatingKey = createIsUnknownRecordKeyGuard(mapCheckRating);

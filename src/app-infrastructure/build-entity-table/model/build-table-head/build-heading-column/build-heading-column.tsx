@@ -1,25 +1,18 @@
 import React, { FC, useState } from 'react';
 import {
   Box,
-  Button,
   IconButton,
-  Popover,
   PopoverOrigin,
   Theme,
   Typography
 } from '@mui/material';
 import { createStyles, makeStyles } from '@mui/styles';
-import { useNavigate } from 'react-router-dom';
 import { TColumnSchema } from '../../../table-types/t-table-schema';
 import getHeadingColumnIcon from '../../../helpers/get-heading-column-icon';
-import useGetParameter from '../../../../../_hooks/get-parameter.hooks/get-parameter.hook';
-import useBuildUrl from '../../../../../_hooks/get-parameter.hooks/build-url.hook';
-import { TITLES_BUILD_TABLE } from '../../../const/title';
-import { SearchOrderBy } from './search-order-by/search-order-by';
+import { SortInOrder } from './sort-in-order/sort-in-order';
 import { SearchPopover } from './search-popover/search-popover';
 import TEntityNameKeys from '../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
-import useAppDispatch from '../../../../../store/use-app-dispatch';
-import { setMutationEntity } from '../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
+import useEntitySearchParamsInLocalStorage from '../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -43,22 +36,13 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     iconButton: {
       marginRight: '8px'
-    },
-    popover: {
-      pointerEvents: 'none'
-    },
-    popoverButton: {
-      pointerEvents: 'auto'
-    },
-    paper: {
-      padding: '8px'
     }
   });
 });
 
 type TBuildHeadingColumnTable = {
   entityNameKey: TEntityNameKeys;
-  columnSchema: TColumnSchema;
+  columnSchema: TColumnSchema<string>;
   horizontal: PopoverOrigin['horizontal'];
 };
 
@@ -70,40 +54,15 @@ const BuildHeadingColumn: FC<TBuildHeadingColumnTable> = (props) => {
 
   const dataKey = columnSchema?.nameGetParameter || columnSchema.dataKey;
 
-  const [getParameterDataKey] = useGetParameter(dataKey);
-  const [getParameterDateBefore] = useGetParameter(`${dataKey}[before]`);
-  const [getParameterDateAfter] = useGetParameter(`${dataKey}[after]`);
-  const getParameterDataKeyArray = useGetParameter(`${dataKey}[]`);
+  const { hasSearchParam } = useEntitySearchParamsInLocalStorage(
+    entityNameKey,
+    dataKey
+  );
 
-  const urlWithoutParameterDataKey = useBuildUrl({
-    getParameters: {},
-    withoutParameters: [
-      dataKey,
-      `${dataKey}[]`,
-      `${dataKey}[after]`,
-      `${dataKey}[before]`
-    ]
-  });
+  const Icon = getHeadingColumnIcon(type, hasSearchParam());
 
-  const isPrimary =
-    !!getParameterDataKey ||
-    !!getParameterDataKeyArray.length ||
-    !!getParameterDateBefore ||
-    !!getParameterDateAfter;
-
-  const Icon = getHeadingColumnIcon(type, isPrimary);
-
-  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  const appDispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const handlePopoverOpen = (
-    event: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const searchPopoverOpen = (
     event: React.MouseEvent<HTMLElement, MouseEvent>
@@ -112,64 +71,30 @@ const BuildHeadingColumn: FC<TBuildHeadingColumnTable> = (props) => {
     setIsSearchOpen(true);
   };
 
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
   const searchPopoverClose = () => {
     setAnchorEl(null);
     setIsSearchOpen(false);
   };
 
-  const handleCleanSearch = () => {
-    setAnchorEl(null);
-    navigate(urlWithoutParameterDataKey);
-    appDispatch(setMutationEntity([entityNameKey, 'yes']));
-  };
-
   return (
-    <Box className={classes.cellSelection} onMouseLeave={handlePopoverClose}>
+    <Box className={classes.cellSelection}>
       {Icon && (
-        <>
-          <IconButton
-            className={classes.iconButton}
-            disableRipple
-            onClick={searchPopoverOpen}
-            onMouseEnter={handlePopoverOpen}
-          >
-            {Icon}
-          </IconButton>
-          <Popover
-            className={classes.popover}
-            classes={{
-              paper: classes.paper
-            }}
-            open={Boolean(anchorEl)}
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right'
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left'
-            }}
-            onClose={handlePopoverClose}
-            disableRestoreFocus
-          >
-            <Button
-              className={classes.popoverButton}
-              onClick={handleCleanSearch}
-              size='small'
-            >
-              {TITLES_BUILD_TABLE.cleanSearch}
-            </Button>
-          </Popover>
-        </>
+        <IconButton
+          className={classes.iconButton}
+          disableRipple
+          onClick={searchPopoverOpen}
+        >
+          {Icon}
+        </IconButton>
       )}
       {!Icon && <Box className={classes.iconButton} />}
       <Typography sx={{ paddingRight: '8px' }}>{title}</Typography>
-      {isSort && <SearchOrderBy dataKey={dataKey} />}
+      {isSort && (
+        <SortInOrder
+          entityNameKey={entityNameKey}
+          dataKey={columnSchema.dataKey}
+        />
+      )}
       {isSearchOpen && (
         <SearchPopover
           entityNameKey={entityNameKey}

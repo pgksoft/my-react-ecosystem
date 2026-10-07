@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-export interface TMenu {
+export type TMenu = {
   lineItems: JSX.Element[];
   popUpItems: JSX.Element[];
-}
+};
 
-export interface INewMenu {
+export type INewMenu = {
   menu: TMenu;
   isNewMenu: boolean;
-}
+};
 
 export function getNewMenuState(
   elements: JSX.Element[],

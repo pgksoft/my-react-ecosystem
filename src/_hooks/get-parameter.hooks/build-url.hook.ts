@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 import { useLocation } from 'react-router-dom';
 import { TGetParameters } from './get-parameters-type/t-get-parameters';
-import TDialogParameters from '../../app-infrastructure/get-parameter-popups/types-parameters-popup/t-dialog-parameters';
+import TPopupDialogParameters from '../../app-infrastructure/get-parameter-popups/types-parameters-popup/t-dialog-parameters';
 import getQueryStringWithoutParameters from './helpers/get-query-string-without-parameters';
 import type { TApiEntityUrl } from '../../app-infrastructure/api-platform/app-entities/const/api-entity-url';
 
@@ -9,7 +9,7 @@ type TBuildUrlProps = {
   apiEntityUrl?: TApiEntityUrl;
   getParameters: TGetParameters;
   whatQueryIs?: 'search & getParameters' | 'only getParameters';
-  withoutParameters?: TDialogParameters[] | string[];
+  withoutParameters?: TPopupDialogParameters[] | string[];
 };
 
 function useBuildUrl({

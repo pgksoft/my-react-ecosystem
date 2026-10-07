@@ -1,4 +1,4 @@
-import TypeGuard from '../app-types/type-guard';
+import type TUnknownRecord from '../app-types/t-unknown-record';
 
 export type TValidField<T> = {
   [K in keyof T]: {
@@ -15,3 +15,18 @@ export type TValidationState<T> = {
   isValid: boolean;
   reset: () => void;
 };
+
+export type TInitialValidationDto<T> = {
+  validationDto: T;
+  isSerialization: boolean;
+};
+
+export type TGetInitialValidationDto<T extends TUnknownRecord> = (options: {
+  isSerialization: boolean;
+}) => TInitialValidationDto<T>;
+
+export type TGetDetailInitialValidationDto<T extends TUnknownRecord> =
+  (options: {
+    isSerialization: boolean;
+    entity: unknown;
+  }) => TInitialValidationDto<T>;

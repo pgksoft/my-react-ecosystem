@@ -6,5 +6,9 @@ export const TITLES_OF_APP = {
   createdAt: 'Дата додавання до системи',
   createdAtWrap: 'Дата додавання\nдо системи',
   confirmRemove: 'Підтвердити видалення',
-  confirmTitle: 'Ви впевнені?'
+  confirmTitle: 'Ви впевнені?',
+  filterAllOff: 'Cleaning all search parameters',
+  filterSettingsOff: 'Cleaning some search parameters',
+  sortAllOff: 'Cleaning all sort parameters',
+  uploadedFileReadError: 'Uploaded file read error'
 };

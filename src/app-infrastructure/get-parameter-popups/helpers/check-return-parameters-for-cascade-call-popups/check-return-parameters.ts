@@ -1,12 +1,18 @@
-type TPopupReturnParam = {
-  returnPopup?: string;
-};
+import type TCascadeParams from '../../../app-types/t-cascade-params';
+import type TEmptyObject from '../../../app-types/t-empty-object';
+
+const storageKey = 'check-popup-return';
 
 class CheckReturnParameters {
+  private constructor() {
+    this.cascadeParams = [];
+    this.Save();
+  }
+
   // Fields
   private static instanceAbout: CheckReturnParameters | null = null;
 
-  private popupReturnParams: TPopupReturnParam[] = [];
+  private cascadeParams: TCascadeParams[] = [];
 
   // Properties
   static get instance(): CheckReturnParameters {
@@ -17,20 +23,33 @@ class CheckReturnParameters {
   }
 
   // Methods
-  public Push(param: TPopupReturnParam): void {
-    this.popupReturnParams.push(param);
+  public Push(param: TCascadeParams): void {
+    const { returnPopup } = this.Get();
+    const { returnPopup: newReturnPopup } = param;
+    const isNewParams =
+      (!!returnPopup && returnPopup !== newReturnPopup) || !returnPopup;
+    if (isNewParams) {
+      this.cascadeParams.push(param);
+      this.Save();
+    }
   }
 
-  public Pop(): TPopupReturnParam {
-    const param = this.popupReturnParams.pop();
+  public Pop(): TCascadeParams | TEmptyObject {
+    const param = this.cascadeParams.pop();
+    this.Save();
     if (param) return param;
     return {};
   }
 
-  public Get(): TPopupReturnParam {
-    const { length } = this.popupReturnParams;
-    if (length) return this.popupReturnParams[length - 1];
+  public Get(): TCascadeParams | TEmptyObject {
+    const { length } = this.cascadeParams;
+    if (length) return this.cascadeParams[length - 1];
     return {};
+  }
+
+  // Debug helpers
+  private Save(): void {
+    sessionStorage.setItem(storageKey, JSON.stringify(this.cascadeParams));
   }
 }
 

@@ -5,16 +5,16 @@ import { Breakpoint } from '@mui/system';
 import Dialog from '@mui/material/Dialog';
 import { useNavigate } from 'react-router-dom';
 import checkReturnParameters from '../helpers/check-return-parameters-for-cascade-call-popups/check-return-parameters';
-import { TEntityDialogsFieldsKey } from '../../../redux-toolkit/entity-dialogs-fields-values/entity-dialogs-fields-values-actions';
-import useAppDispatch from '../../../store/use-app-dispatch';
-import { clearEntityDialogsFields } from '../../../redux-toolkit/entity-dialogs-fields-values/entity-dialogs-fields-values-slice';
-import { TransitionSlideUp } from '../../ui/transition-slide-up/transition-slide-up';
+import { TFormDtoKey } from '../../../redux-toolkit/form-dto-serialization/form-dto-serialization-actions';
+import { TransitionSlideUp } from '../../app-ui/transition-slide-up/transition-slide-up';
+import { DialogContent } from '@mui/material';
+import formDtoSerialization from '../../app-helpers/form-dto-serialization/';
 
 type TDialogPopupWrapperProps = {
   children: ReactNode;
   open: boolean;
   returnUrl: string;
-  entityDialogsFieldsKey?: TEntityDialogsFieldsKey;
+  entityDialogsFieldsKey?: TFormDtoKey;
   fullWidth?: boolean;
   maxWidth?: false | Breakpoint;
 };
@@ -28,18 +28,17 @@ const DialogPopupWrapper: FC<TDialogPopupWrapperProps> = ({
   children
 }) => {
   const navigate = useNavigate();
-  const appDispatch = useAppDispatch();
 
   const handleClose = useCallback(
     (event: object, reason: 'backdropClick' | 'escapeKeyDown') => {
       if (reason !== 'backdropClick') {
         checkReturnParameters.Pop();
         entityDialogsFieldsKey &&
-          appDispatch(clearEntityDialogsFields(entityDialogsFieldsKey));
+          formDtoSerialization.Clear(entityDialogsFieldsKey);
         navigate(returnUrl);
       }
     },
-    [appDispatch, entityDialogsFieldsKey, navigate, returnUrl]
+    [entityDialogsFieldsKey, navigate, returnUrl]
   );
 
   return (
@@ -53,8 +52,18 @@ const DialogPopupWrapper: FC<TDialogPopupWrapperProps> = ({
       slots={{
         transition: TransitionSlideUp
       }}
+      aria-description='dialog-popup-wrapper'
     >
-      {open && children}
+      <DialogContent
+        sx={{
+          overflow: 'hidden',
+          p: 0,
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
+        {open && children}
+      </DialogContent>
     </Dialog>
   );
 };

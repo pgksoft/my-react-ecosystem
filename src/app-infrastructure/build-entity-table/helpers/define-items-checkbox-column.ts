@@ -1,27 +1,18 @@
-import {
-  ColumnType,
-  TColumnCheckboxItems
-} from '../table-types/t-column-schemas';
-import {
-  TTableSchema,
-  type TExtractTableSchemaDataKeys
-} from '../table-types/t-table-schema';
+import { TColumnCheckboxItems } from '../table-types/t-column-schemas';
+import { TTableSchema } from '../table-types/t-table-schema';
 
 export const defineItemsCheckboxColumn = <
-  T extends TTableSchema,
-  K extends TExtractTableSchemaDataKeys<T>
+  TKeyEntity extends string,
+  T extends TTableSchema<TKeyEntity>
 >(
   strTable: T,
   checkboxItems: TColumnCheckboxItems,
-  itemKey: K
-): TTableSchema => {
+  itemKey: TKeyEntity
+): TTableSchema<TKeyEntity> => {
   const columnCheckboxSchema = strTable.find((columnSchema) => {
     return columnSchema.dataKey === itemKey;
   });
-  if (
-    columnCheckboxSchema &&
-    columnCheckboxSchema.type === ColumnType.checkBox
-  ) {
+  if (columnCheckboxSchema && columnCheckboxSchema.type === 'checkBox') {
     columnCheckboxSchema.checkboxes = [...checkboxItems];
   }
   return strTable;

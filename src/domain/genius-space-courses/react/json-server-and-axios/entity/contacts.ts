@@ -7,8 +7,10 @@ import {
   createKeyNames,
   getInitialDetailDto
 } from '../../../../../app-infrastructure/app-helpers/dto-utils';
+import type { TDeepKeyOf } from '../../../../../app-infrastructure/app-types/t-deep-key-of';
 import TValueOf from '../../../../../app-infrastructure/app-types/t-value-of';
 import TypeGuard from '../../../../../app-infrastructure/app-types/type-guard';
+import type { TInitialValidationDto } from '../../../../../app-infrastructure/yup/types';
 
 type TContact = {
   id: string;
@@ -32,19 +34,30 @@ export const isContact: TypeGuard<TContact> = (value): value is TContact => {
   );
 };
 
-export const getInitialContactDto = (): TContactDto => {
-  return { name: '', lastName: '', about: '' };
+export const getInitialContactDto = (): TInitialValidationDto<TContactDto> => {
+  return {
+    validationDto: { name: '', lastName: '', about: '' },
+    isSerialization: false
+  };
 };
 
-export const getInitialDetailContactDto = (entity: IEntityMember) => {
-  return getInitialDetailDto(entity, isContact, getInitialContactDto);
+export const getInitialDetailContactDto = (
+  entity: IEntityMember
+): TInitialValidationDto<TContactDto> => {
+  return {
+    validationDto: getInitialDetailDto(entity, isContact, () => {
+      return getInitialContactDto().validationDto;
+    }),
+    isSerialization: false
+  };
 };
 
+export type TKeyContact = TDeepKeyOf<TContact>;
 export type TKeyContactDto = keyof TContactDto;
 export type TValueContactDto = TValueOf<TContact>;
 
 export const keyContactDto = createKeyNames<TContactDto>(
-  getInitialContactDto()
+  getInitialContactDto().validationDto
 );
 
 export const isKeyContactDto = createIsUnknownRecordKeyGuard(keyContactDto);
