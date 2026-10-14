@@ -8,8 +8,12 @@ import LIST_DIALOG_DETAIL_ROUTES, {
   isDialogDetailKey,
   type TDialogDetailRoute
 } from '../../get-parameter-popups/dialog-detail/const/dialog-detail-routes';
+import type TModalCommandFormDtoKey from './t-command-form-dto-key';
 
-type TFormDtoKey = TDialogCreateRoute | TDialogDetailRoute;
+export type TFormDtoKey =
+  | TDialogCreateRoute
+  | TDialogDetailRoute
+  | TModalCommandFormDtoKey;
 
 type TFormDto<T extends TUnknownRecord> = T | null;
 

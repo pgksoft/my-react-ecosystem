@@ -20,34 +20,22 @@ import { AsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-a
 import {
   getShopId,
   getShopOptionLabel,
-  shopFetchAll,
-  type TShop
+  shopFetchAll
 } from '../../shops/entity/shops';
-import ShopBriefDescription from '../../shops/ui/shop-brief-description';
 import {
   getProductId,
   getProductOptionLabel,
-  productFetchAll,
-  type TProduct
+  productFetchAll
 } from '../../product-dic/entity/product';
-import ProductBriefDescription from '../../product-dic/helpers/product-brief-description';
 import { FileUploadButton } from '../../../../app-infrastructure/app-ui/file-upload-input/file-upload-button';
-import { SUPPORTED_IMAGE_FORMATS } from '../../../../app-infrastructure/yup/validation-messages';
 import { COLORS } from '../../../../app-infrastructure/app-const/colors';
 import { Box, Typography } from '@mui/material';
 import TITLES_DELIVERY_SHOPS from '../../shops/const/titles';
 import RatingView from '../../../../app-infrastructure/app-ui/rating-view';
 import TITLES_DELIVERY_PRODUCT from '../../product-dic/const/titles';
-
-const renderShopCard = (item: TShop) => {
-  return <ShopBriefDescription shop={item} variant='body1' />;
-};
-
-const renderProductCard = (item: TProduct) => {
-  return <ProductBriefDescription product={item} variant='body1' />;
-};
-
-const acceptImageFormat = SUPPORTED_IMAGE_FORMATS.join();
+import renderShopCard from '../ui/render-shop-card';
+import renderProductCard from '../ui/render-product-card';
+import { acceptImageFormat } from '../../../../app-infrastructure/yup/validation-messages';
 
 const ProductsInStoresCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
   const { dto, dtoValid, handleValueChange, reset, isModified } =

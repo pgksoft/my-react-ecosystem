@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
 import { Box, Toolbar, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { ModalWithIconButton } from '../../../app-infrastructure/app-ui/modal-with-button/modal-with-icon-button';
 import { useStylesDialog } from '../../../app-infrastructure/app-ui/style/style-dialog';
 import { TITLES_SIMPLE_NEWSLETTER_SING_UP } from '../const/titles';
-import { WrapperOfNestedModalDialog } from '../../../app-infrastructure/app-ui/wrapper-of-nested-modal-dialog/wrapper-of-nested-modal-dialog';
-import { SimpleNewsletterSignUpCreate } from './simple-newsletter-sign-up-create';
+import { ModalCommandButtonWrapper } from '../../../app-infrastructure/modal-commands/model/modal-command-button-wrapper';
+import { CreationCommandWrapper } from '../helpers/creation-command-wrapper';
 
 export const SimpleNewsletterSignUpList: FC = () => {
   const classes = useStylesDialog();
@@ -16,12 +15,13 @@ export const SimpleNewsletterSignUpList: FC = () => {
         className={classes.rootToolbar}
         id='tool-bar-simple-newsletter-sign-up-list-list'
       >
-        <ModalWithIconButton
-          icon={<AddIcon />}
-          iconColor='primary'
-          title={TITLES_SIMPLE_NEWSLETTER_SING_UP.create}
-          NestedForm={WrapperOfNestedModalDialog}
-          childrenNestedForm={<SimpleNewsletterSignUpCreate />}
+        <ModalCommandButtonWrapper
+          kind='icon-button'
+          baseButtonProps={{
+            title: TITLES_SIMPLE_NEWSLETTER_SING_UP.create,
+            icon: <AddIcon />
+          }}
+          NestedComponent={CreationCommandWrapper}
           maxWidth='sm'
         />
       </Toolbar>

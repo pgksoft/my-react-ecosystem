@@ -12,9 +12,9 @@ const popupEntityToolName = getArrayAsStringConst(
   'sortAllOff'
 );
 
-type TPopupEntityToolName = (typeof popupEntityToolName)[number];
-
 const modalCommandEntityToolName = getArrayAsStringConst('reloadImage');
+
+type TPopupEntityToolName = (typeof popupEntityToolName)[number];
 
 type TModalCommandEntityToolName = (typeof modalCommandEntityToolName)[number];
 

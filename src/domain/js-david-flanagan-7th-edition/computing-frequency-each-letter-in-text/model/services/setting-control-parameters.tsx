@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 import PercentIcon from '@mui/icons-material/Percent';
 import NumbersIcon from '@mui/icons-material/Numbers';
-import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
-import { TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT } from '../const/titles';
+import { ComputesFrequencyEachLetterInTextContext } from '../../context/computes-frequency-each-letter-in-text-context';
+import { TITLES_COMPUTES_FREQUENCY_EACH_LETTER_IN_TEXT } from '../../const/titles';
 
 const precisions = [2, 3, 4, 5, 6, 7];
 

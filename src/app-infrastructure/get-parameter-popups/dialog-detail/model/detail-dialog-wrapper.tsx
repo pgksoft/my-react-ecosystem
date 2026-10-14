@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import useAppDispatch from '../../../../store/use-app-dispatch';
 import TPopupDetail from '../t-choice-popup-detail/t-popup-detail';
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
-import { TFormDtoKey } from '../../../../redux-toolkit/form-dto-serialization/form-dto-serialization-actions';
 import { useStylesDialog } from '../../../app-ui/style/style-dialog';
 import checkReturnParameters from '../../helpers/check-return-parameters-for-cascade-call-popups/check-return-parameters';
 import { setMutationEntity } from '../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
@@ -20,7 +19,9 @@ import { IEntityMember } from '../../../api-platform/app-entities/entity-member/
 import useConfirmDialogWrapper from '../../hooks/confirm-dialog-wrapper.hook';
 import resolveBaseUrl from '../../../api-platform/app-entities/resolve-base-url';
 import type TUnknownRecord from '../../../app-types/t-unknown-record';
-import formDtoSerialization from '../../../app-helpers/form-dto-serialization/';
+import formDtoSerialization, {
+  type TFormDtoKey
+} from '../../../app-helpers/form-dto-serialization/';
 
 type TDetailDialogWrapperProps = {
   ComponentDetail: TPopupDetail<IEntityMember>;

@@ -24,18 +24,14 @@ import { TITLES_DELIVERY_PRODUCTS_IN_STORES } from '../const/titles';
 import {
   getShopId,
   getShopOptionLabel,
-  shopFetchAll,
-  type TShop
+  shopFetchAll
 } from '../../shops/entity/shops';
 import {
   getProductId,
   getProductOptionLabel,
-  productFetchAll,
-  type TProduct
+  productFetchAll
 } from '../../product-dic/entity/product';
-import ShopBriefDescription from '../../shops/ui/shop-brief-description';
-import ProductBriefDescription from '../../product-dic/helpers/product-brief-description';
-import { SUPPORTED_IMAGE_FORMATS } from '../../../../app-infrastructure/yup/validation-messages';
+import { acceptImageFormat } from '../../../../app-infrastructure/yup/validation-messages';
 import { Box, Typography } from '@mui/material';
 import TITLES_DELIVERY_SHOPS from '../../shops/const/titles';
 import RatingView from '../../../../app-infrastructure/app-ui/rating-view';
@@ -46,16 +42,8 @@ import { COLORS } from '../../../../app-infrastructure/app-const/colors';
 import { Grid } from '@mui/system';
 import { ProductsInShopsImageView } from '../ui/products-in-shops-image-view';
 import toISOStringLocaleTime from '../../../../app-infrastructure/app-helpers/to-iso-string-locale-time';
-
-const renderShopCard = (item: TShop) => {
-  return <ShopBriefDescription shop={item} variant='body1' />;
-};
-
-const renderProductCard = (item: TProduct) => {
-  return <ProductBriefDescription product={item} variant='body1' />;
-};
-
-const acceptImageFormat = SUPPORTED_IMAGE_FORMATS.join();
+import renderShopCard from '../ui/render-shop-card';
+import renderProductCard from '../ui/render-product-card';
 
 const ProductInStoresDetail: FC<TDetailDialog<IEntityMember>> = ({
   entity,

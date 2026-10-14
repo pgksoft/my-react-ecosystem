@@ -1,3 +1,4 @@
+import type { TFormDtoKey } from '../app-helpers/form-dto-serialization';
 import type TUnknownRecord from '../app-types/t-unknown-record';
 
 export type TValidField<T> = {
@@ -29,4 +30,5 @@ export type TGetDetailInitialValidationDto<T extends TUnknownRecord> =
   (options: {
     isSerialization: boolean;
     entity: unknown;
+    formDtoKey?: TFormDtoKey;
   }) => TInitialValidationDto<T>;

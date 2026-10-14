@@ -81,7 +81,7 @@ export type TKeyProductsInStoresValidationDto =
 export type TValueValidationProductsInStoresDto =
   TValueOf<TProductsInStoresValidationDto>;
 
-const getBaseInitialProductsInStoresValidationDto =
+export const getBaseInitialProductsInStoresValidationDto =
   (): TProductsInStoresValidationDto => {
     return {
       shop: { id: '', name: '', rating: 0, mutationDate: '' },
@@ -135,12 +135,10 @@ export const transformCreateValidationDtoToDto = (
 export const getInitialDetailProductsInStoresValidationDto: TGetDetailInitialValidationDto<
   TProductsInStoresValidationDto
 > = (options) => {
-  const { isSerialization, entity } = options;
+  const { isSerialization, entity, formDtoKey = 'ShopProductDetail' } = options;
   if (isSerialization) {
     const dtoSerialization =
-      formDtoSerialization.Get<TProductsInStoresValidationDto>(
-        'ShopProductDetail'
-      );
+      formDtoSerialization.Get<TProductsInStoresValidationDto>(formDtoKey);
     if (dtoSerialization)
       return { validationDto: dtoSerialization, isSerialization: true };
   }

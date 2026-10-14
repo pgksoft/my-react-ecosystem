@@ -1,4 +1,5 @@
-import type TUnknownRecord from '../../app-types/t-unknown-record';
+import type { IEntityMember } from '../../api-platform/app-entities/entity-member/entity-member';
+import type { TModalCommandDescription } from '../../modal-commands/t-modal-command-dialog/t-modal-command-dialog';
 import type TEntityToolName from './t-entity-tool-names';
 import type {
   TModalCommandEntityToolName,
@@ -11,13 +12,9 @@ export type TEntityToolPopup = {
   title: string;
 };
 
-type TModalCommand = {
-  onReady: (dto: TUnknownRecord | FormData | null) => void;
-};
-
 export type TEntityToolModalCommand = {
   toolType: 'modal-command';
-  Component: React.FC<TModalCommand>;
+  description: TModalCommandDescription<IEntityMember>;
 };
 
 type TEntityToolTypes<K extends TEntityToolName> =
