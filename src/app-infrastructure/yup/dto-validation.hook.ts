@@ -9,8 +9,9 @@ import {
 import deepEqual from '../app-helpers/deep-equal';
 import { initialValidate } from '../app-types/t-validate';
 import type TUnknownRecord from '../app-types/t-unknown-record';
-import type { TFormDtoKey } from '../../redux-toolkit/form-dto-serialization/form-dto-serialization-actions';
-import formDtoSerialization from '../../app-infrastructure/app-helpers/form-dto-serialization/';
+import formDtoSerialization, {
+  type TFormDtoKey
+} from '../../app-infrastructure/app-helpers/form-dto-serialization/';
 
 type TUseDtoValidationOptions<
   TValidationDto extends TUnknownRecord,

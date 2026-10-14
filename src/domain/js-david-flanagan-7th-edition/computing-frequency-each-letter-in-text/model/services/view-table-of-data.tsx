@@ -7,15 +7,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { TKeyDataCharts } from '../context/types/types';
-import { ComputesFrequencyEachLetterInTextContext } from '../context/computes-frequency-each-letter-in-text-context';
+import { TKeyDataCharts } from '../../context/types/types';
+import { ComputesFrequencyEachLetterInTextContext } from '../../context/computes-frequency-each-letter-in-text-context';
 
-interface Column {
+type Column = {
   id: TKeyDataCharts;
   label: string;
   minWidth?: number;
   align?: 'right';
-}
+};
 
 const columns: readonly Column[] = [
   { id: 'name', label: 'Symbol', minWidth: 20 },

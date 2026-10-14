@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import useAppDispatch from '../../../../store/use-app-dispatch';
 import IPopupCreate from '../t-choice-popup-create/i-popup-create';
 import { useStylesDialog } from '../../../app-ui/style/style-dialog';
-import { TFormDtoKey } from '../../../../redux-toolkit/form-dto-serialization/form-dto-serialization-actions';
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import { setMutationEntity } from '../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
 import PopupDialogHeader from '../../../app-ui/popup-dialog-header/popup-dialog-header';
@@ -17,7 +16,9 @@ import ICreateDialog from '../t-choice-popup-create/i-create-dialog';
 import useConfirmDialogWrapper from '../../hooks/confirm-dialog-wrapper.hook';
 import resolveBaseUrl from '../../../api-platform/app-entities/resolve-base-url';
 import type TUnknownRecord from '../../../app-types/t-unknown-record';
-import formDtoSerialization from '../../../app-helpers/form-dto-serialization/';
+import formDtoSerialization, {
+  type TFormDtoKey
+} from '../../../app-helpers/form-dto-serialization/';
 
 type TCreateDialogWrapperProps = {
   ComponentCreate: IPopupCreate;

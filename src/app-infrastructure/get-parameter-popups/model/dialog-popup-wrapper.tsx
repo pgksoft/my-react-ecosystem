@@ -5,10 +5,11 @@ import { Breakpoint } from '@mui/system';
 import Dialog from '@mui/material/Dialog';
 import { useNavigate } from 'react-router-dom';
 import checkReturnParameters from '../helpers/check-return-parameters-for-cascade-call-popups/check-return-parameters';
-import { TFormDtoKey } from '../../../redux-toolkit/form-dto-serialization/form-dto-serialization-actions';
 import { TransitionSlideUp } from '../../app-ui/transition-slide-up/transition-slide-up';
 import { DialogContent } from '@mui/material';
-import formDtoSerialization from '../../app-helpers/form-dto-serialization/';
+import formDtoSerialization, {
+  type TFormDtoKey
+} from '../../app-helpers/form-dto-serialization/';
 
 type TDialogPopupWrapperProps = {
   children: ReactNode;

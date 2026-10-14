@@ -13,6 +13,8 @@ import { generateButtonDisabledStrategyMap } from '../helpers/generate-button-di
 import useEntitySearchParamsInLocalStorage from '../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 import { mutationEntitySelector } from '../../../../redux-toolkit/mutation-entities/mutation-entities-selectors';
 import type { TPopupListRoute } from '../../../get-parameter-popups';
+import { ModalCommandButtonWrapper } from '../../../modal-commands/model/modal-command-button-wrapper';
+import getNestedModalEntityCommand from '../../../modal-commands/get-nested-modal-entity-command';
 
 type TEntityToolbarProps = {
   entityNameKey: TEntityNameKeys;
@@ -78,7 +80,7 @@ const EntityToolbar: FC<TEntityToolbarProps> = ({
         Object.entries(entityTools).map((item) => {
           const [toolName, toolPopup] = item;
           if (!isEntityToolName(toolName)) return null;
-          if (toolPopup.toolType === 'popup')
+          if (toolPopup.toolType === 'popup') {
             return (
               <EntityToolPopupIconButton
                 key={`${entityNameKey}-${toolName}`}
@@ -88,6 +90,31 @@ const EntityToolbar: FC<TEntityToolbarProps> = ({
                 returnPopup={returnPopup}
               />
             );
+          }
+          if (toolPopup.toolType === 'modal-command') {
+            const { title, entityDialogsFieldsKey } = toolPopup.description;
+            const uniqueName = `${entityNameKey}-${toolName}`;
+            return (
+              <ModalCommandButtonWrapper
+                kind='icon-button'
+                key={uniqueName}
+                baseButtonProps={{
+                  title,
+                  icon: ChoiceEntityToolIcon[toolName](),
+                  disabled: buttonDisabledStrategyMap[toolName],
+                  iconColor: 'inherit'
+                }}
+                maxWidth={toolPopup.description.maxWidth}
+                fullWidth={toolPopup.description.fullWidth}
+                NestedComponent={getNestedModalEntityCommand({
+                  Command: toolPopup.description,
+                  componentName: uniqueName,
+                  entityNameKey,
+                  entityDialogsFieldsKey
+                })}
+              />
+            );
+          }
         })}
     </Toolbar>
   );

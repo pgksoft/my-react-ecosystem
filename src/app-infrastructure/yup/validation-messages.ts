@@ -5,6 +5,7 @@ export const SUPPORTED_IMAGE_FORMATS = [
   'image/jpg',
   'image/webp'
 ];
+export const acceptImageFormat = SUPPORTED_IMAGE_FORMATS.join();
 
 export const VALIDATION_MESSAGES = {
   stringValidateMin: 'Must be at least ${min} characters',
