@@ -33,11 +33,27 @@ const BuildEntityTable: FC<TBuildTable> = (props) => {
         isShowDataEmptyWarning
       />
       {!!entityData && (
-        <Paper sx={{ padding: 0.7, width: '100%', height: '100%' }}>
+        <Paper
+          aria-description='paper-table-wrapper '
+          sx={{
+            padding: 0.7,
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            flex: '1 1 auto',
+            minWidth: 0,
+            minHeight: 0,
+            boxSizing: 'border-box'
+          }}
+        >
           <TableContainer
+            aria-description='table-container-entity'
             sx={{
+              flex: '1 1 auto',
               overflow: 'auto',
-              maxHeight: '80vh'
+              maxHeight: '100%',
+              minWidth: 0,
+              minHeight: 0
             }}
           >
             {isEntityMemberArray(entityData) && (
@@ -51,7 +67,11 @@ const BuildEntityTable: FC<TBuildTable> = (props) => {
           {/* Here must be pagination */}
           <Box
             aria-description='table-pagination'
-            sx={{ h: '5%', border: '1px solid blue' }}
+            sx={{
+              height: 48,
+              flex: '0 0 auto',
+              border: '1px solid blue'
+            }}
           >
             '*************'
           </Box>

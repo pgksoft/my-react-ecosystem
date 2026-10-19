@@ -14,7 +14,7 @@ const DeliveryProductPage: FC = () => {
   );
 
   return (
-    <Box className={classes.rootList}>
+    <Box className={classes.rootList} aria-description='root-list'>
       <ProductList />
     </Box>
   );
