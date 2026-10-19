@@ -28,7 +28,14 @@ function App() {
         <BrowserRouter>
           <Box
             aria-labelledby='app-container'
-            sx={{ overflow: 'hidden', height: '100%' }}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              overflow: 'hidden',
+              height: '100%',
+              minHeight: 0,
+              minWidth: 0
+            }}
           >
             <MainMenu>{routes}</MainMenu>
           </Box>

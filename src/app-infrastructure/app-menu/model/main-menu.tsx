@@ -20,7 +20,7 @@ import EntityToolbar from '../../entity-tools/entity-toolbar/model/entity-toolba
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
-    root: { display: 'flex', overflow: 'hidden', height: '100%' },
+    root: { display: 'flex', overflow: 'hidden', minWidth: 0, minHeight: 0 },
     appBar: {
       transition: '.2s',
       background: COLORS.primaryMain
@@ -33,11 +33,17 @@ const useStyles = makeStyles((theme: Theme) => {
       width: `calc(100% - ${drawerWidthLeft}px)`
     },
     content: {
+      display: 'flex',
+      flexDirection: 'column',
       width: '100%',
+      flex: '1 1 auto',
       padding: '0 0.3%',
       transition: '.2s',
       backgroundColor: COLORS.white,
-      overflow: 'hidden'
+      overflow: 'hidden',
+      minHeight: 0,
+      minWidth: 0,
+      boxSizing: 'border-box'
     }
   });
 });

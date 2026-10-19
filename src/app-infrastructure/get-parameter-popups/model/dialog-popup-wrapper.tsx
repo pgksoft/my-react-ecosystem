@@ -60,7 +60,9 @@ const DialogPopupWrapper: FC<TDialogPopupWrapperProps> = ({
           overflow: 'hidden',
           p: 0,
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          minHeight: 0,
+          minWidth: 0
         }}
       >
         {open && children}

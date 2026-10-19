@@ -4,7 +4,14 @@ import { COLORS } from '../../app-const/colors';
 
 export const useStylesDialog = makeStyles((theme: Theme) => {
   return createStyles({
-    rootList: { display: 'flex', flexDirection: 'column', paddingTop: '12px' },
+    rootList: {
+      display: 'flex',
+      flexDirection: 'column',
+      flex: '1 1 auto',
+      paddingTop: '12px',
+      minWidth: 0,
+      minHeight: 0
+    },
     rootToolbar: {
       boxSizing: 'border-box',
       border: `1px solid ${COLORS.lightGray}`,

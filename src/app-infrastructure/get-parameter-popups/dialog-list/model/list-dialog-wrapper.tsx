@@ -33,7 +33,9 @@ const ListDialogWrapper: FC<TListDialogWrapper> = ({
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '80vh'
+        height: '80vh',
+        minHeight: 0,
+        minWidth: 0
       }}
     >
       <PopupDialogHeader
@@ -53,7 +55,9 @@ const ListDialogWrapper: FC<TListDialogWrapper> = ({
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          padding: '0 8px 8px 8px'
+          padding: '0 8px 8px 8px',
+          minHeight: 0,
+          minWidth: 0
         }}
       >
         <EntityList />
