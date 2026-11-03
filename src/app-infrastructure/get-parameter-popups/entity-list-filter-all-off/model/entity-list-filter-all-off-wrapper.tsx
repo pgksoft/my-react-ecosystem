@@ -5,6 +5,8 @@ import useAppDispatch from '../../../../store/use-app-dispatch';
 import { setMutationEntity } from '../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
 import useEntitySearchParamsInLocalStorage from '../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 import checkReturnParameters from '../../helpers/check-return-parameters-for-cascade-call-popups/check-return-parameters';
+import isDataLoadModePage from '../../../entity-metadata/is-data-load-mode-page';
+import { setEntityDataPage } from '../../../../redux-toolkit/entity-data-page/entity-data-page-slice';
 
 type TEntityListFilterAllOffWrapperProps = {
   entityNameKeyFilterAllOff: TEntityNameKeys;
@@ -24,6 +26,9 @@ const EntityListFilterAllOffWrapper: FC<TEntityListFilterAllOffWrapperProps> = (
 
   useEffect(() => {
     navigate(returnUrl);
+    if (isDataLoadModePage(entityNameKeyFilterAllOff)) {
+      appDispatch(setEntityDataPage([entityNameKeyFilterAllOff, 1]));
+    }
     appDispatch(setMutationEntity([entityNameKeyFilterAllOff, 'yes']));
     checkReturnParameters.Pop();
     // eslint-disable-next-line react-hooks/exhaustive-deps

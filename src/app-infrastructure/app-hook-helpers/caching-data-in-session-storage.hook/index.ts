@@ -4,8 +4,9 @@ import apiEntityUrl from '../../api-platform/app-entities/const/api-entity-url';
 import type { IEntityMember } from '../../api-platform/app-entities/entity-member/entity-member';
 import resolveBaseUrl from '../../api-platform/app-entities/resolve-base-url';
 import type TypeGuard from '../../app-types/type-guard';
-import isArrayOfTypePredicate from '../../app-helpers/is-array-of-type-predicate';
+import createArrayGuardOfTypePredicate from '../../app-helpers/create-array-guard-of-type-predicate';
 import useFetch from '../../api-platform/http-hook/use-fetch';
+import type { TPageResponse } from '../../api-platform/api-response/t-page-response';
 
 type TProps<T> = {
   entityNameKey: TEntityNameKeys;
@@ -20,7 +21,7 @@ const useCachingDataInSessionStorage = <T extends IEntityMember>({
 }: TProps<T>): TData<T> => {
   const isEntityArray = useCallback(
     (entity: T[]) => {
-      return isArrayOfTypePredicate(isEntityGuard);
+      return createArrayGuardOfTypePredicate(isEntityGuard);
     },
     [isEntityGuard]
   );
@@ -38,7 +39,7 @@ const useCachingDataInSessionStorage = <T extends IEntityMember>({
     }
   });
 
-  const { data: entity, error, update } = useFetch<T[]>();
+  const { data: entityResponse, error, update } = useFetch<TPageResponse<T>>();
 
   const baseURL = useMemo(() => {
     return resolveBaseUrl(entityNameKey);
@@ -55,12 +56,15 @@ const useCachingDataInSessionStorage = <T extends IEntityMember>({
   }, [data]);
 
   useEffect(() => {
-    if (!error && entity && isEntityArray(entity)) {
-      sessionStorage.setItem(entityNameKey, JSON.stringify(entity));
-      setData(entity);
+    if (!error && entityResponse && isEntityArray(entityResponse.items)) {
+      sessionStorage.setItem(
+        entityNameKey,
+        JSON.stringify(entityResponse.items)
+      );
+      setData(entityResponse.items);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [entity, error]);
+  }, [entityResponse, error]);
 
   return data;
 };

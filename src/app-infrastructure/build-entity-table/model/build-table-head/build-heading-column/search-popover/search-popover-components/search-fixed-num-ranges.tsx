@@ -21,6 +21,8 @@ import buildQueryString from '../../../../../../../_hooks/get-parameter.hooks/he
 import { omitKeys } from '../../../../../../app-helpers/omit-keys';
 import SearchConfirm from './ui/search-confirm';
 import { setMutationEntity } from '../../../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
+import isDataLoadModePage from '../../../../../../entity-metadata/is-data-load-mode-page';
+import { setEntityDataPage } from '../../../../../../../redux-toolkit/entity-data-page/entity-data-page-slice';
 
 export type TFixedNumRangesSearch = {
   entityNameKey: TEntityNameKeys;
@@ -112,6 +114,9 @@ export const SearchFixedNumRanges: FC<TFixedNumRangesSearch> = ({
 
     if (initValue.current !== newRangeName) {
       isHandle.current = false;
+      if (isDataLoadModePage(entityNameKey)) {
+        appDispatch(setEntityDataPage([entityNameKey, 1]));
+      }
       appDispatch(setMutationEntity([entityNameKey, 'yes']));
       handleClose();
     }

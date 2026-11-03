@@ -16,13 +16,13 @@ import {
 import useFormResetSync from '../../../../app-infrastructure/form/form-reset-sync.hook';
 import TextFieldInput from '../../../../app-infrastructure/app-ui/text-field-input/text-field-input';
 import TITLES_DELIVERY_PRODUCT from '../const/titles';
-import { AsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-autocomplete';
 import {
   getProductCategoryId,
   getProductCategoryOptionLabel,
-  productCategoryFetchAll
+  productCategoryFetchPage
 } from '../../product-category-dic/entity/product-category';
 import { SelectingEntityItemsWrapper } from '../../../../app-infrastructure/app-ui/selecting-entity-items-wrapper';
+import AsyncAutoComplete from '../../../../app-infrastructure/app-ui/async-autocomplete';
 
 const ProductCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
   const { dto, dtoValid, handleValueChange, reset, isModified } =
@@ -59,6 +59,7 @@ const ProductCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
       >
         <AsyncAutoComplete
           inputKind='yup'
+          dataLoadingMode='page'
           label={TITLES_DELIVERY_PRODUCT.category}
           textFieldProps={{ helperText: TITLES_DELIVERY_PRODUCT.choice }}
           fieldName={keyProductDto.category}
@@ -66,7 +67,7 @@ const ProductCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
           errorMessage={dtoValid.category.errorMsg}
           value={dto.category}
           customOnChange={handleValueChange}
-          fetchAll={productCategoryFetchAll}
+          fetch={productCategoryFetchPage}
           getOptionLabel={getProductCategoryOptionLabel}
           getId={getProductCategoryId}
           sx={{ mt: 2 }}

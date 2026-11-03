@@ -15,6 +15,8 @@ import WITHOUT_DIALOG_PARAMETERS from '../../get-parameter-popups/const/without-
 import resolveBaseUrl from '../../api-platform/app-entities/resolve-base-url';
 import useAppSelector from '../../../store/use-app-selector';
 import { mutationEntitySelector } from '../../../redux-toolkit/mutation-entities/mutation-entities-selectors';
+import { selectEntityDataPageByKey } from '../../../redux-toolkit/entity-data-page/entity-data-page-selectors';
+import { PAGE_NUMBER_KEY } from '../../app-const/pagination';
 
 type TLoadingDataComponentProps<T> = {
   inData: T | null;
@@ -38,6 +40,7 @@ function LoadingDataComponent<T>({
   const { data, isLoading, error, update, resetError } = useFetch<T>();
 
   const mutation = useAppSelector(mutationEntitySelector)[entityNameKey];
+  const pageToLoad = useAppSelector(selectEntityDataPageByKey(entityNameKey));
 
   const appDispatch = useAppDispatch();
 
@@ -47,7 +50,7 @@ function LoadingDataComponent<T>({
 
   const url = useBuildUrl({
     apiEntityUrl: apiEntityUrl[entityNameKey],
-    getParameters: {},
+    getParameters: pageToLoad ? { [PAGE_NUMBER_KEY]: String(pageToLoad) } : {},
     withoutParameters: WITHOUT_DIALOG_PARAMETERS
   });
 

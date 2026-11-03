@@ -16,7 +16,6 @@ import useFormResetSync from '../../../../app-infrastructure/form/form-reset-syn
 import TextFieldInput from '../../../../app-infrastructure/app-ui/text-field-input/text-field-input';
 import { TITLES_DELIVERY_PRODUCTS_IN_STORES } from '../const/titles';
 import { SelectingEntityItemsWrapper } from '../../../../app-infrastructure/app-ui/selecting-entity-items-wrapper';
-import { AsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-autocomplete';
 import {
   getShopId,
   getShopOptionLabel,
@@ -25,7 +24,7 @@ import {
 import {
   getProductId,
   getProductOptionLabel,
-  productFetchAll
+  productFetchPage
 } from '../../product-dic/entity/product';
 import { FileUploadButton } from '../../../../app-infrastructure/app-ui/file-upload-input/file-upload-button';
 import { COLORS } from '../../../../app-infrastructure/app-const/colors';
@@ -36,6 +35,14 @@ import TITLES_DELIVERY_PRODUCT from '../../product-dic/const/titles';
 import renderShopCard from '../ui/render-shop-card';
 import renderProductCard from '../ui/render-product-card';
 import { acceptImageFormat } from '../../../../app-infrastructure/yup/validation-messages';
+import { SORT_MARKER } from '../../../../app-infrastructure/build-entity-table/const/title';
+import type { TDirection } from '../../../../app-infrastructure/build-entity-table/model/build-table-head/build-heading-column/sort-in-order/custom-sort-label';
+import type { TGetParameters } from '../../../../_hooks/get-parameter.hooks/get-parameters-type/t-get-parameters';
+import AsyncAutoComplete from '../../../../app-infrastructure/app-ui/async-autocomplete';
+
+const productSortParams: TGetParameters = {
+  [`${SORT_MARKER}[name]`]: 'asc' satisfies TDirection
+} as const;
 
 const ProductsInStoresCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
   const { dto, dtoValid, handleValueChange, reset, isModified } =
@@ -63,6 +70,7 @@ const ProductsInStoresCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
       >
         <AsyncAutoComplete
           inputKind='yup'
+          dataLoadingMode='all'
           label={TITLES_DELIVERY_PRODUCTS_IN_STORES.store}
           textFieldProps={{
             helperText: TITLES_DELIVERY_PRODUCTS_IN_STORES.choiceStore
@@ -72,7 +80,7 @@ const ProductsInStoresCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
           errorMessage={dtoValid.shop.errorMsg}
           value={dto.shop}
           customOnChange={handleValueChange}
-          fetchAll={shopFetchAll}
+          fetch={shopFetchAll}
           getOptionLabel={getShopOptionLabel}
           getId={getShopId}
           renderCard={renderShopCard}
@@ -93,7 +101,9 @@ const ProductsInStoresCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
       >
         <AsyncAutoComplete
           inputKind='yup'
+          dataLoadingMode='page'
           label={TITLES_DELIVERY_PRODUCTS_IN_STORES.product}
+          baseSearchParams={productSortParams}
           textFieldProps={{
             helperText: TITLES_DELIVERY_PRODUCTS_IN_STORES.choiceProduct
           }}
@@ -102,7 +112,7 @@ const ProductsInStoresCreate: FC<ICreateDialog> = ({ onCreateDtoReady }) => {
           errorMessage={dtoValid.product.errorMsg}
           value={dto.product}
           customOnChange={handleValueChange}
-          fetchAll={productFetchAll}
+          fetch={productFetchPage}
           getOptionLabel={getProductOptionLabel}
           getId={getProductId}
           renderCard={renderProductCard}

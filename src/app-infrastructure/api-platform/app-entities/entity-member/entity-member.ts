@@ -1,4 +1,4 @@
-import isArrayOfTypePredicate from '../../../app-helpers/is-array-of-type-predicate';
+import createArrayGuardOfTypePredicate from '../../../app-helpers/create-array-guard-of-type-predicate';
 import type TypeGuard from '../../../app-types/type-guard';
 
 // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
@@ -17,4 +17,5 @@ export const isEntityMember: TypeGuard<IEntityMember> = (
   );
 };
 
-export const isEntityMemberArray = isArrayOfTypePredicate(isEntityMember);
+export const isEntityMemberArray =
+  createArrayGuardOfTypePredicate(isEntityMember);

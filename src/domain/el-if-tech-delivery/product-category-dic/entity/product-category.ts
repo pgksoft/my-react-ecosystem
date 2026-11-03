@@ -12,16 +12,14 @@ import {
 import type { TDeepKeyOf } from '../../../../app-infrastructure/app-types/t-deep-key-of';
 import type TValueOf from '../../../../app-infrastructure/app-types/t-value-of';
 import type TypeGuard from '../../../../app-infrastructure/app-types/type-guard';
-import type { TAsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-autocomplete';
-import {
-  makeFetchAll,
-  makeFetchPage
-} from '../../../../app-infrastructure/app-ui/async-autocomplete/entourage-helpers/fetch-adapters';
 import formDtoSerialization from '../../../../app-infrastructure/app-helpers/form-dto-serialization/';
 import type {
   TGetDetailInitialValidationDto,
   TGetInitialValidationDto
 } from '../../../../app-infrastructure/yup/types';
+import createArrayGuardOfTypePredicate from '../../../../app-infrastructure/app-helpers/create-array-guard-of-type-predicate';
+import makeFetch from '../../../../app-infrastructure/app-ui/async-autocomplete/fetch-adapter';
+import type { TAsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-autocomplete';
 
 export type TProductCategory = {
   name: string;
@@ -95,18 +93,16 @@ export const isKeyProductCategoryDto = createIsUnknownRecordKeyGuard(
   keyProductCategoryDto
 );
 
-// definitions for AsyncAutoComplete
-export const productCategoryFetchAll = makeFetchAll<TProductCategory>(
-  resolveBaseUrl('productCategoryDic'),
-  apiEntityUrl.productCategoryDic,
-  keyProductCategoryDto.name
-);
+export const isArrayProductCategory =
+  createArrayGuardOfTypePredicate(isProductCategory);
 
-export const productCategoryFetchPage = makeFetchPage(
-  resolveBaseUrl('productCategoryDic'),
-  apiEntityUrl.productCategoryDic,
-  keyProductCategoryDto.name
-);
+// definitions for AsyncAutoComplete
+export const productCategoryFetchPage = makeFetch<TProductCategory>({
+  baseURL: resolveBaseUrl('productCategoryDic'),
+  apiPath: apiEntityUrl.productCategoryDic,
+  searchDataKey: keyProductCategoryDto.name,
+  isPagination: true
+});
 
 export const getProductCategoryOptionLabel: TAsyncAutoComplete<TProductCategory>['getOptionLabel'] =
   (item) => {

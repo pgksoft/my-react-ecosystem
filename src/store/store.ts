@@ -4,7 +4,8 @@ import appPageLinksReducer from '../redux-toolkit/app-page-links/app-page-links-
 import mutationEntitiesReducer from '../redux-toolkit/mutation-entities/mutation-entities-slice';
 import formDtoSerializationReducer from '../redux-toolkit/form-dto-serialization/form-dto-serialization-slice';
 import selectedEntityItemsReducer from '../redux-toolkit/selected-entity-items/selected-entity-items-slice';
-import resetToInitialDataSliceReducer from '../redux-toolkit/reset-to-initial-data/reset-toInitial-data-slice';
+import resetToInitialDataReducer from '../redux-toolkit/reset-to-initial-data/reset-toInitial-data-slice';
+import entityDataPageReducer from '../redux-toolkit/entity-data-page/entity-data-page-slice';
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
     mutationEntities: mutationEntitiesReducer,
     formDtoSerialization: formDtoSerializationReducer,
     selectedEntityItems: selectedEntityItemsReducer,
-    resetToInitialData: resetToInitialDataSliceReducer
+    resetToInitialData: resetToInitialDataReducer,
+    entityDataPage: entityDataPageReducer
   }
 });
 
