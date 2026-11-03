@@ -12,16 +12,14 @@ import {
 import type { TDeepKeyOf } from '../../../../app-infrastructure/app-types/t-deep-key-of';
 import type TValueOf from '../../../../app-infrastructure/app-types/t-value-of';
 import type TypeGuard from '../../../../app-infrastructure/app-types/type-guard';
-import type { TAsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-autocomplete';
-import {
-  makeFetchAll,
-  makeFetchPage
-} from '../../../../app-infrastructure/app-ui/async-autocomplete/entourage-helpers/fetch-adapters';
 import formDtoSerialization from '../../../../app-infrastructure/app-helpers/form-dto-serialization/';
 import type {
   TGetDetailInitialValidationDto,
   TGetInitialValidationDto
 } from '../../../../app-infrastructure/yup/types';
+import createArrayGuardOfTypePredicate from '../../../../app-infrastructure/app-helpers/create-array-guard-of-type-predicate';
+import makeFetch from '../../../../app-infrastructure/app-ui/async-autocomplete/fetch-adapter';
+import type { TAsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-autocomplete';
 
 export type TShop = {
   name: string;
@@ -85,18 +83,14 @@ export const keyShopDto = createKeyNames<TShopDto>(getBaseInitialShopDto());
 
 export const isKeyShopDto = createIsUnknownRecordKeyGuard(keyShopDto);
 
-// definitions for AsyncAutoComplete
-export const shopFetchAll = makeFetchAll<TShop>(
-  resolveBaseUrl('shop'),
-  apiEntityUrl.shop,
-  keyShopDto.name
-);
+export const isArrayShop = createArrayGuardOfTypePredicate(isShop);
 
-export const shopFetchPage = makeFetchPage(
-  resolveBaseUrl('shop'),
-  apiEntityUrl.shop,
-  keyShopDto.name
-);
+// definitions for AsyncAutoComplete
+export const shopFetchAll = makeFetch<TShop>({
+  baseURL: resolveBaseUrl('shop'),
+  apiPath: apiEntityUrl.shop,
+  searchDataKey: keyShopDto.name
+});
 
 export const getShopOptionLabel: TAsyncAutoComplete<TShop>['getOptionLabel'] = (
   item

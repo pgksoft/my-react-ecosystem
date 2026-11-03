@@ -12,6 +12,8 @@ import { setMutationEntity } from '../../../../../../../redux-toolkit/mutation-e
 import useEntitySearchParamsInLocalStorage from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 import SearchConfirm from './ui/search-confirm';
 import { omitKeys } from '../../../../../../app-helpers/omit-keys';
+import isDataLoadModePage from '../../../../../../entity-metadata/is-data-load-mode-page';
+import { setEntityDataPage } from '../../../../../../../redux-toolkit/entity-data-page/entity-data-page-slice';
 
 export type ISearchTextField = {
   entityNameKey: TEntityNameKeys;
@@ -78,6 +80,9 @@ export const SearchTextField: React.FC<ISearchTextField> = ({
       (!!normInitValue && !!newValue && normInitValue !== newValue);
     if (isReadyToMutation) {
       isHandle.current = 'not-handle';
+      if (isDataLoadModePage(entityNameKey)) {
+        appDispatch(setEntityDataPage([entityNameKey, 1]));
+      }
       appDispatch(setMutationEntity([entityNameKey, 'yes']));
       handleClose();
     }

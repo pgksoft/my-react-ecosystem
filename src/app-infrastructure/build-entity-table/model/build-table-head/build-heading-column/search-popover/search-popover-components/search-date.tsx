@@ -25,6 +25,8 @@ import useEntitySearchParamsInLocalStorage from '../../../../../../app-hook-help
 import SearchConfirm from './ui/search-confirm';
 import { omitKeys } from '../../../../../../app-helpers/omit-keys';
 import { getIsoTwoDate } from './search-helpers/get-iso-two-date';
+import isDataLoadModePage from '../../../../../../entity-metadata/is-data-load-mode-page';
+import { setEntityDataPage } from '../../../../../../../redux-toolkit/entity-data-page/entity-data-page-slice';
 
 export type IDateSearch = {
   entityNameKey: TEntityNameKeys;
@@ -176,6 +178,9 @@ export const SearchDate: React.FC<IDateSearch> = ({
       (!!initISODate && !!newISODate && initISODate !== newISODate);
     if (isReadyToMutation) {
       isHandle.current = false;
+      if (isDataLoadModePage(entityNameKey)) {
+        appDispatch(setEntityDataPage([entityNameKey, 1]));
+      }
       appDispatch(setMutationEntity([entityNameKey, 'yes']));
       handleClose();
     }

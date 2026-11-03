@@ -23,6 +23,8 @@ import { omitKeys } from '../../../../../../app-helpers/omit-keys';
 import { isEqualCheckBoxValues } from './search-helpers/is-equal-checkbox-values';
 import { isDefineCheckboxValues } from './search-helpers/is-define-checkbox-values';
 import { isEqualStringArrays } from '../../../../../../app-helpers/is-equal-string-arrays';
+import isDataLoadModePage from '../../../../../../entity-metadata/is-data-load-mode-page';
+import { setEntityDataPage } from '../../../../../../../redux-toolkit/entity-data-page/entity-data-page-slice';
 
 export type ISearchListCheckbox = {
   entityNameKey: TEntityNameKeys;
@@ -117,6 +119,9 @@ export const SearchListCheckbox: React.FC<ISearchListCheckbox> = ({
     });
     if (!isEqualStringArrays(newValue, initValue)) {
       isHandle.current = false;
+      if (isDataLoadModePage(entityNameKey)) {
+        appDispatch(setEntityDataPage([entityNameKey, 1]));
+      }
       appDispatch(setMutationEntity([entityNameKey, 'yes']));
       handleClose();
     }

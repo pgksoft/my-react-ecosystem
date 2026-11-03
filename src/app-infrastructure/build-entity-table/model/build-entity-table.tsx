@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import React, { FC, useState } from 'react';
-import { Box, Paper, TableContainer } from '@mui/material';
+import { Paper, Stack, TableContainer } from '@mui/material';
 import { TTableSchema } from '../table-types/t-table-schema';
 import TEntityNameKeys from '../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import LoadingDataComponent from '../loading-data-component/loading-data-component';
@@ -9,6 +9,12 @@ import {
   IEntityMember,
   isEntityMemberArray
 } from '../../api-platform/app-entities/entity-member/entity-member';
+import {
+  isEntityView,
+  type TPageResponse
+} from '../../api-platform/api-response/t-page-response';
+import entityMetadataMaps from '../../entity-metadata';
+import EntityTablePagination from '../entity-table-pagination';
 
 type TBuildTable = {
   entityNameKey: TEntityNameKeys;
@@ -18,9 +24,11 @@ type TBuildTable = {
 const BuildEntityTable: FC<TBuildTable> = (props) => {
   const { entityNameKey, tableSchema } = props;
 
-  const [entityData, setEntityData] = useState<IEntityMember[] | null>(null);
+  const [entityData, setEntityData] = useState<TPageResponse<
+    IEntityMember[]
+  > | null>(null);
 
-  const onEntityDataLoaded = (data: IEntityMember[] | null) => {
+  const onEntityDataLoaded = (data: TPageResponse<IEntityMember[]> | null) => {
     setEntityData(data);
   };
 
@@ -34,7 +42,7 @@ const BuildEntityTable: FC<TBuildTable> = (props) => {
       />
       {!!entityData && (
         <Paper
-          aria-description='paper-table-wrapper '
+          aria-description='paper-table-wrapper'
           sx={{
             padding: 0.7,
             width: '100%',
@@ -56,25 +64,32 @@ const BuildEntityTable: FC<TBuildTable> = (props) => {
               minHeight: 0
             }}
           >
-            {isEntityMemberArray(entityData) && (
+            {isEntityMemberArray(entityData.items) && (
               <BuildDataTable
                 entityNameKey={entityNameKey}
                 tableSchema={tableSchema}
-                entityData={entityData}
+                entityData={entityData.items}
               />
             )}
           </TableContainer>
-          {/* Here must be pagination */}
-          <Box
-            aria-description='table-pagination'
-            sx={{
-              height: 48,
-              flex: '0 0 auto',
-              border: '1px solid blue'
-            }}
-          >
-            '*************'
-          </Box>
+          {entityMetadataMaps[entityNameKey].dataLoadingMode === 'page' &&
+            isEntityView(entityData.entityView) &&
+            entityData.entityView.last > 1 && (
+              <Stack
+                aria-description='table-pagination'
+                sx={{
+                  height: 48,
+                  flex: '0 0 auto',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <EntityTablePagination
+                  entityNameKey={entityNameKey}
+                  entityView={entityData.entityView}
+                />
+              </Stack>
+            )}
         </Paper>
       )}
     </>

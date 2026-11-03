@@ -12,11 +12,6 @@ import {
 import type { TDeepKeyOf } from '../../../../app-infrastructure/app-types/t-deep-key-of';
 import type TValueOf from '../../../../app-infrastructure/app-types/t-value-of';
 import type TypeGuard from '../../../../app-infrastructure/app-types/type-guard';
-import type { TAsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-autocomplete';
-import {
-  makeFetchAll,
-  makeFetchPage
-} from '../../../../app-infrastructure/app-ui/async-autocomplete/entourage-helpers/fetch-adapters';
 import {
   isProductCategory,
   type TProductCategory
@@ -26,6 +21,8 @@ import type {
   TGetDetailInitialValidationDto,
   TGetInitialValidationDto
 } from '../../../../app-infrastructure/yup/types';
+import makeFetch from '../../../../app-infrastructure/app-ui/async-autocomplete/fetch-adapter';
+import type { TAsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-autocomplete';
 
 export type TProduct = {
   name: string;
@@ -113,17 +110,12 @@ export const keyProductDto = createKeyNames<TProductDto>(
 export const isKeyProductDto = createIsUnknownRecordKeyGuard(keyProductDto);
 
 // definitions for AsyncAutoComplete
-export const productFetchAll = makeFetchAll<TProduct>(
-  resolveBaseUrl('productDic'),
-  apiEntityUrl.productDic,
-  keyProductDto.name
-);
-
-export const productFetchPage = makeFetchPage(
-  resolveBaseUrl('productDic'),
-  apiEntityUrl.productDic,
-  keyProductDto.name
-);
+export const productFetchPage = makeFetch<TProduct>({
+  baseURL: resolveBaseUrl('productDic'),
+  apiPath: apiEntityUrl.productDic,
+  searchDataKey: keyProductDto.name,
+  isPagination: true
+});
 
 export const getProductOptionLabel: TAsyncAutoComplete<TProduct>['getOptionLabel'] =
   (item) => {

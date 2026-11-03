@@ -19,7 +19,6 @@ import {
   type TProductsInStoresValidateSchema
 } from '../entity/validation-schema';
 import { SelectingEntityItemsWrapper } from '../../../../app-infrastructure/app-ui/selecting-entity-items-wrapper';
-import { AsyncAutoComplete } from '../../../../app-infrastructure/app-ui/async-autocomplete';
 import { TITLES_DELIVERY_PRODUCTS_IN_STORES } from '../const/titles';
 import {
   getShopId,
@@ -29,7 +28,7 @@ import {
 import {
   getProductId,
   getProductOptionLabel,
-  productFetchAll
+  productFetchPage
 } from '../../product-dic/entity/product';
 import { acceptImageFormat } from '../../../../app-infrastructure/yup/validation-messages';
 import { Box, Typography } from '@mui/material';
@@ -44,6 +43,7 @@ import { ProductsInShopsImageView } from '../ui/products-in-shops-image-view';
 import toISOStringLocaleTime from '../../../../app-infrastructure/app-helpers/to-iso-string-locale-time';
 import renderShopCard from '../ui/render-shop-card';
 import renderProductCard from '../ui/render-product-card';
+import AsyncAutoComplete from '../../../../app-infrastructure/app-ui/async-autocomplete';
 
 const ProductInStoresDetail: FC<TDetailDialog<IEntityMember>> = ({
   entity,
@@ -94,6 +94,7 @@ const ProductInStoresDetail: FC<TDetailDialog<IEntityMember>> = ({
       >
         <AsyncAutoComplete
           inputKind='yup'
+          dataLoadingMode='all'
           label={TITLES_DELIVERY_PRODUCTS_IN_STORES.store}
           textFieldProps={{
             helperText: TITLES_DELIVERY_PRODUCTS_IN_STORES.choiceStore
@@ -103,7 +104,7 @@ const ProductInStoresDetail: FC<TDetailDialog<IEntityMember>> = ({
           errorMessage={dtoValid.shop.errorMsg}
           value={dto.shop}
           customOnChange={handleValueChange}
-          fetchAll={shopFetchAll}
+          fetch={shopFetchAll}
           getOptionLabel={getShopOptionLabel}
           getId={getShopId}
           renderCard={renderShopCard}
@@ -124,6 +125,7 @@ const ProductInStoresDetail: FC<TDetailDialog<IEntityMember>> = ({
       >
         <AsyncAutoComplete
           inputKind='yup'
+          dataLoadingMode='page'
           label={TITLES_DELIVERY_PRODUCTS_IN_STORES.product}
           textFieldProps={{
             helperText: TITLES_DELIVERY_PRODUCTS_IN_STORES.choiceProduct
@@ -133,7 +135,7 @@ const ProductInStoresDetail: FC<TDetailDialog<IEntityMember>> = ({
           errorMessage={dtoValid.product.errorMsg}
           value={dto.product}
           customOnChange={handleValueChange}
-          fetchAll={productFetchAll}
+          fetch={productFetchPage}
           getOptionLabel={getProductOptionLabel}
           getId={getProductId}
           renderCard={renderProductCard}
