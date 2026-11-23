@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomSortLabel, { TDirection } from './custom-sort-label';
 import type TEntityNameKeys from '../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
-import useEntitySearchParamsInLocalStorage from '../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
+import useEntitySearchParamsInLocalStorage, {
+  type TEntityPlacement
+} from '../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 import useAppDispatch from '../../../../../../store/use-app-dispatch';
 import useGetPathAndQuery from '../../../../../../_hooks/get-parameter.hooks/get-path-and-query.hook';
 import buildQueryString from '../../../../../../_hooks/get-parameter.hooks/helpers/build-query-string';
@@ -13,11 +15,13 @@ import { SORT_MARKER } from '../../../../const/title';
 type TSortInOrderProps = {
   entityNameKey: TEntityNameKeys;
   dataKey: string;
+  entityPlacement?: TEntityPlacement;
 };
 
 export const SortInOrder: React.FC<TSortInOrderProps> = ({
   entityNameKey,
-  dataKey
+  dataKey,
+  entityPlacement = 'page'
 }) => {
   const isHandle = useRef<boolean>(false);
 
@@ -26,7 +30,12 @@ export const SortInOrder: React.FC<TSortInOrderProps> = ({
   }, [dataKey]);
 
   const { getSearchParam, setSearchParam, removeSearchParam } =
-    useEntitySearchParamsInLocalStorage(entityNameKey, sortDataKey, 'sort');
+    useEntitySearchParamsInLocalStorage({
+      entityNameKey,
+      nameParam: sortDataKey,
+      kindGetParams: 'sort',
+      entityPlacement
+    });
 
   const initValue = useRef<TDirection>(getSearchParam());
 

@@ -10,8 +10,9 @@ import {
 import { defineItemsCheckboxColumn } from '../../../../app-infrastructure/build-entity-table/helpers/define-items-checkbox-column';
 import getProductCategoryColumnCheckboxItems from '../../product-category-dic/helpers/get-product-category-column-checkbox-items';
 import type { TKeyProduct } from '../entity/product';
+import type TListDialog from '../../../../app-infrastructure/get-parameter-popups/dialog-list/t-choice-popup-list/t-list-dialog';
 
-const ProductList: FC = () => {
+const ProductList: FC<TListDialog> = ({ entityPlacement = 'page' }) => {
   const [tableSchema, setTableSchema] = useState<TTableSchema<TKeyProduct>>([]);
 
   const productCategories = useCachingDataInSessionStorage<TProductCategory>({
@@ -37,7 +38,11 @@ const ProductList: FC = () => {
   if (tableSchema.length === 0) return null;
 
   return (
-    <BuildEntityTable entityNameKey='productDic' tableSchema={tableSchema} />
+    <BuildEntityTable
+      entityNameKey='productDic'
+      tableSchema={tableSchema}
+      entityPlacement={entityPlacement}
+    />
   );
 };
 

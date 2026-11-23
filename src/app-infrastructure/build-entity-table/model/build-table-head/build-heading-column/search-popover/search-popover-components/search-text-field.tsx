@@ -9,11 +9,14 @@ import { TITLES_BUILD_TABLE } from '../../../../../const/title';
 import TEntityNameKeys from '../../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import useAppDispatch from '../../../../../../../store/use-app-dispatch';
 import { setMutationEntity } from '../../../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
-import useEntitySearchParamsInLocalStorage from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
+import useEntitySearchParamsInLocalStorage, {
+  type TEntityPlacement
+} from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 import SearchConfirm from './ui/search-confirm';
 import { omitKeys } from '../../../../../../app-helpers/omit-keys';
 import isDataLoadModePage from '../../../../../../entity-metadata/is-data-load-mode-page';
 import { setEntityDataPage } from '../../../../../../../redux-toolkit/entity-data-page/entity-data-page-slice';
+import type { TColumnStingSearch } from '../../../../../table-types/t-column-schemas';
 
 export type ISearchTextField = {
   entityNameKey: TEntityNameKeys;
@@ -21,6 +24,7 @@ export type ISearchTextField = {
   dataKey: string;
   text: string;
   handleClose: () => void;
+  entityPlacement?: TEntityPlacement;
 };
 
 export const SearchTextField: React.FC<ISearchTextField> = ({
@@ -28,15 +32,20 @@ export const SearchTextField: React.FC<ISearchTextField> = ({
   inValue,
   dataKey,
   text,
-  handleClose
+  handleClose,
+  entityPlacement = 'page'
 }) => {
   const isHandle = useRef<'confirm' | 'clear' | 'not-handle'>('not-handle');
 
   const { getSearchParam, setSearchParam, removeSearchParam } =
-    useEntitySearchParamsInLocalStorage(entityNameKey, dataKey);
+    useEntitySearchParamsInLocalStorage({
+      entityNameKey,
+      nameParam: dataKey,
+      entityPlacement
+    });
 
   const initValue = useMemo(() => {
-    return inValue || getSearchParam<string>() || '';
+    return inValue || getSearchParam<TColumnStingSearch>()?.valueSearch || '';
   }, [getSearchParam, inValue]);
 
   const [value, setValue] = useState<ISearchTextField['inValue']>(initValue);
@@ -51,7 +60,10 @@ export const SearchTextField: React.FC<ISearchTextField> = ({
   };
 
   const confirmHandle = () => {
-    setSearchParam(value);
+    setSearchParam({
+      valueSearch: value,
+      type: 'search'
+    } satisfies TColumnStingSearch);
     const getParameters = {
       ...query,
       [dataKey]: `/${value}/i`

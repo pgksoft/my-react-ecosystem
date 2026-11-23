@@ -12,7 +12,9 @@ import getHeadingColumnIcon from '../../../helpers/get-heading-column-icon';
 import { SortInOrder } from './sort-in-order/sort-in-order';
 import { SearchPopover } from './search-popover/search-popover';
 import TEntityNameKeys from '../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
-import useEntitySearchParamsInLocalStorage from '../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
+import useEntitySearchParamsInLocalStorage, {
+  type TEntityPlacement
+} from '../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -44,20 +46,27 @@ type TBuildHeadingColumnTable = {
   entityNameKey: TEntityNameKeys;
   columnSchema: TColumnSchema<string>;
   horizontal: PopoverOrigin['horizontal'];
+  entityPlacement?: TEntityPlacement;
 };
 
 const BuildHeadingColumn: FC<TBuildHeadingColumnTable> = (props) => {
-  const { entityNameKey, columnSchema, horizontal } = props;
+  const {
+    entityNameKey,
+    columnSchema,
+    horizontal,
+    entityPlacement = 'page'
+  } = props;
   const classes = useStyles();
 
   const { isSort, type, title } = columnSchema;
 
   const dataKey = columnSchema?.nameGetParameter || columnSchema.dataKey;
 
-  const { hasSearchParam } = useEntitySearchParamsInLocalStorage(
+  const { hasSearchParam } = useEntitySearchParamsInLocalStorage({
     entityNameKey,
-    dataKey
-  );
+    nameParam: dataKey,
+    entityPlacement
+  });
 
   const Icon = getHeadingColumnIcon(type, hasSearchParam());
 
@@ -93,6 +102,7 @@ const BuildHeadingColumn: FC<TBuildHeadingColumnTable> = (props) => {
         <SortInOrder
           entityNameKey={entityNameKey}
           dataKey={columnSchema.dataKey}
+          entityPlacement={entityPlacement}
         />
       )}
       {isSearchOpen && (
@@ -102,6 +112,7 @@ const BuildHeadingColumn: FC<TBuildHeadingColumnTable> = (props) => {
           handleClose={searchPopoverClose}
           horizontal={horizontal}
           columnSchema={columnSchema}
+          entityPlacement={entityPlacement}
         />
       )}
     </Box>

@@ -12,17 +12,20 @@ import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-typ
 import BuildTableHead from '../build-table-head/build-table-head';
 import BuildTableRow from '../build-table-row/build-table-row';
 import transformDataBySchema from '../../helpers/transform-data-by-schema';
+import type { TEntityPlacement } from '../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 
 type TBuildDataTable<T> = {
   entityNameKey: TEntityNameKeys;
   tableSchema: TTableSchema<string>;
   entityData: T[];
+  entityPlacement?: TEntityPlacement;
 };
 
 function BuildDataTable<T extends IEntityMember>({
   entityNameKey,
   tableSchema,
-  entityData
+  entityData,
+  entityPlacement = 'page'
 }: TBuildDataTable<T>) {
   const [selected, setSelected] = useState<readonly string[]>([]);
 
@@ -84,6 +87,7 @@ function BuildDataTable<T extends IEntityMember>({
         numSelected={selected.length}
         rowCount={dataTable.length}
         onSelectAllClick={handleSelectAllClick}
+        entityPlacement={entityPlacement}
       />
       {!!dataTable.length && (
         <TableBody>

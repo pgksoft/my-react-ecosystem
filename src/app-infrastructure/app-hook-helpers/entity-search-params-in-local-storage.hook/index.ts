@@ -1,17 +1,30 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useRef } from 'react';
 import type TUnknownRecord from '../../app-types/t-unknown-record';
-import {
-  localStorageSearchKeys,
-  localStorageSortKeys
-} from './entourage-settings/local-storage-key';
 import type TEntityNameKeys from '../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import type {
-  TColumnCheckboxItems,
-  TColumnDateSearch,
-  TColumnFixedRangeNumericalSearch
+  TColumnCalendar,
+  TColumnCheckboxSearch,
+  TColumnFixedNumericalRanges,
+  TColumnStingSearch
 } from '../../build-entity-table/table-types/t-column-schemas';
 
-type TReturnProps = {
+export type TKindGetParams = 'search' | 'sort';
+
+export type TEntityPlacement = 'page' | 'popup';
+
+type TEntitySearchParamsInLocalStorageOptions = {
+  entityNameKey?: TEntityNameKeys;
+  nameParam?: string;
+  kindGetParams?: TKindGetParams;
+  entityPlacement?: TEntityPlacement;
+};
+
+type TSetLocalStorageKeyOptions = Pick<
+  TEntitySearchParamsInLocalStorageOptions,
+  'entityNameKey' | 'kindGetParams' | 'entityPlacement'
+>;
+
+export type TEntitySearchParamsInLocalStorageReturnProps = {
   setSearchParam: <K>(value: K) => void;
   getSearchParam: <K extends TSearchValue>() => K | null;
   hasSearchParam: () => boolean;
@@ -19,29 +32,44 @@ type TReturnProps = {
   getSearchParams: () => TUnknownRecord;
   removeAllSearchParams: () => void;
   removeSearchParam: () => void;
+  setLocalStorageKey: (options: TSetLocalStorageKeyOptions) => void;
 };
 
 type TSearchValue =
   | string
-  | TColumnDateSearch
-  | TColumnCheckboxItems
-  | TColumnFixedRangeNumericalSearch;
-
-type TKindParams = 'search' | 'sort';
+  | TColumnStingSearch
+  | TColumnCalendar
+  | TColumnCheckboxSearch
+  | TColumnFixedNumericalRanges;
 
 const useEntitySearchParamsInLocalStorage = (
-  entityNameKey: TEntityNameKeys,
-  nameParam?: string,
-  kindParams: TKindParams = 'search'
-): TReturnProps => {
-  const localStorageKey = useMemo(() => {
-    if (kindParams === 'sort') return localStorageSortKeys[entityNameKey];
-    return localStorageSearchKeys[entityNameKey];
-  }, [entityNameKey, kindParams]);
+  options: TEntitySearchParamsInLocalStorageOptions
+): TEntitySearchParamsInLocalStorageReturnProps => {
+  const {
+    entityNameKey,
+    nameParam,
+    kindGetParams = 'search',
+    entityPlacement = 'page'
+  } = options;
+
+  const localStorageKey = useRef(
+    `${entityNameKey}-${entityPlacement}-${kindGetParams}-params`
+  );
+
+  const setLocalStorageKey = useCallback(
+    ({
+      entityNameKey,
+      kindGetParams = 'search',
+      entityPlacement = 'page'
+    }: TSetLocalStorageKeyOptions) => {
+      localStorageKey.current = `${entityNameKey}-${entityPlacement}-${kindGetParams}-params`;
+    },
+    []
+  );
 
   const getSearchParams = useCallback((): TUnknownRecord => {
     try {
-      const raw = localStorage.getItem(localStorageKey);
+      const raw = localStorage.getItem(localStorageKey.current);
       if (raw) {
         return JSON.parse(raw);
       }
@@ -54,7 +82,10 @@ const useEntitySearchParamsInLocalStorage = (
   const setSearchParams = useCallback(
     (searchParams: TUnknownRecord) => {
       try {
-        localStorage.setItem(localStorageKey, JSON.stringify(searchParams));
+        localStorage.setItem(
+          localStorageKey.current,
+          JSON.stringify(searchParams)
+        );
       } catch {
         /* empty */
       }
@@ -64,7 +95,7 @@ const useEntitySearchParamsInLocalStorage = (
 
   const removeAllSearchParams = useCallback(() => {
     try {
-      localStorage.removeItem(localStorageKey);
+      localStorage.removeItem(localStorageKey.current);
     } catch {
       /* empty */
     }
@@ -114,7 +145,8 @@ const useEntitySearchParamsInLocalStorage = (
     setSearchParams,
     getSearchParams,
     removeAllSearchParams,
-    removeSearchParam
+    removeSearchParam,
+    setLocalStorageKey
   };
 };
 

@@ -33,3 +33,8 @@ export const isEntityToolName: TypeGuard<TEntityToolName> = (
       modalCommandEntityToolName.includes(value as TModalCommandEntityToolName))
   );
 };
+
+export const popupCheckQueryToolName = [
+  'create' satisfies TEntityToolName,
+  'update' satisfies TEntityToolName
+];

@@ -1,7 +1,8 @@
 import { Breakpoint } from '@mui/system';
+import type TListDialog from './t-list-dialog';
 
 type TPopupList = {
-  Component: React.FC;
+  Component: React.FC<TListDialog>;
   title: string;
   fullWidth?: boolean;
   maxWidth?: false | Breakpoint;

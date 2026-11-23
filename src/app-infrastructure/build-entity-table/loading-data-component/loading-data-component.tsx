@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import useFetch from '../../api-platform/http-hook/use-fetch';
 import { LoadPopupWrapper } from '../../app-ui/load-popup-wrapper/load-popup-wrapper';
 import { Loader } from '../../app-ui/loader/loader';
@@ -9,7 +9,6 @@ import { TITLES_LOADING_DATA_COMPONENT } from './const/title';
 import TEntityNameKeys from '../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import useAppDispatch from '../../../store/use-app-dispatch';
 import { clearMutationEntity } from '../../../redux-toolkit/mutation-entities/mutation-entities-slice';
-import useBuildUrl from '../../../_hooks/get-parameter.hooks/build-url.hook';
 import apiEntityUrl from '../../api-platform/app-entities/const/api-entity-url';
 import WITHOUT_DIALOG_PARAMETERS from '../../get-parameter-popups/const/without-dialog-parameters';
 import resolveBaseUrl from '../../api-platform/app-entities/resolve-base-url';
@@ -17,6 +16,10 @@ import useAppSelector from '../../../store/use-app-selector';
 import { mutationEntitySelector } from '../../../redux-toolkit/mutation-entities/mutation-entities-selectors';
 import { selectEntityDataPageByKey } from '../../../redux-toolkit/entity-data-page/entity-data-page-selectors';
 import { PAGE_NUMBER_KEY } from '../../app-const/pagination';
+import { isPageResponse } from '../../api-platform/api-response/t-page-response';
+import useGetPathAndQuery from '../../../_hooks/get-parameter.hooks/get-path-and-query.hook';
+import buildQueryString from '../../../_hooks/get-parameter.hooks/helpers/build-query-string';
+import { omitKeys } from '../../app-helpers/omit-keys';
 
 type TLoadingDataComponentProps<T> = {
   inData: T | null;
@@ -27,7 +30,7 @@ type TLoadingDataComponentProps<T> = {
   onCloseWarningNotifier?: () => void;
 };
 
-function LoadingDataComponent<T>({
+function LoadingDataListComponent<T>({
   inData,
   isShowDataEmptyWarning = false,
   entityNameKey,
@@ -44,45 +47,42 @@ function LoadingDataComponent<T>({
 
   const appDispatch = useAppDispatch();
 
-  const baseURL = useMemo(() => {
-    return resolveBaseUrl(entityNameKey);
-  }, [entityNameKey]);
+  const { query } = useGetPathAndQuery();
 
-  const url = useBuildUrl({
-    apiEntityUrl: apiEntityUrl[entityNameKey],
-    getParameters: pageToLoad ? { [PAGE_NUMBER_KEY]: String(pageToLoad) } : {},
-    withoutParameters: WITHOUT_DIALOG_PARAMETERS
-  });
+  const pageGetParam = useMemo(() => {
+    return pageToLoad ? { [PAGE_NUMBER_KEY]: String(pageToLoad) } : {};
+  }, [pageToLoad]);
 
-  const onCloseError = () => {
+  const onCloseError = useCallback(() => {
     resetError();
     if (onCloseErrorNotifier) {
       onCloseErrorNotifier();
     }
-  };
+  }, [onCloseErrorNotifier, resetError]);
 
-  const onCloseWarning = () => {
+  const onCloseWarning = useCallback(() => {
     setIsDataEmptyArray(false);
     if (onCloseWarningNotifier) {
       onCloseWarningNotifier();
     }
-  };
+  }, [onCloseWarningNotifier]);
+
+  const checkDataEmptyArray = useCallback((data: T) => {
+    if (Array.isArray(data) && !data.length) {
+      setIsDataEmptyArray(true);
+    } else if (isPageResponse(data)) {
+      !data.items.length && setIsDataEmptyArray(true);
+    } else {
+      setIsDataEmptyArray(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const checkDataEmptyArray = (data: T) => {
-      if (Array.isArray(data) && !data.length) {
-        setIsDataEmptyArray(true);
-      } else {
-        setIsDataEmptyArray(false);
-      }
-    };
-
     if (!error && data) {
       onLoaded(data);
       checkDataEmptyArray(data);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, error]);
+  }, [checkDataEmptyArray, data, error, onLoaded]);
 
   useEffect(() => {
     if (mutation && mutation === 'yes') {
@@ -93,10 +93,17 @@ function LoadingDataComponent<T>({
   }, [mutation]);
 
   useEffect(() => {
-    if (!inData) {
+    if (!inData && !error) {
+      const baseURL = resolveBaseUrl(entityNameKey);
+      const getParams = {
+        ...omitKeys(query, WITHOUT_DIALOG_PARAMETERS),
+        ...pageGetParam
+      };
+      const url = buildQueryString(apiEntityUrl[entityNameKey], getParams);
       update({ url, baseURL });
     }
-  }, [baseURL, inData, update, url]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error, inData]);
 
   return (
     <>
@@ -120,4 +127,4 @@ function LoadingDataComponent<T>({
   );
 }
 
-export default LoadingDataComponent;
+export default LoadingDataListComponent;

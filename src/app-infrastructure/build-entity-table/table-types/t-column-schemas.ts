@@ -1,4 +1,6 @@
 import { getArrayAsStringConst } from '../../app-helpers/get-array-as-string-const';
+import isPlainObject from '../../app-helpers/is-plain-object';
+import type TypeGuard from '../../app-types/type-guard';
 
 const columnType = getArrayAsStringConst(
   'search',
@@ -24,6 +26,23 @@ export type TColumnStingSearch = {
   valueSearch: string;
 };
 
+export const isTColumnStingSearch: TypeGuard<TColumnStingSearch> = (
+  value
+): value is TColumnStingSearch => {
+  if (!isPlainObject(value)) return false;
+
+  if (
+    !('type' in value) ||
+    typeof value.type !== 'string' ||
+    value.type !== 'search'
+  )
+    return false;
+  if (!('valueSearch' in value) || typeof value.valueSearch !== 'string')
+    return false;
+
+  return true;
+};
+
 export type TColumnCheckboxItem = {
   key: string;
   title: string;
@@ -35,6 +54,25 @@ export type TColumnCheckboxItems = TColumnCheckboxItem[];
 export type TColumnCheckboxSearch = {
   type: TCheckBoxSearchTypeColumn;
   checkboxes: TColumnCheckboxItems;
+};
+
+export const isTColumnCheckboxSearch: TypeGuard<TColumnCheckboxSearch> = (
+  value
+): value is TColumnCheckboxSearch => {
+  if (!isPlainObject(value)) return false;
+
+  if (
+    !('type' in value) ||
+    typeof value.type !== 'string' ||
+    value.type !== 'checkBox'
+  )
+    return false;
+  if (!('checkboxes' in value) || !Array.isArray(value.checkboxes))
+    return false;
+
+  //TODO isTColumnCheckboxItemArray
+
+  return true;
 };
 
 export type TColumnOnlyTitle = {
@@ -51,6 +89,26 @@ export type TColumnCalendar = {
   dateSearch: TColumnDateSearch;
 };
 
+export const isTColumnCalendar: TypeGuard<TColumnCalendar> = (
+  value
+): value is TColumnCalendar => {
+  if (!isPlainObject(value)) return false;
+
+  if (
+    !('type' in value) ||
+    typeof value.type !== 'string' ||
+    value.type !== 'calendar'
+  )
+    return false;
+
+  //TODO isTColumnDateSearch
+
+  if (!('dateSearch' in value) || !isPlainObject(value.dateSearch))
+    return false;
+
+  return true;
+};
+
 export type TColumnNumericalSearch = { fromNum: number; toNum: number };
 
 export type TColumnFixedRangeNumericalSearch = {
@@ -63,4 +121,28 @@ export type TColumnFixedNumericalRangeItems =
 export type TColumnFixedNumericalRanges = {
   type: TFixedNumericalRangesSearchTypeColumn;
   ranges: TColumnFixedNumericalRangeItems;
+};
+
+export const isTColumnFixedNumericalRanges: TypeGuard<
+  TColumnFixedNumericalRanges
+> = (value): value is TColumnFixedNumericalRanges => {
+  if (!isPlainObject(value)) return false;
+
+  if (
+    !('type' in value) ||
+    typeof value.type !== 'string' ||
+    value.type !== 'fixed-set-numerical-ranges'
+  )
+    return false;
+
+  if (
+    !('ranges' in value) ||
+    !Array.isArray(value.ranges) ||
+    value.ranges.length !== 1
+  )
+    return false;
+
+  //TODO isTColumnFixedRangeNumericalSearchArray
+
+  return true;
 };

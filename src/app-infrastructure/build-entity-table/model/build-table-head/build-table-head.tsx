@@ -10,6 +10,7 @@ import {
 import { TTableSchema } from '../../table-types/t-table-schema';
 import BuildHeadingColumn from './build-heading-column/build-heading-column';
 import TEntityNameKeys from '../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
+import type { TEntityPlacement } from '../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 
 type TBuildTableHeadProps = {
   entityNameKey: TEntityNameKeys;
@@ -18,6 +19,7 @@ type TBuildTableHeadProps = {
   numSelected: number;
   rowCount: number;
   onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  entityPlacement?: TEntityPlacement;
 };
 
 const BuildTableHead: FC<TBuildTableHeadProps> = ({
@@ -26,7 +28,8 @@ const BuildTableHead: FC<TBuildTableHeadProps> = ({
   sortDataKey,
   numSelected,
   rowCount,
-  onSelectAllClick
+  onSelectAllClick,
+  entityPlacement = 'page'
 }) => {
   const getHorizontal = (i: number): PopoverOrigin['horizontal'] => {
     if (i === 0) return 'left';
@@ -73,6 +76,7 @@ const BuildTableHead: FC<TBuildTableHeadProps> = ({
                 key={columnSchema.key}
                 columnSchema={columnSchema}
                 horizontal={getHorizontal(i)}
+                entityPlacement={entityPlacement}
               />
             </TableCell>
           );

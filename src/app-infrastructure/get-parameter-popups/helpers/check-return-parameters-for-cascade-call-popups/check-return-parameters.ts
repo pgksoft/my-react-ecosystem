@@ -1,12 +1,15 @@
+import createArrayGuardOfTypePredicate from '../../../app-helpers/create-array-guard-of-type-predicate';
+import isPlainObject from '../../../app-helpers/is-plain-object';
 import type TCascadeParams from '../../../app-types/t-cascade-params';
 import type TEmptyObject from '../../../app-types/t-empty-object';
+import type TypeGuard from '../../../app-types/type-guard';
 
 const storageKey = 'check-popup-return';
 
 class CheckReturnParameters {
   private constructor() {
     this.cascadeParams = [];
-    this.Save();
+    this.SaveParams();
   }
 
   // Fields
@@ -30,27 +33,59 @@ class CheckReturnParameters {
       (!!returnPopup && returnPopup !== newReturnPopup) || !returnPopup;
     if (isNewParams) {
       this.cascadeParams.push(param);
-      this.Save();
+      this.SaveParams();
     }
   }
 
   public Pop(): TCascadeParams | TEmptyObject {
+    this.GetParams();
     const param = this.cascadeParams.pop();
-    this.Save();
+    this.SaveParams();
     if (param) return param;
     return {};
   }
 
   public Get(): TCascadeParams | TEmptyObject {
+    this.GetParams();
     const { length } = this.cascadeParams;
     if (length) return this.cascadeParams[length - 1];
     return {};
   }
 
-  // Debug helpers
-  private Save(): void {
-    sessionStorage.setItem(storageKey, JSON.stringify(this.cascadeParams));
+  // Private methods
+  private SaveParams(): void {
+    localStorage.setItem(storageKey, JSON.stringify(this.cascadeParams));
   }
+
+  private GetParams(): void {
+    this.cascadeParams = [];
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (raw) {
+        const temp = JSON.parse(raw);
+        if (this.IsArrayCascadeParams(temp)) {
+          this.cascadeParams = [...temp];
+        }
+      }
+    } catch {
+      this.cascadeParams = [];
+    }
+  }
+
+  private IsCascadeParams: TypeGuard<TCascadeParams> = (
+    value
+  ): value is TCascadeParams => {
+    if (!isPlainObject(value)) return false;
+
+    if (!('returnPopup' in value) || typeof value.returnPopup !== 'string')
+      return false;
+
+    return true;
+  };
+
+  private IsArrayCascadeParams = createArrayGuardOfTypePredicate(
+    this.IsCascadeParams
+  );
 }
 
 export default CheckReturnParameters.instance;

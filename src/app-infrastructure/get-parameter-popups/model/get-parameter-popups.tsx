@@ -48,6 +48,10 @@ import {
 } from '../dialog-list/const/popup-list-routes';
 import choicePopupList from '../dialog-list/const/choice-popup-list';
 import ListDialogWrapper from '../dialog-list/model/list-dialog-wrapper';
+import type { TEntityPlacement } from '../../app-hook-helpers/entity-search-params-in-local-storage.hook';
+import { isReturnPopup } from '../helpers/is-return-popup';
+import useEntitySearchParamsInLocalStorage from '../../app-hook-helpers/entity-search-params-in-local-storage.hook';
+import { getResolvedListSearchParams } from '../helpers/get-resolved-list-search-params';
 
 const GetParameterPopups = () => {
   const {
@@ -58,24 +62,36 @@ const GetParameterPopups = () => {
     returnPopup
   } = useGetPopupState();
 
+  const { setLocalStorageKey, getSearchParams } =
+    useEntitySearchParamsInLocalStorage({});
+
+  if (!popup) return null;
+
   // cascade return parameters
   const returnParameters: TGetParameters = {};
-  const listSearchParameters: TGetParameters = {};
 
-  if (popup) {
-    setCascadeReturnParameters({
-      returnParameters,
-      listSearchParameters,
-      returnPopup
-    });
-  }
+  setCascadeReturnParameters({
+    returnParameters,
+    returnPopup
+  });
+
+  const entityPlacement: TEntityPlacement =
+    (isReturnPopup(returnParameters) && 'popup') || 'page';
 
   if (isDialogCreateRouter(popup)) {
     const ComponentCreate = choicePopupCreate[popup];
     const entityNameKeyPopup = getEntityNameKeyFromDialogCreateRoutes(popup);
     if (!entityNameKeyPopup || !ComponentCreate) return null;
+    const listSearchParameters =
+      (entityPlacement === 'page' &&
+        getResolvedListSearchParams({
+          entityNameKey: entityNameKeyPopup,
+          entityPlacement,
+          setLocalStorageKey,
+          getSearchParams
+        })) ||
+      {};
     const returnUrl = buildQueryString(pathname, {
-      ...omitKeys(query, WITHOUT_DIALOG_PARAMETERS),
       ...listSearchParameters,
       ...returnParameters
     });
@@ -101,8 +117,16 @@ const GetParameterPopups = () => {
     const ComponentDetail = choicePopupDetail[popup];
     const entityNameKeyPopup = getEntityNameKeyFromDialogDetailRoutes(popup);
     if (!entityNameKeyPopup || !ComponentDetail) return null;
+    const listSearchParameters =
+      (entityPlacement === 'page' &&
+        getResolvedListSearchParams({
+          entityNameKey: entityNameKeyPopup,
+          entityPlacement,
+          setLocalStorageKey,
+          getSearchParams
+        })) ||
+      {};
     const returnUrl = buildQueryString(pathname, {
-      ...omitKeys(query, WITHOUT_DIALOG_PARAMETERS),
       ...listSearchParameters,
       ...returnParameters
     });
@@ -130,7 +154,6 @@ const GetParameterPopups = () => {
     if (!entityNameKeyPopup || !ComponentRemove) return null;
     const returnUrl = buildQueryString(pathname, {
       ...omitKeys(query, WITHOUT_DIALOG_PARAMETERS),
-      ...listSearchParameters,
       ...returnParameters
     });
     return (
@@ -154,7 +177,6 @@ const GetParameterPopups = () => {
     if (!entityNameKeyRefresh) return null;
     const returnUrl = buildQueryString(pathname, {
       ...omitKeys(query, WITHOUT_DIALOG_PARAMETERS),
-      ...listSearchParameters,
       ...returnParameters
     });
     return (
@@ -169,18 +191,21 @@ const GetParameterPopups = () => {
     const entityNameKeyFilterAllOff =
       getEntityNameKeyFromListFilterAllOffRoutes(popup);
     if (!entityNameKeyFilterAllOff) return null;
-    const returnUrl = buildQueryString(pathname, {
+    const newQuery = {
       ...omitKeys(query, [
         ...ENTITY_SEARCH_PARAM_KEY_LIST_MAP[entityNameKeyFilterAllOff],
         ...WITHOUT_DIALOG_PARAMETERS
       ]),
       ...returnParameters
-    });
+    };
+    const returnUrl = buildQueryString(pathname, newQuery);
 
     return (
       <EntityListFilterAllOffWrapper
         returnUrl={returnUrl}
+        newQuery={newQuery}
         entityNameKeyFilterAllOff={entityNameKeyFilterAllOff}
+        entityPlacement={entityPlacement}
       />
     );
   }
@@ -189,17 +214,21 @@ const GetParameterPopups = () => {
     const entityNameKeySortAllOff =
       getEntityNameKeyFromListSortAllOffRoutes(popup);
     if (!entityNameKeySortAllOff) return null;
-    const returnUrl = buildQueryString(pathname, {
+    const newQuery = {
       ...omitKeys(query, [
         ...ENTITY_SORT_PARAM_KEY_LIST_MAP[entityNameKeySortAllOff],
         ...WITHOUT_DIALOG_PARAMETERS
       ]),
       ...returnParameters
-    });
+    };
+    const returnUrl = buildQueryString(pathname, newQuery);
+
     return (
       <EntityListSortAllOffWrapper
         returnUrl={returnUrl}
         entityNameKeySortAllOff={entityNameKeySortAllOff}
+        newQuery={newQuery}
+        entityPlacement={entityPlacement}
       />
     );
   }
@@ -209,8 +238,6 @@ const GetParameterPopups = () => {
     const entityNameKeyPopup = getEntityNameKeyFromPopupListRoutes(popup);
     if (!entityNameKeyPopup || !ComponentList) return null;
     const returnUrl = buildQueryString(pathname, {
-      ...omitKeys(query, WITHOUT_DIALOG_PARAMETERS),
-      ...listSearchParameters,
       ...returnParameters
     });
     return (

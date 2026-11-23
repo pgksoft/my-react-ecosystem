@@ -9,14 +9,19 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import buildQueryString from '../../../../../../../_hooks/get-parameter.hooks/helpers/build-query-string';
-import { TColumnCheckboxItems } from '../../../../../table-types/t-column-schemas';
+import {
+  TColumnCheckboxItems,
+  type TColumnCheckboxSearch
+} from '../../../../../table-types/t-column-schemas';
 import { TITLES_BUILD_TABLE } from '../../../../../const/title';
 import getCheckBoxSearchParamValue from './search-helpers/get-checkbox-search-param-value';
 import TEntityNameKeys from '../../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import useAppDispatch from '../../../../../../../store/use-app-dispatch';
 import { setMutationEntity } from '../../../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
 import SearchConfirm from './ui/search-confirm';
-import useEntitySearchParamsInLocalStorage from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
+import useEntitySearchParamsInLocalStorage, {
+  type TEntityPlacement
+} from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 import { initValuesCheckbox } from './search-helpers/init-values-checkbox';
 import useGetPathAndQuery from '../../../../../../../_hooks/get-parameter.hooks/get-path-and-query.hook';
 import { omitKeys } from '../../../../../../app-helpers/omit-keys';
@@ -32,6 +37,7 @@ export type ISearchListCheckbox = {
   inCheckboxes: TColumnCheckboxItems;
   text: string;
   handleClose: () => void;
+  entityPlacement?: TEntityPlacement;
 };
 
 export const SearchListCheckbox: React.FC<ISearchListCheckbox> = ({
@@ -39,7 +45,8 @@ export const SearchListCheckbox: React.FC<ISearchListCheckbox> = ({
   dataKey,
   inCheckboxes,
   text,
-  handleClose
+  handleClose,
+  entityPlacement = 'page'
 }) => {
   const isHandle = useRef<boolean>(false);
 
@@ -48,9 +55,15 @@ export const SearchListCheckbox: React.FC<ISearchListCheckbox> = ({
   }, [dataKey]);
 
   const { getSearchParam, setSearchParam, removeSearchParam } =
-    useEntitySearchParamsInLocalStorage(entityNameKey, dataKey);
+    useEntitySearchParamsInLocalStorage({
+      entityNameKey,
+      nameParam: dataKey,
+      entityPlacement
+    });
 
-  const initCheckBoxes = useRef<TColumnCheckboxItems>(getSearchParam() ?? []);
+  const initCheckBoxes = useRef<TColumnCheckboxItems>(
+    getSearchParam<TColumnCheckboxSearch>()?.checkboxes ?? []
+  );
 
   const [checkboxes, setCheckboxes] = useState<TColumnCheckboxItems>(
     initValuesCheckbox(inCheckboxes, initCheckBoxes.current)
@@ -77,11 +90,12 @@ export const SearchListCheckbox: React.FC<ISearchListCheckbox> = ({
   };
 
   const confirmHandle = () => {
-    setSearchParam(
-      checkboxes.filter((item) => {
+    setSearchParam({
+      type: 'checkBox',
+      checkboxes: checkboxes.filter((item) => {
         return item.value && item;
       })
-    );
+    } satisfies TColumnCheckboxSearch);
     const getParameters = {
       ...query,
       [searchDataKey]: getCheckBoxSearchParamValue(checkboxes)
