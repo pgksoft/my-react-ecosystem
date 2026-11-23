@@ -4,6 +4,7 @@ import { useStylesDialog } from '../../app-infrastructure/app-ui/style/style-dia
 import { useActivePageLinks } from '../hooks/active-page-links.hook';
 import { LINKS_AUTH_USER } from '../../app-infrastructure/app-route/links';
 import ProductCategoryList from '../../domain/el-if-tech-delivery/product-category-dic/model/product-category-list';
+import useResolveEntityGetRequestParams from '../../app-infrastructure/app-hook-helpers/resolve-entity-get-request-params.hook.ts';
 
 const DeliveryProductCategoryPage: FC = () => {
   const classes = useStylesDialog();
@@ -12,6 +13,12 @@ const DeliveryProductCategoryPage: FC = () => {
     LINKS_AUTH_USER.elIfTechDeliveryProductCategoryDic,
     LINKS_AUTH_USER.elIfTechDelivery
   );
+
+  const { isResolved } = useResolveEntityGetRequestParams({
+    entityNameKey: 'productCategoryDic'
+  });
+
+  if (!isResolved) return null;
 
   return (
     <Box className={classes.rootList}>

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState, type FC } from 'react';
 import type TEntityNameKeys from '../../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import type {
   TColumnFixedNumericalRangeItems,
-  TColumnFixedRangeNumericalSearch
+  TColumnFixedNumericalRanges
 } from '../../../../../table-types/t-column-schemas';
 import {
   Alert,
@@ -13,7 +13,9 @@ import {
   RadioGroup
 } from '@mui/material';
 import { TITLES_BUILD_TABLE } from '../../../../../const/title';
-import useEntitySearchParamsInLocalStorage from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
+import useEntitySearchParamsInLocalStorage, {
+  type TEntityPlacement
+} from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 import useAppDispatch from '../../../../../../../store/use-app-dispatch';
 import { useNavigate } from 'react-router-dom';
 import useGetPathAndQuery from '../../../../../../../_hooks/get-parameter.hooks/get-path-and-query.hook';
@@ -30,6 +32,7 @@ export type TFixedNumRangesSearch = {
   inFixedNumRangesValue: TColumnFixedNumericalRangeItems;
   text: string;
   handleClose: () => void;
+  entityPlacement?: TEntityPlacement;
 };
 
 export const SearchFixedNumRanges: FC<TFixedNumRangesSearch> = ({
@@ -37,15 +40,27 @@ export const SearchFixedNumRanges: FC<TFixedNumRangesSearch> = ({
   dataKey,
   inFixedNumRangesValue,
   text,
-  handleClose
+  handleClose,
+  entityPlacement = 'page'
 }) => {
   const isHandle = useRef<boolean>(false);
 
   const { getSearchParam, setSearchParam, removeSearchParam } =
-    useEntitySearchParamsInLocalStorage(entityNameKey, dataKey);
+    useEntitySearchParamsInLocalStorage({
+      entityNameKey,
+      nameParam: dataKey,
+      entityPlacement
+    });
+
+  const savedFixedNumericalRanges =
+    getSearchParam<TColumnFixedNumericalRanges>()?.ranges;
 
   const initValue = useRef(
-    getSearchParam<TColumnFixedRangeNumericalSearch>()?.title ?? ''
+    (savedFixedNumericalRanges &&
+      savedFixedNumericalRanges.length &&
+      savedFixedNumericalRanges.length === 1 &&
+      savedFixedNumericalRanges[0].title) ||
+      ''
   );
 
   const [value, setValue] = useState<string>(initValue.current);
@@ -71,7 +86,10 @@ export const SearchFixedNumRanges: FC<TFixedNumRangesSearch> = ({
       return item.title === value;
     });
     if (!range) return;
-    setSearchParam(range);
+    setSearchParam({
+      type: 'fixed-set-numerical-ranges',
+      ranges: [range]
+    } satisfies TColumnFixedNumericalRanges);
     const getParameters = {
       ...query,
       [fromNumKey]: range.fromNum,

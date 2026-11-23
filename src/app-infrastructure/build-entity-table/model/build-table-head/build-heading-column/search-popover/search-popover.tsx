@@ -4,6 +4,7 @@ import { TColumnSchema } from '../../../../table-types/t-table-schema';
 import useStrategySearchHandler from './search-field-strategy/strategy-handler.hook';
 import TEntityNameKeys from '../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import { strategySearchMap } from './search-field-strategy/strategy-map';
+import type { TEntityPlacement } from '../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 
 type ISearchPopover = {
   entityNameKey: TEntityNameKeys;
@@ -11,6 +12,7 @@ type ISearchPopover = {
   handleClose: () => void;
   horizontal: PopoverOrigin['horizontal'];
   columnSchema: TColumnSchema<string>;
+  entityPlacement?: TEntityPlacement;
 };
 
 export const SearchPopover: React.FC<ISearchPopover> = ({
@@ -18,7 +20,8 @@ export const SearchPopover: React.FC<ISearchPopover> = ({
   anchorEl,
   handleClose,
   horizontal,
-  columnSchema
+  columnSchema,
+  entityPlacement = 'page'
 }) => {
   const id = anchorEl ? 'simple-popover' : undefined;
 
@@ -30,7 +33,8 @@ export const SearchPopover: React.FC<ISearchPopover> = ({
   const searchPopoverElement = strategySearch({
     entityNameKey,
     columnSchema,
-    handleClose
+    handleClose,
+    entityPlacement
   });
 
   return (

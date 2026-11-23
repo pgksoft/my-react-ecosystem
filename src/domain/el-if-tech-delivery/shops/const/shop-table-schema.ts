@@ -62,7 +62,7 @@ export type TShopSearchParams = TTableSchemaSearchParams<
 export const shopSearchParamKeys = {
   name: ['name'],
   rating: ['rating[gte]', 'rating[lte]'],
-  mutationDate: ['mutationDate[gt]', 'mutationDate[lt]']
+  mutationDate: ['mutationDate[gte]', 'mutationDate[lte]']
 } as const satisfies TTableSchemaSearchParamKeys<typeof shopTableSchema>;
 
 export const shopSearchParamKeyList =

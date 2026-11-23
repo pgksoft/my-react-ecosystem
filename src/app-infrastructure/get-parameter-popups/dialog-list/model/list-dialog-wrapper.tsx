@@ -6,6 +6,7 @@ import { Box, Toolbar } from '@mui/material';
 import PopupDialogHeader from '../../../app-ui/popup-dialog-header/popup-dialog-header';
 import EntityToolbar from '../../../entity-tools/entity-toolbar/model/entity-toolbar';
 import type { TPopupListRoute } from '../const/popup-list-routes';
+import useResolveEntityGetRequestParams from '../../../app-hook-helpers/resolve-entity-get-request-params.hook.ts';
 
 type TListDialogWrapper = {
   popupList: TPopupList;
@@ -22,9 +23,16 @@ const ListDialogWrapper: FC<TListDialogWrapper> = ({
 }) => {
   const { Component: EntityList, title } = popupList;
 
+  const { isResolved } = useResolveEntityGetRequestParams({
+    entityNameKey: entityNameKeyPopup,
+    entityPlacement: 'popup'
+  });
+
   const handlePopupHeaderClose = useCallback(() => {
     checkReturnParameters.Pop();
   }, []);
+
+  if (!isResolved) return null;
 
   return (
     <Box
@@ -49,6 +57,7 @@ const ListDialogWrapper: FC<TListDialogWrapper> = ({
         <EntityToolbar
           entityNameKey={entityNameKeyPopup}
           returnPopup={returnPopup}
+          entityPlacement='popup'
         />
       </Toolbar>
       <Box
@@ -60,7 +69,7 @@ const ListDialogWrapper: FC<TListDialogWrapper> = ({
           minWidth: 0
         }}
       >
-        <EntityList />
+        <EntityList entityPlacement='popup' />
       </Box>
     </Box>
   );

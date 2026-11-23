@@ -5,25 +5,16 @@ import {
   sxAppBarIconButton,
   sxShadowIconButton
 } from '../../../app-ui/style/style-icon-button';
-import useGetPathAndQuery from '../../../../_hooks/get-parameter.hooks/get-path-and-query.hook';
-import buildQueryString from '../../../../_hooks/get-parameter.hooks/helpers/build-query-string';
-import type { TPopupListRoute } from '../../../get-parameter-popups';
-import type { TEntityToolPopup } from '../../entity-tools-types/t-entity-tool-types';
 
 type TEntityToolPopupIconButton = {
-  toolPopup: TEntityToolPopup;
+  url: string;
+  title: string;
   getIcon: () => JSX.Element;
   disabled: boolean;
-  returnPopup?: TPopupListRoute;
 };
 
 const EntityToolPopupIconButton: FC<TEntityToolPopupIconButton> = (props) => {
-  const { toolPopup, getIcon, disabled, returnPopup } = props;
-  const { popup, title } = toolPopup;
-
-  const { pathname, query } = useGetPathAndQuery();
-
-  const url = buildQueryString(pathname, { ...query, popup, returnPopup });
+  const { url, title, getIcon, disabled } = props;
 
   return (
     <Tooltip

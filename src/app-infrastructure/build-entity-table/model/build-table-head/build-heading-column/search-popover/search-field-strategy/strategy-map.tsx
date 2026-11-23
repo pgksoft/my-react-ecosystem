@@ -8,11 +8,13 @@ import { SearchListCheckbox } from '../search-popover-components/search-list-che
 import { SearchTextField } from '../search-popover-components/search-text-field';
 import { SearchFixedNumRanges } from '../search-popover-components/search-fixed-num-ranges';
 import TEntityNameKeys from '../../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
+import type { TEntityPlacement } from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 
 export type TStrategyFn<T extends TColumnSchema<string>> = (props: {
   entityNameKey: TEntityNameKeys;
   columnSchema: T;
   handleClose: () => void;
+  entityPlacement?: TEntityPlacement;
 }) => ReactNode;
 
 export type TValidTypes = Exclude<keyof TColumnSchemas<string>, 'null'>;
@@ -30,7 +32,12 @@ const getDataKey = (columnSchema: TColumnSchema<string>): string => {
 };
 
 export const strategySearchMap = createStrategySearchMap({
-  search: ({ entityNameKey, columnSchema, handleClose }) => {
+  search: ({
+    entityNameKey,
+    columnSchema,
+    handleClose,
+    entityPlacement = 'page'
+  }) => {
     return (
       <SearchTextField
         entityNameKey={entityNameKey}
@@ -38,10 +45,16 @@ export const strategySearchMap = createStrategySearchMap({
         inValue={columnSchema.valueSearch}
         text={columnSchema.title}
         handleClose={handleClose}
+        entityPlacement={entityPlacement}
       />
     );
   },
-  checkBox: ({ entityNameKey, columnSchema, handleClose }) => {
+  checkBox: ({
+    entityNameKey,
+    columnSchema,
+    handleClose,
+    entityPlacement = 'page'
+  }) => {
     return (
       <SearchListCheckbox
         entityNameKey={entityNameKey}
@@ -49,10 +62,16 @@ export const strategySearchMap = createStrategySearchMap({
         inCheckboxes={columnSchema.checkboxes}
         text={columnSchema.title}
         handleClose={handleClose}
+        entityPlacement={entityPlacement}
       />
     );
   },
-  calendar: ({ entityNameKey, columnSchema, handleClose }) => {
+  calendar: ({
+    entityNameKey,
+    columnSchema,
+    handleClose,
+    entityPlacement = 'page'
+  }) => {
     return (
       <SearchDate
         entityNameKey={entityNameKey}
@@ -60,13 +79,15 @@ export const strategySearchMap = createStrategySearchMap({
         inDateValue={columnSchema.dateSearch}
         text={columnSchema.title}
         handleClose={handleClose}
+        entityPlacement={entityPlacement}
       />
     );
   },
   'fixed-set-numerical-ranges': ({
     entityNameKey,
     columnSchema,
-    handleClose
+    handleClose,
+    entityPlacement = 'page'
   }) => {
     return (
       <SearchFixedNumRanges
@@ -75,6 +96,7 @@ export const strategySearchMap = createStrategySearchMap({
         inFixedNumRangesValue={columnSchema.ranges}
         text={columnSchema.title}
         handleClose={handleClose}
+        entityPlacement={entityPlacement}
       />
     );
   }

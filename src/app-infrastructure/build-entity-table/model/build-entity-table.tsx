@@ -3,7 +3,7 @@ import React, { FC, useState } from 'react';
 import { Paper, Stack, TableContainer } from '@mui/material';
 import { TTableSchema } from '../table-types/t-table-schema';
 import TEntityNameKeys from '../../api-platform/app-entities/app-entities-types/t-entity-key-names';
-import LoadingDataComponent from '../loading-data-component/loading-data-component';
+import LoadingDataListComponent from '../loading-data-component/loading-data-component';
 import BuildDataTable from './build-data-table/build-data-table';
 import {
   IEntityMember,
@@ -15,14 +15,16 @@ import {
 } from '../../api-platform/api-response/t-page-response';
 import entityMetadataMaps from '../../entity-metadata';
 import EntityTablePagination from '../entity-table-pagination';
+import type { TEntityPlacement } from '../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 
 type TBuildTable = {
   entityNameKey: TEntityNameKeys;
   tableSchema: TTableSchema<string>;
+  entityPlacement?: TEntityPlacement;
 };
 
 const BuildEntityTable: FC<TBuildTable> = (props) => {
-  const { entityNameKey, tableSchema } = props;
+  const { entityNameKey, tableSchema, entityPlacement = 'page' } = props;
 
   const [entityData, setEntityData] = useState<TPageResponse<
     IEntityMember[]
@@ -34,7 +36,7 @@ const BuildEntityTable: FC<TBuildTable> = (props) => {
 
   return (
     <>
-      <LoadingDataComponent
+      <LoadingDataListComponent
         inData={entityData}
         entityNameKey={entityNameKey}
         onLoaded={onEntityDataLoaded}
@@ -69,12 +71,15 @@ const BuildEntityTable: FC<TBuildTable> = (props) => {
                 entityNameKey={entityNameKey}
                 tableSchema={tableSchema}
                 entityData={entityData.items}
+                entityPlacement={entityPlacement}
               />
             )}
           </TableContainer>
           {entityMetadataMaps[entityNameKey].dataLoadingMode === 'page' &&
             isEntityView(entityData.entityView) &&
-            entityData.entityView.last > 1 && (
+            (entityData.entityView.last > 1 ||
+              (entityData.entityView.last === 1 &&
+                entityData.entityView.page === 2)) && (
               <Stack
                 aria-description='table-pagination'
                 sx={{

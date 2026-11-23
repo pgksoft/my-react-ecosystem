@@ -13,7 +13,7 @@ const getInitialTablesEntitiesBuilt = (): TMutationEntities => {
   entityNameKeysList.forEach((entityNameKey) => {
     initialMutationEntities = {
       ...initialMutationEntities,
-      [`${entityNameKey}`]: 'yes'
+      [`${entityNameKey}`]: 'no'
     };
   });
   return initialMutationEntities;

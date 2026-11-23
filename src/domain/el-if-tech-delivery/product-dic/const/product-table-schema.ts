@@ -60,7 +60,7 @@ export type TProductDicSearchParams = TTableSchemaSearchParams<
 export const productSearchParamKeys = {
   name: ['name'],
   'category._id': ['category._id[]'],
-  mutationDate: ['mutationDate[gt]', 'mutationDate[lt]']
+  mutationDate: ['mutationDate[gte]', 'mutationDate[lte]']
 } as const satisfies TTableSchemaSearchParamKeys<typeof productTableSchema>;
 
 export const productSearchParamKeyList = getListSearchParamKeys(

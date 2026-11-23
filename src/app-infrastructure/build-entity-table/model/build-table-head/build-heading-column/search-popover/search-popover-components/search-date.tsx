@@ -16,12 +16,17 @@ import { uk } from 'date-fns/locale';
 import useGetPathAndQuery from '../../../../../../../_hooks/get-parameter.hooks/get-path-and-query.hook';
 import buildQueryString from '../../../../../../../_hooks/get-parameter.hooks/helpers/build-query-string';
 import toISOStringLocaleTime from '../../../../../../app-helpers/to-iso-string-locale-time';
-import { TColumnDateSearch } from '../../../../../table-types/t-column-schemas';
+import {
+  TColumnDateSearch,
+  type TColumnCalendar
+} from '../../../../../table-types/t-column-schemas';
 import { TITLES_BUILD_TABLE } from '../../../../../const/title';
 import TEntityNameKeys from '../../../../../../api-platform/app-entities/app-entities-types/t-entity-key-names';
 import useAppDispatch from '../../../../../../../store/use-app-dispatch';
 import { setMutationEntity } from '../../../../../../../redux-toolkit/mutation-entities/mutation-entities-slice';
-import useEntitySearchParamsInLocalStorage from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
+import useEntitySearchParamsInLocalStorage, {
+  type TEntityPlacement
+} from '../../../../../../app-hook-helpers/entity-search-params-in-local-storage.hook';
 import SearchConfirm from './ui/search-confirm';
 import { omitKeys } from '../../../../../../app-helpers/omit-keys';
 import { getIsoTwoDate } from './search-helpers/get-iso-two-date';
@@ -34,6 +39,7 @@ export type IDateSearch = {
   inDateValue: TColumnDateSearch;
   text: string;
   handleClose: () => void;
+  entityPlacement?: TEntityPlacement;
 };
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -50,16 +56,21 @@ export const SearchDate: React.FC<IDateSearch> = ({
   dataKey,
   inDateValue,
   text,
-  handleClose
+  handleClose,
+  entityPlacement = 'page'
 }) => {
   const classes = useStyles();
 
   const isHandle = useRef<boolean>(false);
 
   const { getSearchParam, setSearchParam, removeSearchParam } =
-    useEntitySearchParamsInLocalStorage(entityNameKey, dataKey);
+    useEntitySearchParamsInLocalStorage({
+      entityNameKey,
+      nameParam: dataKey,
+      entityPlacement
+    });
 
-  const searchParam = getSearchParam<TColumnDateSearch>();
+  const searchParam = getSearchParam<TColumnCalendar>()?.dateSearch;
 
   const initFromDate = useRef(
     (inDateValue.fromDate && new Date(inDateValue.fromDate)) ||
@@ -82,10 +93,10 @@ export const SearchDate: React.FC<IDateSearch> = ({
   const { pathname, query } = useGetPathAndQuery();
 
   const fromDataKey = useMemo(() => {
-    return `${dataKey}[gt]`;
+    return `${dataKey}[gte]`;
   }, [dataKey]);
   const toDataKey = useMemo(() => {
-    return `${dataKey}[lt]`;
+    return `${dataKey}[lte]`;
   }, [dataKey]);
 
   const fromDateChange = (date: unknown) => {
@@ -131,9 +142,11 @@ export const SearchDate: React.FC<IDateSearch> = ({
       ...query,
       ...paramFromDate,
       ...paramToDate
-      // page: '1'
     };
-    setSearchParam(columnDateSearch);
+    setSearchParam({
+      type: 'calendar',
+      dateSearch: columnDateSearch
+    } satisfies TColumnCalendar);
     const url = buildQueryString(pathname, getParameters);
     isHandle.current = true;
     navigate(url);

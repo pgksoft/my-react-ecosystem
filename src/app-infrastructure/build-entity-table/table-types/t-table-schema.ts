@@ -106,7 +106,7 @@ type ParamTupleForColumn<C> = C extends { type: infer TT }
     : TT extends 'checkBox'
       ? readonly [`${TKeyFromColumn<C>}[]`]
       : TT extends 'calendar'
-        ? readonly [`${TKeyFromColumn<C>}[gt]`, `${TKeyFromColumn<C>}[lt]`]
+        ? readonly [`${TKeyFromColumn<C>}[gte]`, `${TKeyFromColumn<C>}[lte]`]
         : TT extends 'fixed-set-numerical-ranges'
           ? readonly [`${TKeyFromColumn<C>}[gte]`, `${TKeyFromColumn<C>}[lte]`]
           : never

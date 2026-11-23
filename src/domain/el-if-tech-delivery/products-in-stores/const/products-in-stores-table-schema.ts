@@ -106,7 +106,7 @@ export const productsInShopsSearchParamKeys = {
   'shop.rating': ['shop.rating[gte]', 'shop.rating[lte]'],
   'product.name': ['product.name'],
   'product.category._id': ['product.category._id[]'],
-  mutationDate: ['mutationDate[gt]', 'mutationDate[lt]']
+  mutationDate: ['mutationDate[gte]', 'mutationDate[lte]']
 } as const satisfies TTableSchemaSearchParamKeys<
   typeof productsInStoresTableSchema
 >;
